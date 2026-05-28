@@ -38,8 +38,13 @@ As the grilling session progresses, the AI explicitly steers the conversation to
 ## Phase 4: Synthesis & Generation (Deliver)
 * **Completion:** This phase triggers when the reconciliation grilling session reaches a natural conclusion.
 * **Synthesis:** The agent combines the verified automated findings (Track A) with the extracted and reconciled domain knowledge (Track B).
-* **Output:** It drafts a highly-structured `ONBOARDING.md` document containing:
+* **Drafting:** It drafts a highly-structured `ONBOARDING.md` document containing:
   1. Standard Engineering Basics
   2. Domain & Business Logic
   3. AI-Specific Context
-* **Verification:** The agent presents the drafted document to the user for final approval before writing it to the root of the repository.
+
+## Phase 5: Token Compression
+* **Caveman Transformation:** Before finalization, the skill explicitly passes the drafted `ONBOARDING.md` through a "caveman-like" compression pass.
+* **Action:** It strips all filler, pleasantries, articles, and hedging. It converts verbose explanations into terse, fragment-heavy shorthand (e.g., "X -> Y") while preserving 100% of the technical accuracy, structure, and code blocks.
+* **Goal:** Maximize token efficiency for all future AI agents reading the document.
+* **Verification:** The agent presents the compressed, high-density document to the user for final approval before writing it to the root of the repository.
