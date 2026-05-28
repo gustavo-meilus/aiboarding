@@ -30,7 +30,8 @@ As the grilling session progresses, the AI explicitly steers the conversation to
 * The agent ensures it captures known AI failure modes to prevent future sub-agents from making the same mistakes.
 
 ## Phase 3: Reconciliation & Gap Analysis (Deliver)
-* **Cross-Examination:** Once Track A (background crawl) completes, the agent reviews its findings against the user's responses from Track B.
+* **Hard Gate:** This phase *only* begins when **both** Track A (the automated background crawl) and Track B (the primary grilling session) are fully completed.
+* **Cross-Examination:** The agent reviews its technical findings from Track A against the user's conceptual responses from Track B.
 * **Targeted Gap Grilling:** The agent initiates a short, final grilling session specifically focused on discrepancies. It asks the user to clarify any ambiguity or missing links between the automated findings and the brain-dumped context.
 * **Example Prompt:** *"The background crawl found a Postgres connection string, but you didn't mention a database in your architecture brain-dump. How does Postgres fit into the core domain logic, and are there any AI constraints here?"*
 
