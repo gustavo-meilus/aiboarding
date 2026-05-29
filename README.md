@@ -15,13 +15,13 @@ A new engineer joining a project gets onboarded: they read the docs, learn the s
 
 | Stage | Component | What it does |
 | :--- | :--- | :--- |
-| **Create** | `create-aiboarding` *(shipped v0.1.1)* | Generates `AIBOARDING.md` via a hybrid background code-crawl + relentless grilling interrogation, caveman-compresses it, then installs the hooks. |
-| **Sync** | `sync-aiboarding` *(hooks — shipped v0.1.0)* | Injects the document into every agent's context — at session start, after compaction, and into spawned sub-agents. |
-| **Update** | `update-aiboarding` *(shipped v0.1.2)* | On every commit, triages the diff against the doc's scope and patches only the sections that drifted (auto-advances the pointer on no-op changes). |
+| **Create** | `create-aiboarding` | Generates `AIBOARDING.md` via a hybrid background code-crawl + relentless grilling interrogation, caveman-compresses it, then installs the hooks. |
+| **Sync** | `sync-aiboarding` | Injects the document into every agent's context — at session start, after compaction, and into spawned sub-agents. |
+| **Update** | `update-aiboarding` | On every commit, triages the diff against the doc's scope and patches only the sections that drifted (auto-advances the pointer on no-op changes). |
 
 ---
 
-## How Sync Works (shipped in v0.1.0)
+## How Sync Works
 
 Skills cannot guarantee their own invocation — only **hooks** can. aiboarding's enforcement layer is therefore a set of committed, deterministic hook scripts, not model-invoked skills.
 
@@ -112,15 +112,6 @@ aiboarding/
 ├── .gitattributes               # pins LF for hook scripts
 ├── CHANGELOG.md · RELEASE-NOTES.md · LICENSE
 ```
-
----
-
-## Roadmap
-
-The create → sync → update lifecycle is now feature-complete. Remaining work is hardening and distribution — the manual procedures live in the [verification runbook](./docs/VERIFICATION.md):
-
-- **Distribution** — the marketplace listing (`.claude-plugin/marketplace.json`) is published so `/plugin install aiboarding@aiboarding` resolves; confirm via the runbook's 2a protocol.
-- **Hardening** — live verification that `PreToolUse` `additionalContext` reaches sub-agents (else switch to `updatedInput`, per the runbook's 1a decision tree); exercise `update-aiboarding`'s reasoning branches against a live runtime (runbook 1e); narrow the `PostToolUse` matcher to `git commit` commands.
 
 ---
 
