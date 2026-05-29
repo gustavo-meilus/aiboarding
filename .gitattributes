@@ -1,0 +1,9 @@
+# Bash hook scripts must use LF even on Windows checkouts, or Git Bash chokes
+# on CRLF in shebangs and string comparisons. The polyglot run-hook.cmd also
+# needs LF for its bash half (cmd.exe tolerates LF fine).
+*.sh text eol=lf
+templates/hooks/run-hook.cmd text eol=lf
+templates/hooks/session-start text eol=lf
+templates/hooks/pre-task text eol=lf
+templates/hooks/post-commit text eol=lf
+templates/hooks/_lib text eol=lf
