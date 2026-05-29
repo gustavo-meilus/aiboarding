@@ -4,6 +4,8 @@ REM Cross-platform polyglot wrapper for aiboarding hook scripts.
 REM Windows: cmd runs this batch block, finds Git Bash, calls the named script.
 REM Unix: bash treats this block as a heredoc no-op and runs the tail below.
 REM Usage: run-hook.cmd <script-name> [args...]
+REM NOTE: extra args are forwarded as %2-%9 (max 8) and are NOT space-safe on
+REM Windows. Current callers pass only the script name, so this is not exercised.
 if "%~1"=="" (
     echo run-hook.cmd: missing script name >&2
     exit /b 1
