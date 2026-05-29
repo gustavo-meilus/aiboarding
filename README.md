@@ -117,10 +117,10 @@ aiboarding/
 
 ## Roadmap
 
-The create → sync → update lifecycle is now feature-complete. Remaining work is hardening and distribution:
+The create → sync → update lifecycle is now feature-complete. Remaining work is hardening and distribution — the manual procedures live in the [verification runbook](./docs/VERIFICATION.md):
 
-- **Distribution** — register the marketplace listing so `/plugin install` resolves.
-- **Hardening** — live verification that `PreToolUse` `additionalContext` reaches sub-agents (else switch to `updatedInput`); narrow the `PostToolUse` matcher to `git commit` commands; exercise `update-aiboarding`'s grill/synthesis/approval branches against a live runtime.
+- **Distribution** — the marketplace listing (`.claude-plugin/marketplace.json`) is published so `/plugin install aiboarding@aiboarding` resolves; confirm via the runbook's 2a protocol.
+- **Hardening** — live verification that `PreToolUse` `additionalContext` reaches sub-agents (else switch to `updatedInput`, per the runbook's 1a decision tree); exercise `update-aiboarding`'s reasoning branches against a live runtime (runbook 1e); narrow the `PostToolUse` matcher to `git commit` commands.
 
 ---
 
