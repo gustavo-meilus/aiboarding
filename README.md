@@ -3,9 +3,9 @@
 aiboarding treats every AI coding agent as a new hire. It maintains one compressed, high-signal `AIBOARDING.md` per repository — the project's engineering basics, domain logic, and AI-specific gotchas — and guarantees, via committed hooks, that agents read it on entry and keep it current as the code evolves. No more re-explaining the codebase to every fresh session, sub-agent, or post-compaction context.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Status: foundation](https://img.shields.io/badge/status-v0.1.0%20foundation-orange.svg)](./RELEASE-NOTES.md)
+[![Status: early](https://img.shields.io/badge/status-v0.1.1%20early-orange.svg)](./RELEASE-NOTES.md)
 
-> **Status — v0.1.0 (foundation).** This release ships the plugin scaffold and the cross-platform hook templates plus a full test harness. The user-facing skills that *generate* and *update* the document (`create-aiboarding`, `update-aiboarding`) and the installer that wires the hooks into a target repo are **designed and planned** (see [`docs/superpowers/`](./docs/superpowers/)) but **not yet implemented**. They are targeted for v0.2.0.
+> **Status — v0.1.1.** Shipped: the plugin scaffold, the cross-platform `sync` hook templates (with a full test harness), and the **`create-aiboarding` skill** — the hybrid crawl + grilling generator that writes `AIBOARDING.md` and installs the hooks into the target repo. Still planned: the **`update-aiboarding`** drift-triage skill (see [`docs/superpowers/`](./docs/superpowers/)). The hook-injection runtime behaviors are not yet verified against the live Claude Code runtime (see [Roadmap](#roadmap)).
 
 ---
 
@@ -15,8 +15,8 @@ A new engineer joining a project gets onboarded: they read the docs, learn the s
 
 | Stage | Component | What it does |
 | :--- | :--- | :--- |
-| **Create** | `create-aiboarding` *(planned)* | Generates `AIBOARDING.md` via a hybrid background code-crawl + relentless grilling interrogation, then caveman-compresses it for token efficiency. |
-| **Sync** | `sync-aiboarding` *(hooks — shipped)* | Injects the document into every agent's context — at session start, after compaction, and into spawned sub-agents. |
+| **Create** | `create-aiboarding` *(shipped v0.1.1)* | Generates `AIBOARDING.md` via a hybrid background code-crawl + relentless grilling interrogation, caveman-compresses it, then installs the hooks. |
+| **Sync** | `sync-aiboarding` *(hooks — shipped v0.1.0)* | Injects the document into every agent's context — at session start, after compaction, and into spawned sub-agents. |
 | **Update** | `update-aiboarding` *(planned)* | On every commit, triages the diff against the doc's scope and patches only the sections that drifted. |
 
 ---
@@ -56,20 +56,22 @@ last_synced_commit: <sha>
 
 ## Quick Start
 
-> The generation/update skills land in v0.2.0. Today you can install the plugin and inspect the hook templates and design docs.
-
 ```text
-# Claude Code (planned distribution)
+# Claude Code
 /plugin marketplace add gustavo-meilus/aiboarding
 /plugin install aiboarding@aiboarding
 ```
 
-Once the v0.2.0 skills ship, the intended flow is:
+Then generate the doc and wire up enforcement in one pass:
 
 ```text
 /create-aiboarding      # interview + crawl → writes AIBOARDING.md, installs the hooks
-# ...from then on, every agent is auto-onboarded; commits trigger drift triage
+# ...from then on, every session, sub-agent, and post-compaction context is auto-onboarded
 ```
+
+> The commit-time drift triage (`update-aiboarding`) is still planned — until it ships, the
+> `post-commit` hook will nudge you that the doc may have drifted, but the automated patch
+> flow is not yet available.
 
 Run the test suite for the shipped hook templates (requires Git Bash on Windows):
 
@@ -85,6 +87,9 @@ bash tests/run.sh
 aiboarding/
 ├── .claude-plugin/
 │   └── plugin.json              # Claude Code plugin manifest
+├── skills/
+│   └── create-aiboarding/
+│       └── SKILL.md             # 5-phase generation + Phase 6 hook install
 ├── templates/
 │   ├── hooks/                   # cross-platform hook scripts (installed into target repos)
 │   │   ├── _lib                 # shared bash: json-escape, path resolve, frontmatter, emit
@@ -100,7 +105,7 @@ aiboarding/
 │   └── hooks/                   # one test per hook + the shared lib
 ├── docs/superpowers/
 │   ├── specs/                   # architecture umbrella + create/sync/update specs
-│   └── plans/                   # implementation plans (Plan 1 done; 2 & 3 planned)
+│   └── plans/                   # implementation plans (Plans 1 & 2 done; Plan 3 planned)
 ├── .gitattributes               # pins LF for hook scripts
 ├── CHANGELOG.md · RELEASE-NOTES.md · LICENSE
 ```
@@ -109,8 +114,8 @@ aiboarding/
 
 ## Roadmap
 
-- **v0.2.0** — `create-aiboarding` skill (5-phase generation + caveman compression) and the Phase 6 installer that copies the hook templates into a target repo and merges the settings snippet idempotently.
-- **v0.3.0** — `update-aiboarding` skill (drift triage + targeted-delta patch).
+- **Next** — `update-aiboarding` skill (commit-triggered drift triage + targeted-delta patch); the `post-commit` hook already emits the nudge that drives it.
+- **Distribution** — register the marketplace listing so `/plugin install` resolves.
 - **Hardening** — live verification that `PreToolUse` `additionalContext` reaches sub-agents (else switch to `updatedInput`); narrow the `PostToolUse` matcher to `git commit` commands.
 
 ---

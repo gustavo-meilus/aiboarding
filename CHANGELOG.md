@@ -4,7 +4,7 @@
 
 aiboarding is a Claude Code plugin distributed from `gustavo-meilus/aiboarding`. Each entry below corresponds to a git tag of the same name on `main`.
 
-**Install (Claude Code) — planned for v0.2.0, once the skills ship:**
+**Install (Claude Code) — marketplace registration pending:**
 
 ```text
 /plugin marketplace add gustavo-meilus/aiboarding
@@ -16,6 +16,32 @@ aiboarding is a Claude Code plugin distributed from `gustavo-meilus/aiboarding`.
 ```text
 /plugin install aiboarding@aiboarding --version v0.1.0
 ```
+
+## 0.1.1 — create-aiboarding Skill (2026-05-29)
+
+Adds the generation half of the lifecycle: the `create-aiboarding` skill that authors `AIBOARDING.md` and installs the v0.1.0 hook templates into a target repo.
+
+### Added
+
+- **`create-aiboarding` skill** (`skills/create-aiboarding/SKILL.md`) — a six-phase prose skill:
+  - **Phase 1** — parallel-style discovery: a background crawl of dependency manifests, structure, and docs (Track A) alongside a relentless, one-question-at-a-time grilling interrogation (Track B).
+  - **Phase 2** — steers the interrogation toward architectural constraints and AI-specific failure modes, with an explicit completion criterion.
+  - **Phase 3** — a **hard gate** (both tracks must finish first) followed by reconciliation grilling on discrepancies between the crawl and the user's answers.
+  - **Phase 4** — synthesis into the umbrella document schema (frontmatter + three H1 sections), with `last_synced_commit` set to `HEAD`.
+  - **Phase 5** — `caveman`-skill compression, preserving structure/code/frontmatter, gated on user approval before writing.
+  - **Phase 6** — agent-driven, idempotent install: copies the five hook templates into `<repo>/.aiboarding/hooks/` and merges `templates/settings/hooks.json` into `<repo>/.claude/settings.json`.
+
+### Changed
+
+- Plugin manifest version `0.1.0` → `0.1.1`.
+- README: `create-aiboarding` moved from *planned* to *shipped*; Quick Start, lifecycle table, repository layout, and roadmap updated.
+
+### Known Limitations
+
+- **`update-aiboarding` not yet implemented.** The `post-commit` hook nudges to run it, but the drift-triage skill itself is still planned. Running `create-aiboarding` produces a working create + sync flow; the automated update flow is not yet available.
+- **Skill runtime caveats unchanged from v0.1.0** — PreToolUse `additionalContext` delivery to sub-agents is unverified; the `PostToolUse` matcher remains `Bash` (self-gated). Phase 6's `${CLAUDE_PLUGIN_ROOT}` / skill-relative template-path resolution is not yet exercised against a live install.
+
+---
 
 ## 0.1.0 — Foundation: Plugin Scaffold & Hook Templates (2026-05-29)
 

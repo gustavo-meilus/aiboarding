@@ -3,8 +3,37 @@
 > Canonical record of versioned changes, feature additions, and removals for the aiboarding project. This document tracks the build-out from the foundation release toward the full create → sync → update lifecycle.
 
 <overview>
-aiboarding onboards AI coding agents like fresh engineers: it maintains one compressed `AIBOARDING.md` per repository and uses committed hooks to inject it into every agent context and flag it when it drifts. The v0.1.0 foundation establishes the plugin scaffold, the cross-platform polyglot hook templates (the `sync` and `update` enforcement layer), and a dependency-free bash test harness. The generation (`create-aiboarding`) and triage (`update-aiboarding`) skills are designed and planned but not yet implemented.
+aiboarding onboards AI coding agents like fresh engineers: it maintains one compressed `AIBOARDING.md` per repository and uses committed hooks to inject it into every agent context and flag it when it drifts. The v0.1.0 foundation established the plugin scaffold, the cross-platform polyglot hook templates (the `sync` and `update` enforcement layer), and a dependency-free bash test harness. v0.1.1 adds the `create-aiboarding` generation skill. The triage skill (`update-aiboarding`) is designed and planned but not yet implemented.
 </overview>
+
+## v0.1.1 — create-aiboarding Skill (2026-05-29)
+
+### Highlights
+
+The generation half of the lifecycle lands. `create-aiboarding` is a six-phase prose skill that interviews the user and crawls the codebase to author `AIBOARDING.md`, compresses it via the `caveman` skill, and installs the v0.1.0 hook templates into the target repo. After running it, a repo has both a document and a live `sync` enforcement layer.
+
+<release_entry version="0.1.1" status="EARLY">
+
+### Added
+
+- **`create-aiboarding` skill** — six phases:
+  1. **Crawl + grill** — Track A reads manifests/structure/docs; Track B grills the user one question at a time. (A single agent serializes: crawl first, hold findings, then grill.)
+  2. **Architecture & AI context** — extracts constraints and AI failure modes.
+  3. **Reconciliation** — hard-gated on both tracks finishing; grills discrepancies.
+  4. **Synthesis** — drafts the umbrella schema (frontmatter + three H1 sections).
+  5. **Compression** — `caveman` pass, user-approved before write.
+  6. **Install** — agent-driven, idempotent copy of the five hook templates into `<repo>/.aiboarding/hooks/` plus a merge of the settings snippet into `<repo>/.claude/settings.json`.
+
+### Changed
+
+- Plugin manifest `0.1.0` → `0.1.1`; README and docs updated to mark `create-aiboarding` shipped.
+
+### Known limitations
+
+- `update-aiboarding` (drift triage) is still planned — the `post-commit` hook nudges for it but the skill does not yet exist.
+- Hook-injection runtime behaviors (PreToolUse `additionalContext`, the `Bash` matcher breadth) and Phase 6's plugin-root path resolution remain unverified against a live install.
+
+</release_entry>
 
 ## v0.1.0 — Foundation: Plugin Scaffold & Hook Templates (2026-05-29)
 
@@ -44,8 +73,8 @@ Hooks run through a polyglot `run-hook.cmd`: on Windows, CMD locates Git Bash an
 
 ### Roadmap
 
-- **v0.2.0** — `create-aiboarding`: hybrid background crawl + grilling interrogation → drafted `AIBOARDING.md` → caveman compression → Phase 6 installer that copies the hook templates into the target repo and idempotently merges the settings snippet.
-- **v0.3.0** — `update-aiboarding`: commit-triggered triage of `<last_synced_commit>..HEAD`, auto-advancing the pointer on no-op changes and running a targeted-delta patch (scoped grill → synthesize → compress → approve) when scope drifts.
+- **Next** — `update-aiboarding`: commit-triggered triage of `<last_synced_commit>..HEAD`, auto-advancing the pointer on no-op changes and running a targeted-delta patch (scoped grill → synthesize → compress → approve) when scope drifts.
+- **Distribution** — register the marketplace listing so `/plugin install` resolves.
 
 ### Full changelog
 
