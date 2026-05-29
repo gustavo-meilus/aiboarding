@@ -1,0 +1,6 @@
+{
+  "name": "aiboarding",
+  "version": "0.1.0",
+  "description": "Treats AI agents as fresh engineers: generates, injects, and keeps current a compressed AIBOARDING.md per repo.",
+  "author": { "name": "Gustavo Meilus" }
+}
