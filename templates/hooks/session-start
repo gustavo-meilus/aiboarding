@@ -6,8 +6,8 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 resolve_doc_path
 
-if [ -f "$DOC_PATH" ]; then
-  raw="$(printf '<aiboarding-context>\n%s\n</aiboarding-context>' "$(cat "$DOC_PATH")")"
+if [ -f "$DOC_PATH" ] && body="$(cat "$DOC_PATH")"; then
+  raw="$(printf '<aiboarding-context>\n%s\n</aiboarding-context>' "$body")"
 else
   raw='<aiboarding-missing>No AIBOARDING.md found in this repo. Offer to run the create-aiboarding skill to generate one.</aiboarding-missing>'
 fi
