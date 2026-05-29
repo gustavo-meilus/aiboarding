@@ -3,8 +3,33 @@
 > Canonical record of versioned changes, feature additions, and removals for the aiboarding project. This document tracks the build-out from the foundation release toward the full create → sync → update lifecycle.
 
 <overview>
-aiboarding onboards AI coding agents like fresh engineers: it maintains one compressed `AIBOARDING.md` per repository and uses committed hooks to inject it into every agent context and flag it when it drifts. The v0.1.0 foundation established the plugin scaffold, the cross-platform polyglot hook templates (the `sync` and `update` enforcement layer), and a dependency-free bash test harness. v0.1.1 adds the `create-aiboarding` generation skill. The triage skill (`update-aiboarding`) is designed and planned but not yet implemented.
+aiboarding onboards AI coding agents like fresh engineers: it maintains one compressed `AIBOARDING.md` per repository and uses committed hooks to inject it into every agent context and flag it when it drifts. The v0.1.0 foundation established the plugin scaffold, the cross-platform polyglot hook templates (the `sync` and `update` enforcement layer), and a dependency-free bash test harness. v0.1.1 added the `create-aiboarding` generation skill. v0.1.2 adds the `update-aiboarding` triage skill — completing the create → sync → update lifecycle.
 </overview>
+
+## v0.1.2 — update-aiboarding Skill (2026-05-29)
+
+### Highlights
+
+The update half of the lifecycle lands, closing the loop. `update-aiboarding` is the reasoning skill that the `post-commit` drift hook nudges toward: it triages whether commits since the last sync touch the document's scope, then either silently advances the drift pointer or runs a targeted-delta patch that re-drafts only the affected sections. With it, a repo's `AIBOARDING.md` stays current as the code evolves without re-grilling the whole project.
+
+<release_entry version="0.1.2" status="EARLY">
+
+### Added
+
+- **`update-aiboarding` skill** — a prose triage skill:
+  1. **Triage** — read `last_synced_commit`, run `git diff <last_synced_commit>..HEAD`, reflect on the conversation, classify scope impact across the three H1 sections. A missing/empty pointer routes to full re-validation rather than a silent no-op.
+  2. **No-op branch** — nothing relevant changed: advance the pointer to `HEAD` automatically (no approval, no body rewrite), stopping the drift hook from re-nudging.
+  3. **Targeted-delta patch** — scope drifted: reuse `create-aiboarding`'s Phases 1–3 scoped grill and the `caveman` compression on the re-drafted sections only, leaving untouched sections byte-for-byte intact, advancing the pointer, and gating every content change on user approval.
+
+### Changed
+
+- Plugin manifest `0.1.1` → `0.1.2`; README and docs updated to mark `update-aiboarding` shipped and the lifecycle complete.
+
+### Known limitations
+
+- The grill/synthesis/approval branches are agent-reasoning behaviors not yet exercised against a live runtime; the deterministic git-diff assumptions the skill relies on *are* verified. Prior hook-injection and Phase 6 path-resolution caveats remain.
+
+</release_entry>
 
 ## v0.1.1 — create-aiboarding Skill (2026-05-29)
 
@@ -73,8 +98,9 @@ Hooks run through a polyglot `run-hook.cmd`: on Windows, CMD locates Git Bash an
 
 ### Roadmap
 
-- **Next** — `update-aiboarding`: commit-triggered triage of `<last_synced_commit>..HEAD`, auto-advancing the pointer on no-op changes and running a targeted-delta patch (scoped grill → synthesize → compress → approve) when scope drifts.
+- **Lifecycle complete** — create → sync → update all shipped as of v0.1.2.
 - **Distribution** — register the marketplace listing so `/plugin install` resolves.
+- **Hardening** — verify the hook-injection and `update-aiboarding` skill-reasoning behaviors against a live runtime.
 
 ### Full changelog
 

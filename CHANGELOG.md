@@ -17,6 +17,28 @@ aiboarding is a Claude Code plugin distributed from `gustavo-meilus/aiboarding`.
 /plugin install aiboarding@aiboarding --version v0.1.0
 ```
 
+## 0.1.2 — update-aiboarding Skill (2026-05-29)
+
+Completes the create → sync → update lifecycle: the `update-aiboarding` skill — the reasoning half that the `post-commit` drift hook nudges toward — now exists.
+
+### Added
+
+- **`update-aiboarding` skill** (`skills/update-aiboarding/SKILL.md`) — a prose triage skill:
+  - **Triage** — reads `last_synced_commit` from the `AIBOARDING.md` frontmatter, runs `git diff <last_synced_commit>..HEAD`, reflects on the conversation, and classifies scope impact across the three H1 sections. A missing/empty pointer is guarded: it routes to a full re-validation rather than silently no-op'ing (an empty `git diff ..HEAD` resolves to `HEAD..HEAD` and shows no delta).
+  - **No-op branch** — when nothing in scope changed, advances `last_synced_commit` to `HEAD` automatically (no approval, no body rewrite) so the drift hook stops re-nudging.
+  - **Targeted-delta patch** — when scope drifted, reuses `create-aiboarding`'s Phases 1–3 (scoped grill) and the `caveman` compression pass, re-drafting only the affected sections (untouched sections left byte-for-byte intact), advancing the pointer, and gating every content change on user approval.
+
+### Changed
+
+- Plugin manifest version `0.1.1` → `0.1.2`.
+- README: `update-aiboarding` moved from *planned* to *shipped*; status, lifecycle table, Quick Start, repository layout, and roadmap updated to reflect the now-complete lifecycle.
+
+### Known Limitations
+
+- **Skill-reasoning runtime caveats.** `update-aiboarding`'s grill/synthesis/approval branches are agent-reasoning behaviors that a shell cannot exercise; they are not yet verified against a live runtime (the deterministic git-diff assumptions the skill rests on *are* verified). The v0.1.0/v0.1.1 hook-injection and Phase 6 path-resolution caveats also remain.
+
+---
+
 ## 0.1.1 — create-aiboarding Skill (2026-05-29)
 
 Adds the generation half of the lifecycle: the `create-aiboarding` skill that authors `AIBOARDING.md` and installs the v0.1.0 hook templates into a target repo.
