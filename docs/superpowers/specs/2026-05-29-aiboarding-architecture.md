@@ -74,12 +74,13 @@ the team. They are thin scripts that emit context — they do **not** perform LL
 
 | Event | Matcher | Script behavior |
 |---|---|---|
-| `SessionStart` | `startup\|resume\|compact` | Read `AIBOARDING.md`; emit its body as `additionalContext`. If absent, emit a prompt to run `create-aiboarding`. |
+| `SessionStart` | `startup\|clear\|compact` | Read `AIBOARDING.md`; emit its body as `additionalContext`. If absent, emit a prompt to run `create-aiboarding`. |
 | `PreToolUse` | `Task` | Prepend `AIBOARDING.md` to the spawned sub-agent's prompt. |
 | `PostToolUse` | `Bash` containing `git commit` | Run the `update-aiboarding` triage. |
 
-A single `SessionStart` hook covers session start, resume, and **after compaction**
-by branching on the `source` field — these collapse into one injection point. There
+A single `SessionStart` hook covers session start, clear, and **after compaction**
+by branching on the `source` field — these collapse into one injection point. `resume`
+is omitted because a resumed session retains the earlier injection. There
 is no native sub-agent-spawn hook in Claude Code, so sub-agent injection is handled
 via `PreToolUse` on the `Task`/`Agent` tool.
 
