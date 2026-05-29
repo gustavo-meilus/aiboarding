@@ -4,7 +4,7 @@
 
 aiboarding is a Claude Code plugin distributed from `gustavo-meilus/aiboarding`. Each entry below corresponds to a git tag of the same name on `main`.
 
-**Install (Claude Code) — marketplace registration pending:**
+**Install (Claude Code) — marketplace listing published as of v0.1.3:**
 
 ```text
 /plugin marketplace add gustavo-meilus/aiboarding
@@ -16,6 +16,29 @@ aiboarding is a Claude Code plugin distributed from `gustavo-meilus/aiboarding`.
 ```text
 /plugin install aiboarding@aiboarding --version v0.1.0
 ```
+
+## 0.1.3 — Distribution & Verification Runbook (2026-05-29)
+
+Makes the plugin installable and documents how to verify the behaviors the test harness cannot reach. No production hook or skill code changed.
+
+### Added
+
+- **Marketplace manifest** (`.claude-plugin/marketplace.json`) — a single-plugin marketplace (name `aiboarding`, `source: "./"`) so the published install commands resolve: `/plugin marketplace add gustavo-meilus/aiboarding` then `/plugin install aiboarding@aiboarding`.
+- **Verification runbook** (`docs/VERIFICATION.md`) — committed manual protocols, each with setup/steps/expected/pass-fail:
+  - **2a** — marketplace install check.
+  - **1a** — `PreToolUse[Task]` injection canary protocol, plus a design-only `additionalContext` → `updatedInput` decision tree for the contingent fix if injection fails.
+  - **1e** — the four `update-aiboarding` reasoning-branch cases (no-op, targeted-delta, hook-loop sanity, empty-pointer guard).
+
+### Changed
+
+- Plugin manifest version `0.1.2` → `0.1.3`.
+- README roadmap links the verification runbook; status reflects the published marketplace listing.
+
+### Known Limitations
+
+- The runbook protocols are **manual and not yet run** against a live Claude Code install; the hook-injection (1a) and `update-aiboarding` skill-reasoning (1e) behaviors remain unverified. The `updatedInput` fallback (Mechanism B) is **design-only** — no code unless the 1a protocol fails.
+
+---
 
 ## 0.1.2 — update-aiboarding Skill (2026-05-29)
 

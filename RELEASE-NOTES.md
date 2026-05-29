@@ -3,8 +3,31 @@
 > Canonical record of versioned changes, feature additions, and removals for the aiboarding project. This document tracks the build-out from the foundation release toward the full create → sync → update lifecycle.
 
 <overview>
-aiboarding onboards AI coding agents like fresh engineers: it maintains one compressed `AIBOARDING.md` per repository and uses committed hooks to inject it into every agent context and flag it when it drifts. The v0.1.0 foundation established the plugin scaffold, the cross-platform polyglot hook templates (the `sync` and `update` enforcement layer), and a dependency-free bash test harness. v0.1.1 added the `create-aiboarding` generation skill. v0.1.2 adds the `update-aiboarding` triage skill — completing the create → sync → update lifecycle.
+aiboarding onboards AI coding agents like fresh engineers: it maintains one compressed `AIBOARDING.md` per repository and uses committed hooks to inject it into every agent context and flag it when it drifts. The v0.1.0 foundation established the plugin scaffold, the cross-platform polyglot hook templates (the `sync` and `update` enforcement layer), and a dependency-free bash test harness. v0.1.1 added the `create-aiboarding` generation skill. v0.1.2 added the `update-aiboarding` triage skill — completing the create → sync → update lifecycle. v0.1.3 ships distribution (the marketplace listing) and a committed verification runbook for the live-runtime behaviors the test harness cannot reach.
 </overview>
+
+## v0.1.3 — Distribution & Verification Runbook (2026-05-29)
+
+### Highlights
+
+The plugin becomes installable, and the behaviors that unit tests structurally cannot reach get a committed home. A single-plugin marketplace manifest makes `/plugin install aiboarding@aiboarding` resolve, and `docs/VERIFICATION.md` captures the manual protocols — the marketplace install check, the `PreToolUse[Task]` injection canary test (with a design-only fallback decision tree), and the four `update-aiboarding` reasoning-branch cases — so the remaining live-runtime verification is precise and repeatable rather than re-derived each time. No production hook or skill code changed.
+
+<release_entry version="0.1.3" status="EARLY">
+
+### Added
+
+- **Marketplace manifest** (`.claude-plugin/marketplace.json`) — single-plugin marketplace (name `aiboarding`, `source: "./"`); the published install commands now resolve.
+- **Verification runbook** (`docs/VERIFICATION.md`) — manual protocols with setup/steps/expected/pass-fail for: **2a** marketplace install; **1a** `PreToolUse[Task]` injection canary protocol + a design-only `additionalContext` → `updatedInput` decision tree; **1e** the four `update-aiboarding` reasoning-branch cases.
+
+### Changed
+
+- Plugin manifest `0.1.2` → `0.1.3`; README roadmap links the runbook and reflects the published marketplace listing.
+
+### Known limitations
+
+- The runbook protocols are manual and not yet run against a live runtime; 1a (hook injection) and 1e (skill reasoning) stay unverified. The `updatedInput` fallback is design-only — no code unless the 1a protocol fails. Prior caveats (Phase 6 path resolution, `PostToolUse` matcher breadth) remain.
+
+</release_entry>
 
 ## v0.1.2 — update-aiboarding Skill (2026-05-29)
 
@@ -99,8 +122,8 @@ Hooks run through a polyglot `run-hook.cmd`: on Windows, CMD locates Git Bash an
 ### Roadmap
 
 - **Lifecycle complete** — create → sync → update all shipped as of v0.1.2.
-- **Distribution** — register the marketplace listing so `/plugin install` resolves.
-- **Hardening** — verify the hook-injection and `update-aiboarding` skill-reasoning behaviors against a live runtime.
+- **Distribution shipped (v0.1.3)** — the marketplace manifest is published; `/plugin install aiboarding@aiboarding` resolves.
+- **Hardening** — run the committed [verification runbook](./docs/VERIFICATION.md) against a live runtime to confirm hook injection (1a) and `update-aiboarding` reasoning (1e); narrow the `PostToolUse` matcher to `git commit`.
 
 ### Full changelog
 

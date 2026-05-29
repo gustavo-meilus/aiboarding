@@ -3,9 +3,9 @@
 aiboarding treats every AI coding agent as a new hire. It maintains one compressed, high-signal `AIBOARDING.md` per repository — the project's engineering basics, domain logic, and AI-specific gotchas — and guarantees, via committed hooks, that agents read it on entry and keep it current as the code evolves. No more re-explaining the codebase to every fresh session, sub-agent, or post-compaction context.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Status: early](https://img.shields.io/badge/status-v0.1.2%20early-orange.svg)](./RELEASE-NOTES.md)
+[![Status: early](https://img.shields.io/badge/status-v0.1.3%20early-orange.svg)](./RELEASE-NOTES.md)
 
-> **Status — v0.1.2.** The full **create → sync → update** lifecycle is now implemented: the plugin scaffold, the cross-platform `sync` hook templates (with a full test harness), the **`create-aiboarding` skill** (hybrid crawl + grilling generator that writes `AIBOARDING.md` and installs the hooks), and the **`update-aiboarding` skill** — the commit-triggered drift-triage that auto-advances the sync pointer on no-op changes and runs a targeted-delta patch when scope drifts. The hook-injection and skill-reasoning runtime behaviors are not yet verified against the live Claude Code runtime (see [Roadmap](#roadmap)).
+> **Status — v0.1.3.** The full **create → sync → update** lifecycle is implemented: the plugin scaffold, the cross-platform `sync` hook templates (with a full test harness), the **`create-aiboarding` skill** (hybrid crawl + grilling generator that writes `AIBOARDING.md` and installs the hooks), and the **`update-aiboarding` skill** — the commit-triggered drift-triage that auto-advances the sync pointer on no-op changes and runs a targeted-delta patch when scope drifts. v0.1.3 adds the **marketplace listing** (`/plugin install aiboarding@aiboarding` now resolves) and a committed **[verification runbook](./docs/VERIFICATION.md)** for the runtime behaviors the test harness can't reach. Those live-runtime checks (hook injection, skill reasoning) are documented but not yet run against the live Claude Code runtime (see [Roadmap](#roadmap)).
 
 ---
 
