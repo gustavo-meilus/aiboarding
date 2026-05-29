@@ -10,13 +10,18 @@ Keep `AIBOARDING.md` current as the project evolves, without re-grilling the who
 **Announce at start:** "Using update-aiboarding to triage doc drift."
 
 ## Triage
+**If `last_synced_commit` is missing or empty**, the doc was never properly synced (the
+drift hook fires on an empty pointer as a repair signal). Do NOT take the No-op branch —
+skip the diff shortcut and go straight to the Targeted-delta patch for a full
+re-validation of all three sections.
+
 1. **Gather the delta.** Read `last_synced_commit` from the `AIBOARDING.md` frontmatter.
    Run `git diff <last_synced_commit>..HEAD`. Reflect on the current conversation — it is
    the "chat log" and is already in your context (after compaction, use the summary).
 2. **Classify scope impact.** Decide whether the delta touches any section:
-   - Engineering Basics — stack/build/test/run changed?
-   - Domain & Business Logic — new concepts or changed behavior?
-   - AI-Specific Context — new gotchas, failure modes, or guardrails?
+   - `# 1. Engineering Basics` — stack/build/test/run changed?
+   - `# 2. Domain & Business Logic` — new concepts or changed behavior?
+   - `# 3. AI-Specific Context` — new gotchas, failure modes, or guardrails?
 3. **Branch:** no relevant change → No-op (below). Relevant change → Targeted-delta patch.
 
 ## No-op: nothing relevant changed
@@ -27,13 +32,16 @@ If triage finds no scope-relevant change:
 - Briefly report: "No doc-relevant changes in <range>; advanced sync pointer."
 
 ## Targeted-delta patch: scope changed
-Reuse create-aiboarding's machinery, scoped to the affected sections only.
+Reuse create-aiboarding's Phases 1–3 (background crawl + grilling style, architectural
+interrogation, reconciliation), scoped to the affected sections only.
 
 1. **Scoped grill.** Ask focused, one-at-a-time questions about ONLY the changed scope,
-   seeded by the diff, in the same relentless style as create-aiboarding. Skip sections
-   the delta does not touch.
-2. **Synthesize.** Re-draft only the affected sections, merging verified diff findings with
-   the user's answers. Leave untouched sections byte-for-byte intact.
+   seeded by the diff, using the relentless one-question-at-a-time style from
+   create-aiboarding's Phases 1–3. Skip sections the delta does not touch.
+2. **Synthesize.** Re-draft only the affected sections (use the exact H1 heading text from
+   the existing doc — `# 1. Engineering Basics`, `# 2. Domain & Business Logic`,
+   `# 3. AI-Specific Context` — to avoid duplicate headings), merging verified diff
+   findings with the user's answers. Leave untouched sections byte-for-byte intact.
 3. **Compress.** Run the `caveman` skill's compression on the re-drafted sections only,
    preserving existing density, structure, and code blocks.
 4. **Advance frontmatter.** Set `last_synced_commit` to the current `git rev-parse HEAD`.
