@@ -3,6 +3,8 @@
 ## Overview
 The `create-aiboarding` skill is part of the `aiboarding` project. It automates the generation of a comprehensive `AIBOARDING.md` document for new or existing repositories. It treats an AI like a fresh software engineer, guiding it through a rapid onboarding process to instantly understand project scope, business logic, and architectural patterns.
 
+> **Umbrella:** This skill is one of three components. Shared contracts — the `AIBOARDING.md` schema, the committed hook layout, and drift tracking — are defined in [`2026-05-29-aiboarding-architecture.md`](./2026-05-29-aiboarding-architecture.md). This spec must stay consistent with that umbrella.
+
 ## Trigger & Initialization
 * **Explicit Invocation:** The user can trigger the skill manually (e.g., "Run create-aiboarding").
 * **Implicit Fallback:** If the `sync-aiboarding` skill is executed and detects that no `AIBOARDING.md` exists in the workspace, it automatically triggers this skill.
@@ -38,7 +40,7 @@ As the grilling session progresses, the AI explicitly steers the conversation to
 ## Phase 4: Synthesis & Generation (Deliver)
 * **Completion:** This phase triggers when the reconciliation grilling session reaches a natural conclusion.
 * **Synthesis:** The agent combines the verified automated findings (Track A) with the extracted and reconciled domain knowledge (Track B).
-* **Drafting:** It drafts a highly-structured `AIBOARDING.md` document containing:
+* **Drafting:** It drafts a highly-structured `AIBOARDING.md` document. It writes the frontmatter defined by the umbrella schema (`aiboarding_version`, `generated`, `last_synced_commit` set to the current `HEAD` SHA), followed by the three body sections:
   1. Standard Engineering Basics
   2. Domain & Business Logic
   3. AI-Specific Context
@@ -48,3 +50,9 @@ As the grilling session progresses, the AI explicitly steers the conversation to
 * **Action:** It strips all filler, pleasantries, articles, and hedging. It converts verbose explanations into terse, fragment-heavy shorthand (e.g., "X -> Y") while preserving 100% of the technical accuracy, structure, and code blocks.
 * **Goal:** Maximize token efficiency for all future AI agents reading the document.
 * **Verification:** The agent presents the compressed, high-density document to the user for final approval before writing it to the root of the repository.
+
+## Phase 6: Hook Installation & Bootstrap
+After the document is approved and written, the skill bootstraps the rest of the `aiboarding` system into the repository so enforcement is live immediately:
+* **Action:** Writes the committed hook layout from the umbrella spec into `.claude/settings.json` (the `SessionStart`, `PreToolUse[Task]`, and `PostToolUse[git commit]` entries) and installs the accompanying hook scripts.
+* **Idempotency:** If matching `aiboarding` hook entries already exist, the skill updates them in place rather than duplicating.
+* **Verification:** The agent reports which hooks were installed or updated. From this point, `sync-aiboarding` injects the document on every session and `update-aiboarding` watches for drift.
