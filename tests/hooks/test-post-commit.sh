@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -u
+set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 . "$ROOT/tests/lib/assert.sh"
 HOOK="$ROOT/templates/hooks/post-commit"
@@ -19,6 +19,7 @@ printf -- '---\naiboarding_version: 1\ngenerated: 2026-05-29\nlast_synced_commit
 out="$(CLAUDE_PROJECT_DIR="$tmp" bash "$HOOK")"
 assert_contains "$out" '"hookEventName":"PostToolUse"' "emits PostToolUse on drift" || exit 1
 assert_contains "$out" 'update-aiboarding' "nudge names update-aiboarding" || exit 1
+  # "deadbeef" is the literal last_synced_commit written into AIBOARDING.md above
 assert_contains "$out" 'deadbeef..HEAD' "nudge names the commit range" || exit 1
 
 # In sync: set last_synced_commit to real HEAD -> no output.
