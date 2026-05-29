@@ -1,11 +1,11 @@
-# Design Spec: `create-onboarding` Skill
+# Design Spec: `create-aiboarding` Skill
 
 ## Overview
-The `create-onboarding` skill is part of the `onboard-ai` project. It automates the generation of a comprehensive `ONBOARDING.md` document for new or existing repositories. It treats an AI like a fresh software engineer, guiding it through a rapid onboarding process to instantly understand project scope, business logic, and architectural patterns.
+The `create-aiboarding` skill is part of the `aiboarding` project. It automates the generation of a comprehensive `AIBOARDING.md` document for new or existing repositories. It treats an AI like a fresh software engineer, guiding it through a rapid onboarding process to instantly understand project scope, business logic, and architectural patterns.
 
 ## Trigger & Initialization
-* **Explicit Invocation:** The user can trigger the skill manually (e.g., "Run create-onboarding").
-* **Implicit Fallback:** If the `sync-onboarding` skill is executed and detects that no `ONBOARDING.md` exists in the workspace, it automatically triggers this skill.
+* **Explicit Invocation:** The user can trigger the skill manually (e.g., "Run create-aiboarding").
+* **Implicit Fallback:** If the `sync-aiboarding` skill is executed and detects that no `AIBOARDING.md` exists in the workspace, it automatically triggers this skill.
 
 ## Phase 1: Background Crawl & Initial Grilling (Discover & Define)
 When triggered, the skill splits into two parallel tracks:
@@ -38,13 +38,13 @@ As the grilling session progresses, the AI explicitly steers the conversation to
 ## Phase 4: Synthesis & Generation (Deliver)
 * **Completion:** This phase triggers when the reconciliation grilling session reaches a natural conclusion.
 * **Synthesis:** The agent combines the verified automated findings (Track A) with the extracted and reconciled domain knowledge (Track B).
-* **Drafting:** It drafts a highly-structured `ONBOARDING.md` document containing:
+* **Drafting:** It drafts a highly-structured `AIBOARDING.md` document containing:
   1. Standard Engineering Basics
   2. Domain & Business Logic
   3. AI-Specific Context
 
 ## Phase 5: Token Compression
-* **Caveman Transformation:** Before finalization, the skill explicitly passes the drafted `ONBOARDING.md` through a "caveman-like" compression pass.
+* **Caveman Transformation:** Before finalization, the skill explicitly passes the drafted `AIBOARDING.md` through a "caveman-like" compression pass, based on https://raw.githubusercontent.com/mattpocock/skills/refs/heads/main/skills/productivity/caveman/SKILL.md.
 * **Action:** It strips all filler, pleasantries, articles, and hedging. It converts verbose explanations into terse, fragment-heavy shorthand (e.g., "X -> Y") while preserving 100% of the technical accuracy, structure, and code blocks.
 * **Goal:** Maximize token efficiency for all future AI agents reading the document.
 * **Verification:** The agent presents the compressed, high-density document to the user for final approval before writing it to the root of the repository.
