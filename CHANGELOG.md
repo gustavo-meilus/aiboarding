@@ -17,6 +17,24 @@ aiboarding is a Claude Code plugin distributed from `gustavo-meilus/aiboarding`.
 /plugin install aiboarding@aiboarding --version v0.1.0
 ```
 
+## 0.2.0 — Drift-Hook Loop Fix (2026-06-09)
+
+Fixes the first production-hook behavior bug since distribution: the `update-aiboarding` no-op pointer-advance created a self-referential drift loop. No skill or distribution change.
+
+### Fixed
+
+- **Self-referential drift loop** ([#1](https://github.com/gustavo-meilus/aiboarding/issues/1)) — because `last_synced_commit` lives inside the committed `AIBOARDING.md`, every commit that advanced the pointer pushed `HEAD` past it and re-fired the `post-commit` drift hook, generating an unbounded chain of no-op commits and nudges. The hook now inspects the range: when every commit in `last_synced_commit..HEAD` touches only `AIBOARDING.md`, the nudge is suppressed. Any non-doc path, empty diff, or git failure (e.g. a rebased-away pointer) still nudges — preserving the drift-on-uncertainty stance. Chosen over commit-message matching because it catches both the no-op pointer-advance and the content-patch commit in one rule, with no message-format dependency.
+
+### Changed
+
+- Plugin manifest version `0.1.3` → `0.2.0`.
+
+### Known Limitations
+
+- One no-op pointer-advance marker commit per real-change cycle still lands; it is now silently absorbed instead of re-nudging. Sync state remains in the tracked doc (no sidecar). Prior live-runtime caveats (1a hook injection, 1e skill reasoning, `PostToolUse` matcher breadth) remain.
+
+---
+
 ## 0.1.3 — Distribution & Verification Runbook (2026-05-29)
 
 Makes the plugin installable and documents how to verify the behaviors the test harness cannot reach. No production hook or skill code changed.

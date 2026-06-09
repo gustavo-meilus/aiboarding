@@ -3,8 +3,30 @@
 > Canonical record of versioned changes, feature additions, and removals for the aiboarding project. This document tracks the build-out from the foundation release toward the full create → sync → update lifecycle.
 
 <overview>
-aiboarding onboards AI coding agents like fresh engineers: it maintains one compressed `AIBOARDING.md` per repository and uses committed hooks to inject it into every agent context and flag it when it drifts. The v0.1.0 foundation established the plugin scaffold, the cross-platform polyglot hook templates (the `sync` and `update` enforcement layer), and a dependency-free bash test harness. v0.1.1 added the `create-aiboarding` generation skill. v0.1.2 added the `update-aiboarding` triage skill — completing the create → sync → update lifecycle. v0.1.3 ships distribution (the marketplace listing) and a committed verification runbook for the live-runtime behaviors the test harness cannot reach.
+aiboarding onboards AI coding agents like fresh engineers: it maintains one compressed `AIBOARDING.md` per repository and uses committed hooks to inject it into every agent context and flag it when it drifts. The v0.1.0 foundation established the plugin scaffold, the cross-platform polyglot hook templates (the `sync` and `update` enforcement layer), and a dependency-free bash test harness. v0.1.1 added the `create-aiboarding` generation skill. v0.1.2 added the `update-aiboarding` triage skill — completing the create → sync → update lifecycle. v0.1.3 ships distribution (the marketplace listing) and a committed verification runbook for the live-runtime behaviors the test harness cannot reach. v0.2.0 fixes the `update-aiboarding` self-referential drift loop — the first production-hook behavior bug since distribution.
 </overview>
+
+## v0.2.0 — Drift-Hook Loop Fix (2026-06-09)
+
+### Highlights
+
+The `post-commit` drift hook no longer loops on itself. Because `last_synced_commit` lives inside the committed `AIBOARDING.md`, the commit that advanced the pointer always pushed `HEAD` past it and re-fired the nudge — an unbounded chain of no-op commits and prompts. The hook now suppresses the nudge when every commit in `last_synced_commit..HEAD` touches only `AIBOARDING.md`, while any real (non-doc) change, empty diff, or git failure still nudges. First production-hook behavior fix since distribution; no skill or marketplace change.
+
+<release_entry version="0.2.0" status="EARLY">
+
+### Fixed
+
+- **Self-referential drift loop** ([#1](https://github.com/gustavo-meilus/aiboarding/issues/1)) — `templates/hooks/post-commit` inspects the changed-file set of `last_synced_commit..HEAD`; if every path is `AIBOARDING.md` (the no-op pointer-advance and content-patch commits), the nudge is suppressed. Non-doc paths, an empty diff, or a git failure (e.g. a rebased-away pointer) fall through to a nudge. Chosen over commit-message matching: one rule covers both the pointer-advance and the content-patch self-trigger, with no message-format dependency.
+
+### Changed
+
+- Plugin manifest `0.1.3` → `0.2.0`.
+
+### Known limitations
+
+- One no-op pointer-advance marker commit per real-change cycle still lands — now silently absorbed rather than re-nudging. Sync state stays in the tracked doc (no sidecar). Prior caveats (1a hook injection, 1e skill reasoning, `PostToolUse` matcher breadth) remain.
+
+</release_entry>
 
 ## v0.1.3 — Distribution & Verification Runbook (2026-05-29)
 
@@ -123,6 +145,7 @@ Hooks run through a polyglot `run-hook.cmd`: on Windows, CMD locates Git Bash an
 
 - **Lifecycle complete** — create → sync → update all shipped as of v0.1.2.
 - **Distribution shipped (v0.1.3)** — the marketplace manifest is published; `/plugin install aiboarding@aiboarding` resolves.
+- **Drift-loop fixed (v0.2.0)** — the `post-commit` self-referential nudge loop is closed via range-filtering.
 - **Hardening** — run the committed [verification runbook](./docs/VERIFICATION.md) against a live runtime to confirm hook injection (1a) and `update-aiboarding` reasoning (1e); narrow the `PostToolUse` matcher to `git commit`.
 
 ### Full changelog
