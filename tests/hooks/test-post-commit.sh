@@ -32,3 +32,38 @@ assert_eq "$out_sync" "" "no output when in sync" || exit 1
 rm "$tmp/AIBOARDING.md"
 out_nodoc="$(CLAUDE_PROJECT_DIR="$tmp" bash "$HOOK")"
 assert_eq "$out_nodoc" "" "no output when doc missing" || exit 1
+
+# --- Range filter: doc-only commits must NOT nudge -------------------------
+
+# Fresh repo: commit one (code), then a doc-only commit whose pointer lags HEAD.
+tmp2="$(mktemp -d)"
+trap 'rm -rf "$tmp" "$tmp2"' EXIT
+git -C "$tmp2" init -q
+git -C "$tmp2" config user.email t@t.t
+git -C "$tmp2" config user.name t
+printf 'x\n' > "$tmp2/file.txt"
+git -C "$tmp2" add file.txt
+git -C "$tmp2" commit -q -m one
+base="$(git -C "$tmp2" rev-parse HEAD)"
+# Doc-only commit two; pointer still lags at `base`.
+printf -- '---\naiboarding_version: 1\ngenerated: 2026-05-29\nlast_synced_commit: %s\n---\n# 1. Engineering Basics\n' "$base" > "$tmp2/AIBOARDING.md"
+git -C "$tmp2" add AIBOARDING.md
+git -C "$tmp2" commit -q -m "docs: add doc"
+
+# (a) single doc-only commit in range -> suppress.
+out_a="$(CLAUDE_PROJECT_DIR="$tmp2" bash "$HOOK")"
+assert_eq "$out_a" "" "no nudge when range is doc-only (single commit)" || exit 1
+
+# (b) chain of two doc-only commits in range -> still suppress.
+printf -- '---\naiboarding_version: 1\ngenerated: 2026-05-29\nlast_synced_commit: %s\n---\n# 1. Engineering Basics\n\nedited\n' "$base" > "$tmp2/AIBOARDING.md"
+git -C "$tmp2" add AIBOARDING.md
+git -C "$tmp2" commit -q -m "docs: advance sync pointer"
+out_b="$(CLAUDE_PROJECT_DIR="$tmp2" bash "$HOOK")"
+assert_eq "$out_b" "" "no nudge when range is doc-only (two commits)" || exit 1
+
+# (c) doc + code commit in range -> nudge.
+printf 'y\n' > "$tmp2/file.txt"
+git -C "$tmp2" add file.txt
+git -C "$tmp2" commit -q -m "feat: code change"
+out_c="$(CLAUDE_PROJECT_DIR="$tmp2" bash "$HOOK")"
+assert_contains "$out_c" '"hookEventName":"PostToolUse"' "nudge when a code commit is in range" || exit 1
