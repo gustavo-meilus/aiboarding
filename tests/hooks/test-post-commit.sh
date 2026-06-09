@@ -67,3 +67,9 @@ git -C "$tmp2" add file.txt
 git -C "$tmp2" commit -q -m "feat: code change"
 out_c="$(CLAUDE_PROJECT_DIR="$tmp2" bash "$HOOK")"
 assert_contains "$out_c" '"hookEventName":"PostToolUse"' "nudge when a code commit is in range" || exit 1
+
+# (e) empty last_synced_commit (never-synced doc) -> nudge as a repair signal,
+# even with a real HEAD. Exercises the [ -z "$last" ] branch directly.
+printf -- '---\naiboarding_version: 1\ngenerated: 2026-05-29\nlast_synced_commit:\n---\n# 1. Engineering Basics\n' > "$tmp2/AIBOARDING.md"
+out_e="$(CLAUDE_PROJECT_DIR="$tmp2" bash "$HOOK")"
+assert_contains "$out_e" '"hookEventName":"PostToolUse"' "nudge when last_synced_commit is empty" || exit 1

@@ -19,8 +19,10 @@ head_sha="$(git -C "$PROJECT_DIR" rev-parse HEAD 2>/dev/null || echo "")"
 # - last == HEAD: in sync, stay silent.
 # - Otherwise inspect the range: if every changed file is AIBOARDING.md itself
 #   (the no-op pointer-advance and content-patch commits), suppress — no real
-#   content moved. Any git failure (e.g. a rebased-away pointer) or non-doc path
-#   falls through to a nudge, matching the drift-on-uncertainty stance.
+#   content moved. A non-doc path nudges. So does an empty `changed`, which
+#   covers both a git failure (e.g. a rebased-away pointer) and a git success
+#   whose range has no tree changes — both ambiguous, so nudge (drift-on-
+#   uncertainty stance).
 nudge=0
 if [ -z "$last" ]; then
   nudge=1
