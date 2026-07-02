@@ -1,14 +1,14 @@
 {
-  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "aiboarding",
-  "description": "Onboard AI agents like fresh engineers: a compressed AIBOARDING.md per repo, auto-injected and kept current via committed hooks.",
+  "description": "Onboard AI agents like fresh engineers: standard onboarding files (AGENTS.md + CLAUDE.md), generated, compressed, audited, and kept current.",
   "owner": { "name": "Gustavo Meilus", "url": "https://github.com/gustavo-meilus" },
   "plugins": [
     {
       "name": "aiboarding",
-      "description": "Treats AI agents as fresh engineers: generates, injects, and keeps current a compressed AIBOARDING.md per repo.",
+      "description": "Onboard AI agents like fresh engineers: generates and maintains standard onboarding files (AGENTS.md + CLAUDE.md) with drift tracking, compression, and auditing.",
       "source": "./",
-      "category": "productivity"
+      "category": "productivity",
+      "tags": ["onboarding", "agents-md", "documentation", "context", "drift"]
     }
   ]
 }

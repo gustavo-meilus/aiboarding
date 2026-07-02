@@ -2,7 +2,7 @@
 set -u
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 fail=0
-for t in "$ROOT"/tests/hooks/test-*.sh; do
+for t in "$ROOT"/tests/*/test-*.sh; do
   [ -f "$t" ] || continue
   printf '== %s ==\n' "$(basename "$t")"
   if bash "$t"; then

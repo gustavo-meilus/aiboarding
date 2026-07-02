@@ -3,8 +3,86 @@
 > Canonical record of versioned changes, feature additions, and removals for the aiboarding project. This document tracks the build-out from the foundation release toward the full create → sync → update lifecycle.
 
 <overview>
-aiboarding onboards AI coding agents like fresh engineers: it maintains one compressed `AIBOARDING.md` per repository and uses committed hooks to inject it into every agent context and flag it when it drifts. The v0.1.0 foundation established the plugin scaffold, the cross-platform polyglot hook templates (the `sync` and `update` enforcement layer), and a dependency-free bash test harness. v0.1.1 added the `create-aiboarding` generation skill. v0.1.2 added the `update-aiboarding` triage skill — completing the create → sync → update lifecycle. v0.1.3 ships distribution (the marketplace listing) and a committed verification runbook for the live-runtime behaviors the test harness cannot reach. v0.2.0 fixes the `update-aiboarding` self-referential drift loop — the first production-hook behavior bug since distribution.
+aiboarding onboards AI coding agents like fresh engineers: it generates and maintains standard onboarding files — a cross-agent `AGENTS.md` plus a thin `CLAUDE.md` wrapper — with drift tracking in a `.aiboarding/state.json` sidecar and surgical hooks only for what native instruction loading cannot do. The v0.1.x line built the original custom-`AIBOARDING.md` injection lifecycle (scaffold, polyglot hook templates, create/update skills, marketplace distribution, verification runbook); v0.2.0 patched the drift-hook loop (issue #1). v0.3.0 pivoted to the standard files and fixed issue #1's root cause by moving the sync pointer out of the instruction files. v0.4.0 modernized the hooks around native loading (`SubagentStart` pointer, `if`-filtered drift, `InstructionsLoaded` diagnostics). v0.5.0 ships the verifiable compression engine, the read-only auditor, and the cross-CLI distribution polish.
 </overview>
+
+## v0.5.0 — Compression Engine, Audit & Cross-CLI Distribution (2026-07-02)
+
+### Highlights
+
+Compression graduates from a create-time phase to a verifiable engine: `compress-onboarding` works on any instruction file with sticky levels and hard byte-preservation invariants enforced by the new `check-preservation` tool — a dropped command flag or reflowed code fence fails the gate by name, not by promise. `audit-agent-onboarding` lints the onboarding files read-only (bloat, contradictions, stale commands, secrets, the Codex 32 KiB truncation cap) and renders compression receipts with `--stats`. The manifests get their distribution polish, and because every skill stays on the portable SKILL.md subset, the same skills run under Codex and Copilot CLI from `.agents/skills/`.
+
+<release_entry version="0.5.0" status="EARLY">
+
+### Added
+
+- `compress-onboarding` (levels `off`/`lite`/`full`/`ultra`, clarity exemptions, receipts in `state.json`), `check-preservation` (byte-preservation verifier with fixture-pinned tests), `audit-agent-onboarding` (twelve read-only linters + `--stats`), and `tests/plugin/test-manifests.sh` (manifest/skill/settings/template contracts).
+
+### Changed
+
+- `plugin.json` gains `displayName`/`homepage`/`repository`/`license`/`keywords`; `marketplace.json` drops the undocumented `$schema` and gains `tags`. README repositioned around lifecycle management of standard files, with a cross-CLI install section. Plugin manifest `0.4.0` → `0.5.0`.
+
+### Known limitations
+
+- Token receipts are labeled approximations without a real tokenizer; benchmark-backed claims deferred to v1.0.0. `claude plugin validate . --strict` remains a manual pre-release check.
+
+</release_entry>
+
+## v0.4.0 — Hook Modernization: Native-First Delivery (2026-07-02)
+
+### Highlights
+
+The injection era ends. Native instruction loading (CLAUDE.md + `@AGENTS.md`, `/compact` re-injection) replaces the `SessionStart` full-document hook; the native `SubagentStart` event replaces the never-verified `PreToolUse[Task]` workaround with a short pointer instead of a full-document paste; the drift hook only spawns after git commands via an `"if": "Bash(git *)"` filter; and a debug-only `InstructionsLoaded` hook makes instruction loading provable from a log. Hooks are now strictly surgical: fallback warning, sub-agent pointer, drift nudge, diagnostics.
+
+<release_entry version="0.4.0" status="EARLY">
+
+### Removed
+
+- `SessionStart` full-document injection (native loading covers it; hook is now a fallback warner that never emits file bodies) and the `pre-task` hook plus its design-only `updatedInput` fallback.
+
+### Added
+
+- `subagent-start` (`SubagentStart` pointer reminder), `instructions-loaded` (`AIBOARDING_DEBUG=1` load log), and `if`-filtered `PostToolUse` drift wiring with seconds-based timeouts.
+
+### Changed
+
+- Verification runbook rewritten: 1a retired, 1e automated where deterministic; new 3a (live loading & hook-event matrix with degraded-OK paths) and 4a (skill reasoning + migration cases). Plugin manifest `0.3.0` → `0.4.0`.
+
+### Known limitations
+
+- 3a not yet run live; older runtimes may ignore `SubagentStart`/`InstructionsLoaded` entries (documented, safe degradation). Windows without Git Bash: hooks no-op, native loading unaffected, one-time install warning.
+
+</release_entry>
+
+## v0.3.0 — Canonical-File Pivot: AGENTS.md + CLAUDE.md (2026-07-02)
+
+### Highlights
+
+aiboarding pivots from injecting a custom `AIBOARDING.md` to managing the standard onboarding files: a cross-agent `AGENTS.md` (read natively by Codex, Copilot, Cursor, and others) plus a thin `CLAUDE.md` wrapper (`@AGENTS.md`) that Claude Code loads natively — including after `/compact`. Operational state moves to a `.aiboarding/state.json` sidecar, which fixes issue #1's root cause structurally: advancing the sync pointer never modifies an instruction file, so the drift hook can no longer be re-fired by its own bookkeeping. The six-phase generation engine, targeted-delta updates, and drift-on-uncertainty stance all carry over; a one-shot `migrate-aiboarding` skill moves existing repos across without losing their onboarding investment.
+
+<release_entry version="0.3.0" status="EARLY">
+
+### Fixed
+
+- **Issue #1's root cause** — the sync pointer moved out of the committed instruction file into `.aiboarding/state.json`. The v0.2.0 doc-only-range suppression is retained only in the drift hook's legacy branch for unmigrated repos.
+
+### Added
+
+- **`create-agent-onboarding`** (alias: `create-aiboarding`) — six-phase engine retargeted to a nine-section tool-agnostic `AGENTS.md` + `CLAUDE.md` wrapper, with pre-flight routing (never overwrites existing onboarding files) and a blocking validation gate.
+- **`update-agent-onboarding`** (alias: `update-aiboarding`) — no-op branch advances the state pointer only; targeted-delta patch unchanged.
+- **`migrate-aiboarding`** — one-shot v1→v2 migration behind a single preview-first approval gate.
+- **`drift-check` hook** (replaces `post-commit`) — state-sidecar pointer vs `HEAD`, config-driven ignored-path classification, stdin git-gate, legacy-layout branch.
+- **Deterministic tools** — `inject-fenced` (idempotent marker-fenced blocks) and `check-size-budget` (Codex 32 KiB cap enforcement); `_lib` gains pure-bash JSON state readers.
+
+### Changed
+
+- Old skill names remain as deprecated alias stubs. Plugin manifest `0.2.0` → `0.3.0`.
+
+### Known limitations
+
+- One state-only pointer-advance commit per cycle still lands (committed state = team-shared pointer); the hook classifies it as non-drift. New skill reasoning branches not yet exercised against a live runtime.
+
+</release_entry>
 
 ## v0.2.0 — Drift-Hook Loop Fix (2026-06-09)
 
@@ -143,10 +221,9 @@ Hooks run through a polyglot `run-hook.cmd`: on Windows, CMD locates Git Bash an
 
 ### Roadmap
 
-- **Lifecycle complete** — create → sync → update all shipped as of v0.1.2.
-- **Distribution shipped (v0.1.3)** — the marketplace manifest is published; `/plugin install aiboarding@aiboarding` resolves.
-- **Drift-loop fixed (v0.2.0)** — the `post-commit` self-referential nudge loop is closed via range-filtering.
-- **Hardening** — run the committed [verification runbook](./docs/VERIFICATION.md) against a live runtime to confirm hook injection (1a) and `update-aiboarding` reasoning (1e); narrow the `PostToolUse` matcher to `git commit`.
+- **Modernization complete (v0.3.0–v0.5.0)** — standard files, native-first hooks, compression engine, auditor, cross-CLI skills.
+- **v0.6.0 — live verification** — automate the [runbook](./docs/VERIFICATION.md) 3a/4a protocols against a headless runtime; wire into CI.
+- **v1.0.0 — evidence** — run the benchmark matrix (onboarding configurations × compression arms with an honest naive-truncation control) and publish receipt-backed numbers; formally deprecate the legacy `AIBOARDING.md` mode (still supported).
 
 ### Full changelog
 

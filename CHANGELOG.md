@@ -17,6 +17,87 @@ aiboarding is a Claude Code plugin distributed from `gustavo-meilus/aiboarding`.
 /plugin install aiboarding@aiboarding --version v0.1.0
 ```
 
+## 0.5.0 — Compression Engine, Audit & Cross-CLI Distribution (2026-07-02)
+
+Completes the modernization arc: compression becomes a first-class, verifiable engine; a read-only auditor lints the onboarding files; and the plugin's manifests and skills are polished for cross-CLI reach (the skills are standard SKILL.md, runnable under Codex and Copilot CLI too).
+
+### Added
+
+- **`compress-onboarding` skill** — standalone compression for any instruction file: sticky levels (`off`/`lite`/`full`/`ultra`), hard byte-preservation invariants, auto-clarity exemptions (Guardrails/Escalation capped at `lite`; destructive-action instructions stay full sentences), approval-gated diff, and receipts appended to `state.json` (exact bytes/lines; token counts labeled approximate unless a real tokenizer is available — no unlabeled token claims).
+- **`check-preservation` tool** — dependency-free bash verifier that extracts protected spans (fenced blocks as single units, inline backtick spans, URLs, path tokens) from the pre-compression file and asserts byte-for-byte survival; the compression gate runs it until clean, and the test harness pins it with good/bad fixtures.
+- **`audit-agent-onboarding` skill** — read-only linter: size budget + nested-`AGENTS.md` Codex-cap chain, duplication, contradictions, stale/vague commands, missing guardrail/verification sections, skill/lint leakage, `.claude/rules/` extraction candidates, secrets and unframed destructive commands, wrapper integrity; `--stats` renders compression receipts. Findings are never auto-applied.
+- **Manifest test suite** (`tests/plugin/test-manifests.sh`) — JSON validity of every shipped manifest/template, required plugin/marketplace keys, CHANGELOG-vs-manifest version match, skill frontmatter contract (name = directory, description present, aliases marked DEPRECATED), settings wiring completeness, and template completeness for everything the create skill installs.
+
+### Changed
+
+- **`plugin.json`** gains the recommended distribution metadata (`displayName`, `homepage`, `repository`, `license`, `keywords`) and the repositioned description; **`marketplace.json`** drops the undocumented `$schema` URL and gains `tags`.
+- **README repositioned** — aiboarding is a lifecycle manager for standard onboarding files, not an injector: new architecture table, honest claims (no "guarantees"; the stale "no native sub-agent-spawn hook exists" line is gone), Quick Start on the new skill names (plugin-namespaced as `/aiboarding:<skill>`), and a cross-CLI install section (skills are portable SKILL.md; `.agents/skills/` is the shared install path for Codex and Copilot CLI, where hook wiring is skipped and drift triage is manual).
+- Skill frontmatter stays on the portable subset (`name`, `description`) so the skills run unmodified under other SKILL.md-compatible agents.
+
+### Known Limitations
+
+- Compression receipts are byte-derived approximations unless the environment provides a tokenizer; benchmark-backed savings claims remain future work (roadmap v1.0.0).
+- `claude plugin validate . --strict` is the maintainer's pre-release check (runbook 2a); it is not runnable from the bash suite.
+
+---
+
+## 0.4.0 — Hook Modernization: Native-First Delivery (2026-07-02)
+
+Deletes the injection machinery that the platform made redundant and adopts the native hook surface. Delivery is now entirely native instruction loading; hooks remain only for the lifecycle behaviors native files cannot do.
+
+### Removed
+
+- **Full-document `SessionStart` injection** — Claude Code loads `CLAUDE.md` (and its `@AGENTS.md` import) natively at session start and re-injects the project-root `CLAUDE.md` after `/compact`; hook injection was pure token duplication. `session-start` is now a fallback warner: silent when the layout is complete, names exactly the missing file or import line otherwise, nudges migration on the legacy layout — and never emits file bodies.
+- **`pre-task` (`PreToolUse[Task]`) sub-agent injection** — the workaround for the missing sub-agent-spawn hook, whose `additionalContext` delivery was never verified (runbook 1a). `SubagentStart` is native now; the workaround and its design-only `updatedInput` Mechanism B are deleted.
+
+### Added
+
+- **`subagent-start` hook** (`SubagentStart`) — sends spawned sub-agents a short pointer at `AGENTS.md` naming the binding sections, never the document body: sub-agent context is the scarcest context, and the doc is on disk for the sub-agent to read.
+- **`instructions-loaded` hook** (`InstructionsLoaded`) — with `AIBOARDING_DEBUG=1`, appends each load event (`file_path`, `load_reason`) to untracked `.aiboarding/logs/hooks.log`; inert otherwise. "Did the context actually load?" becomes a checkable log.
+- **`if`-filtered drift wiring** — the `PostToolUse` entry now carries `"if": "Bash(git *)"`, so the drift process only spawns after git commands (closing the v0.1.0 matcher-breadth limitation). `drift-check`'s stdin self-gate keeps behavior correct on runtimes that ignore `if`.
+
+### Changed
+
+- `templates/settings/hooks.json` final shape: four events, `timeout` values in seconds (10/10/15/5), `SessionStart` matcher gains `resume`, redundant `"async": false` removed.
+- **Verification runbook rewritten** — 1a retired (hook deleted), 1e superseded (deterministic halves automated in `tests/hooks/test-drift-check.sh`); new protocol 3a (native import expansion, `/compact` survival, `SubagentStart` delivery, `if`-filter narrowing, `InstructionsLoaded` diagnostics — each with a degraded-OK path) and 4a (skill reasoning branches incl. migration).
+
+### Known Limitations
+
+- Protocol 3a is manual and not yet run against a live runtime; on older Claude Code versions the `SubagentStart`/`InstructionsLoaded` entries may be ignored (documented degradation: no reminder / no diagnostics, everything else unaffected).
+- Windows without Git Bash still degrades to no hook execution; native `CLAUDE.md` loading is unaffected, and the create skill now tells the user once at install time.
+
+---
+
+## 0.3.0 — Canonical-File Pivot: AGENTS.md + CLAUDE.md (2026-07-02)
+
+The strategic pivot: aiboarding stops generating a custom `AIBOARDING.md` and becomes a lifecycle manager for the standard onboarding files — a cross-agent `AGENTS.md` (read natively by Codex, Copilot, Cursor) plus a thin `CLAUDE.md` wrapper (`@AGENTS.md`) that Claude Code loads natively. Operational state moves out of the instruction files into a `.aiboarding/state.json` sidecar.
+
+### Fixed
+
+- **Issue [#1](https://github.com/gustavo-meilus/aiboarding/issues/1)'s root cause, structurally** — the sync pointer no longer lives inside a committed instruction file. Advancing `last_synced_commit` writes only `.aiboarding/state.json`, so the pointer-advance can never re-fire the drift hook against the doc itself. The v0.2.0 doc-only-range suppression survives solely in the legacy branch for unmigrated repos.
+
+### Added
+
+- **`create-agent-onboarding` skill** — the v0.1.1 six-phase engine (crawl + grilling + hard-gated reconciliation + compression + idempotent install), retargeted: synthesis lands in a nine-section tool-agnostic `AGENTS.md` (Project Purpose → Escalation), delivery is native loading via the `CLAUDE.md` wrapper, and a new **blocking validation gate** checks the import line, size budget, command resolution, and pointer freshness before success may be reported. Pre-flight routing protects existing files: legacy `AIBOARDING.md` → migration; existing `AGENTS.md`/`CLAUDE.md` → never overwritten.
+- **`update-agent-onboarding` skill** — triage now reads the state sidecar; the no-op branch advances the pointer **without touching any instruction file** (the hard invariant this release exists for). Targeted-delta discipline unchanged: patch only affected sections, byte-preserve the rest, approval-gate every content change.
+- **`migrate-aiboarding` skill** — one-shot v1→v2: frontmatter → `state.json`, three H1 sections mapped onto the nine-section schema (scoped grill only for the two unmapped sections), hook rewiring, archive-or-banner retirement of the legacy doc, all behind a single preview-first approval gate.
+- **`drift-check` hook** (replaces `post-commit`) — compares `state.json:last_synced_commit` to `HEAD`; range classification is config-driven (always-ignored `AGENTS.md`/`CLAUDE.md`/`.aiboarding/*` plus `config.json:ignored_paths` globs); stdin git-gate as defense in depth; legacy `AIBOARDING.md` branch preserves exact v0.2.0 behavior with a migration nudge.
+- **Deterministic tools** (`templates/tools/`, installed to `<repo>/.aiboarding/tools/`) — `inject-fenced` (idempotent `<!-- aiboarding-begin/end -->` block injection with clean removal) and `check-size-budget` (220-line/24 KiB warnings; hard fail past the 32 KiB Codex `project_doc_max_bytes` silent-truncation cap).
+- **State/config templates** — default `.aiboarding/config.json` (compression level, size budgets, drift `ignored_paths`) and the `.aiboarding/.gitignore` payload.
+- **`_lib` state readers** — `resolve_paths`, `json_get`, `json_get_array_items`, `path_matches_any`: pure-bash line scanners honoring the one-key-per-line write contract (still no `jq`/`sed`/`awk`).
+
+### Changed
+
+- `skills/create-aiboarding` and `skills/update-aiboarding` are now thin **deprecated alias stubs** that defer to the new skills.
+- Plugin manifest version `0.2.0` → `0.3.0`.
+
+### Known Limitations
+
+- One state-only pointer-advance commit per cycle still lands (state is committed for a team-shared pointer); the drift hook classifies it as non-drift via the always-ignored path set.
+- The new skills' reasoning branches (routing, migration mapping, validation gate) are agent-reasoning behaviors verified by review, not yet against a live runtime — consistent with prior releases.
+
+---
+
 ## 0.2.0 — Drift-Hook Loop Fix (2026-06-09)
 
 Fixes the first production-hook behavior bug since distribution: the `update-aiboarding` no-op pointer-advance created a self-referential drift loop. No skill or distribution change.
