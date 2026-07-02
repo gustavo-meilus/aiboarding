@@ -17,6 +17,36 @@ aiboarding is a Claude Code plugin distributed from `gustavo-meilus/aiboarding`.
 /plugin install aiboarding@aiboarding --version v0.1.0
 ```
 
+## 0.3.0 — Canonical-File Pivot: AGENTS.md + CLAUDE.md (2026-07-02)
+
+The strategic pivot: aiboarding stops generating a custom `AIBOARDING.md` and becomes a lifecycle manager for the standard onboarding files — a cross-agent `AGENTS.md` (read natively by Codex, Copilot, Cursor) plus a thin `CLAUDE.md` wrapper (`@AGENTS.md`) that Claude Code loads natively. Operational state moves out of the instruction files into a `.aiboarding/state.json` sidecar.
+
+### Fixed
+
+- **Issue [#1](https://github.com/gustavo-meilus/aiboarding/issues/1)'s root cause, structurally** — the sync pointer no longer lives inside a committed instruction file. Advancing `last_synced_commit` writes only `.aiboarding/state.json`, so the pointer-advance can never re-fire the drift hook against the doc itself. The v0.2.0 doc-only-range suppression survives solely in the legacy branch for unmigrated repos.
+
+### Added
+
+- **`create-agent-onboarding` skill** — the v0.1.1 six-phase engine (crawl + grilling + hard-gated reconciliation + compression + idempotent install), retargeted: synthesis lands in a nine-section tool-agnostic `AGENTS.md` (Project Purpose → Escalation), delivery is native loading via the `CLAUDE.md` wrapper, and a new **blocking validation gate** checks the import line, size budget, command resolution, and pointer freshness before success may be reported. Pre-flight routing protects existing files: legacy `AIBOARDING.md` → migration; existing `AGENTS.md`/`CLAUDE.md` → never overwritten.
+- **`update-agent-onboarding` skill** — triage now reads the state sidecar; the no-op branch advances the pointer **without touching any instruction file** (the hard invariant this release exists for). Targeted-delta discipline unchanged: patch only affected sections, byte-preserve the rest, approval-gate every content change.
+- **`migrate-aiboarding` skill** — one-shot v1→v2: frontmatter → `state.json`, three H1 sections mapped onto the nine-section schema (scoped grill only for the two unmapped sections), hook rewiring, archive-or-banner retirement of the legacy doc, all behind a single preview-first approval gate.
+- **`drift-check` hook** (replaces `post-commit`) — compares `state.json:last_synced_commit` to `HEAD`; range classification is config-driven (always-ignored `AGENTS.md`/`CLAUDE.md`/`.aiboarding/*` plus `config.json:ignored_paths` globs); stdin git-gate as defense in depth; legacy `AIBOARDING.md` branch preserves exact v0.2.0 behavior with a migration nudge.
+- **Deterministic tools** (`templates/tools/`, installed to `<repo>/.aiboarding/tools/`) — `inject-fenced` (idempotent `<!-- aiboarding-begin/end -->` block injection with clean removal) and `check-size-budget` (220-line/24 KiB warnings; hard fail past the 32 KiB Codex `project_doc_max_bytes` silent-truncation cap).
+- **State/config templates** — default `.aiboarding/config.json` (compression level, size budgets, drift `ignored_paths`) and the `.aiboarding/.gitignore` payload.
+- **`_lib` state readers** — `resolve_paths`, `json_get`, `json_get_array_items`, `path_matches_any`: pure-bash line scanners honoring the one-key-per-line write contract (still no `jq`/`sed`/`awk`).
+
+### Changed
+
+- `skills/create-aiboarding` and `skills/update-aiboarding` are now thin **deprecated alias stubs** that defer to the new skills.
+- Plugin manifest version `0.2.0` → `0.3.0`.
+
+### Known Limitations
+
+- One state-only pointer-advance commit per cycle still lands (state is committed for a team-shared pointer); the drift hook classifies it as non-drift via the always-ignored path set.
+- The new skills' reasoning branches (routing, migration mapping, validation gate) are agent-reasoning behaviors verified by review, not yet against a live runtime — consistent with prior releases.
+
+---
+
 ## 0.2.0 — Drift-Hook Loop Fix (2026-06-09)
 
 Fixes the first production-hook behavior bug since distribution: the `update-aiboarding` no-op pointer-advance created a self-referential drift loop. No skill or distribution change.

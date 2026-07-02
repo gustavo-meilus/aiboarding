@@ -6,6 +6,36 @@
 aiboarding onboards AI coding agents like fresh engineers: it maintains one compressed `AIBOARDING.md` per repository and uses committed hooks to inject it into every agent context and flag it when it drifts. The v0.1.0 foundation established the plugin scaffold, the cross-platform polyglot hook templates (the `sync` and `update` enforcement layer), and a dependency-free bash test harness. v0.1.1 added the `create-aiboarding` generation skill. v0.1.2 added the `update-aiboarding` triage skill — completing the create → sync → update lifecycle. v0.1.3 ships distribution (the marketplace listing) and a committed verification runbook for the live-runtime behaviors the test harness cannot reach. v0.2.0 fixes the `update-aiboarding` self-referential drift loop — the first production-hook behavior bug since distribution.
 </overview>
 
+## v0.3.0 — Canonical-File Pivot: AGENTS.md + CLAUDE.md (2026-07-02)
+
+### Highlights
+
+aiboarding pivots from injecting a custom `AIBOARDING.md` to managing the standard onboarding files: a cross-agent `AGENTS.md` (read natively by Codex, Copilot, Cursor, and others) plus a thin `CLAUDE.md` wrapper (`@AGENTS.md`) that Claude Code loads natively — including after `/compact`. Operational state moves to a `.aiboarding/state.json` sidecar, which fixes issue #1's root cause structurally: advancing the sync pointer never modifies an instruction file, so the drift hook can no longer be re-fired by its own bookkeeping. The six-phase generation engine, targeted-delta updates, and drift-on-uncertainty stance all carry over; a one-shot `migrate-aiboarding` skill moves existing repos across without losing their onboarding investment.
+
+<release_entry version="0.3.0" status="EARLY">
+
+### Fixed
+
+- **Issue #1's root cause** — the sync pointer moved out of the committed instruction file into `.aiboarding/state.json`. The v0.2.0 doc-only-range suppression is retained only in the drift hook's legacy branch for unmigrated repos.
+
+### Added
+
+- **`create-agent-onboarding`** (alias: `create-aiboarding`) — six-phase engine retargeted to a nine-section tool-agnostic `AGENTS.md` + `CLAUDE.md` wrapper, with pre-flight routing (never overwrites existing onboarding files) and a blocking validation gate.
+- **`update-agent-onboarding`** (alias: `update-aiboarding`) — no-op branch advances the state pointer only; targeted-delta patch unchanged.
+- **`migrate-aiboarding`** — one-shot v1→v2 migration behind a single preview-first approval gate.
+- **`drift-check` hook** (replaces `post-commit`) — state-sidecar pointer vs `HEAD`, config-driven ignored-path classification, stdin git-gate, legacy-layout branch.
+- **Deterministic tools** — `inject-fenced` (idempotent marker-fenced blocks) and `check-size-budget` (Codex 32 KiB cap enforcement); `_lib` gains pure-bash JSON state readers.
+
+### Changed
+
+- Old skill names remain as deprecated alias stubs. Plugin manifest `0.2.0` → `0.3.0`.
+
+### Known limitations
+
+- One state-only pointer-advance commit per cycle still lands (committed state = team-shared pointer); the hook classifies it as non-drift. New skill reasoning branches not yet exercised against a live runtime.
+
+</release_entry>
+
 ## v0.2.0 — Drift-Hook Loop Fix (2026-06-09)
 
 ### Highlights
