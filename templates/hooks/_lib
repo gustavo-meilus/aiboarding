@@ -35,13 +35,6 @@ resolve_paths() {
   CONFIG_PATH="${PROJECT_DIR}/.aiboarding/config.json"
   LEGACY_DOC_PATH="${PROJECT_DIR}/AIBOARDING.md"
 }
-
-# Legacy alias: older hooks read the v1 doc via PROJECT_DIR/DOC_PATH.
-resolve_doc_path() {
-  resolve_paths
-  DOC_PATH="$LEGACY_DOC_PATH"
-}
-
 # Read the value of a top-level frontmatter key from a file into REPLY.
 # Pure bash; trims surrounding spaces. Stops at the closing '---'.
 read_frontmatter() {
