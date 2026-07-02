@@ -20,7 +20,7 @@
       {
         "matcher": "Bash",
         "hooks": [
-          { "type": "command", "command": "\"${CLAUDE_PROJECT_DIR}/.aiboarding/hooks/run-hook.cmd\" post-commit", "async": false }
+          { "type": "command", "command": "\"${CLAUDE_PROJECT_DIR}/.aiboarding/hooks/run-hook.cmd\" drift-check", "async": false }
         ]
       }
     ]
