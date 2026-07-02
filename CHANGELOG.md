@@ -17,6 +17,30 @@ aiboarding is a Claude Code plugin distributed from `gustavo-meilus/aiboarding`.
 /plugin install aiboarding@aiboarding --version v0.1.0
 ```
 
+## 0.5.0 — Compression Engine, Audit & Cross-CLI Distribution (2026-07-02)
+
+Completes the modernization arc: compression becomes a first-class, verifiable engine; a read-only auditor lints the onboarding files; and the plugin's manifests and skills are polished for cross-CLI reach (the skills are standard SKILL.md, runnable under Codex and Copilot CLI too).
+
+### Added
+
+- **`compress-onboarding` skill** — standalone compression for any instruction file: sticky levels (`off`/`lite`/`full`/`ultra`), hard byte-preservation invariants, auto-clarity exemptions (Guardrails/Escalation capped at `lite`; destructive-action instructions stay full sentences), approval-gated diff, and receipts appended to `state.json` (exact bytes/lines; token counts labeled approximate unless a real tokenizer is available — no unlabeled token claims).
+- **`check-preservation` tool** — dependency-free bash verifier that extracts protected spans (fenced blocks as single units, inline backtick spans, URLs, path tokens) from the pre-compression file and asserts byte-for-byte survival; the compression gate runs it until clean, and the test harness pins it with good/bad fixtures.
+- **`audit-agent-onboarding` skill** — read-only linter: size budget + nested-`AGENTS.md` Codex-cap chain, duplication, contradictions, stale/vague commands, missing guardrail/verification sections, skill/lint leakage, `.claude/rules/` extraction candidates, secrets and unframed destructive commands, wrapper integrity; `--stats` renders compression receipts. Findings are never auto-applied.
+- **Manifest test suite** (`tests/plugin/test-manifests.sh`) — JSON validity of every shipped manifest/template, required plugin/marketplace keys, CHANGELOG-vs-manifest version match, skill frontmatter contract (name = directory, description present, aliases marked DEPRECATED), settings wiring completeness, and template completeness for everything the create skill installs.
+
+### Changed
+
+- **`plugin.json`** gains the recommended distribution metadata (`displayName`, `homepage`, `repository`, `license`, `keywords`) and the repositioned description; **`marketplace.json`** drops the undocumented `$schema` URL and gains `tags`.
+- **README repositioned** — aiboarding is a lifecycle manager for standard onboarding files, not an injector: new architecture table, honest claims (no "guarantees"; the stale "no native sub-agent-spawn hook exists" line is gone), Quick Start on the new skill names (plugin-namespaced as `/aiboarding:<skill>`), and a cross-CLI install section (skills are portable SKILL.md; `.agents/skills/` is the shared install path for Codex and Copilot CLI, where hook wiring is skipped and drift triage is manual).
+- Skill frontmatter stays on the portable subset (`name`, `description`) so the skills run unmodified under other SKILL.md-compatible agents.
+
+### Known Limitations
+
+- Compression receipts are byte-derived approximations unless the environment provides a tokenizer; benchmark-backed savings claims remain future work (roadmap v1.0.0).
+- `claude plugin validate . --strict` is the maintainer's pre-release check (runbook 2a); it is not runnable from the bash suite.
+
+---
+
 ## 0.4.0 — Hook Modernization: Native-First Delivery (2026-07-02)
 
 Deletes the injection machinery that the platform made redundant and adopts the native hook surface. Delivery is now entirely native instruction loading; hooks remain only for the lifecycle behaviors native files cannot do.
