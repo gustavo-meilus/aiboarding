@@ -17,6 +17,33 @@ aiboarding is a Claude Code plugin distributed from `gustavo-meilus/aiboarding`.
 /plugin install aiboarding@aiboarding --version v0.1.0
 ```
 
+## 0.4.0 — Hook Modernization: Native-First Delivery (2026-07-02)
+
+Deletes the injection machinery that the platform made redundant and adopts the native hook surface. Delivery is now entirely native instruction loading; hooks remain only for the lifecycle behaviors native files cannot do.
+
+### Removed
+
+- **Full-document `SessionStart` injection** — Claude Code loads `CLAUDE.md` (and its `@AGENTS.md` import) natively at session start and re-injects the project-root `CLAUDE.md` after `/compact`; hook injection was pure token duplication. `session-start` is now a fallback warner: silent when the layout is complete, names exactly the missing file or import line otherwise, nudges migration on the legacy layout — and never emits file bodies.
+- **`pre-task` (`PreToolUse[Task]`) sub-agent injection** — the workaround for the missing sub-agent-spawn hook, whose `additionalContext` delivery was never verified (runbook 1a). `SubagentStart` is native now; the workaround and its design-only `updatedInput` Mechanism B are deleted.
+
+### Added
+
+- **`subagent-start` hook** (`SubagentStart`) — sends spawned sub-agents a short pointer at `AGENTS.md` naming the binding sections, never the document body: sub-agent context is the scarcest context, and the doc is on disk for the sub-agent to read.
+- **`instructions-loaded` hook** (`InstructionsLoaded`) — with `AIBOARDING_DEBUG=1`, appends each load event (`file_path`, `load_reason`) to untracked `.aiboarding/logs/hooks.log`; inert otherwise. "Did the context actually load?" becomes a checkable log.
+- **`if`-filtered drift wiring** — the `PostToolUse` entry now carries `"if": "Bash(git *)"`, so the drift process only spawns after git commands (closing the v0.1.0 matcher-breadth limitation). `drift-check`'s stdin self-gate keeps behavior correct on runtimes that ignore `if`.
+
+### Changed
+
+- `templates/settings/hooks.json` final shape: four events, `timeout` values in seconds (10/10/15/5), `SessionStart` matcher gains `resume`, redundant `"async": false` removed.
+- **Verification runbook rewritten** — 1a retired (hook deleted), 1e superseded (deterministic halves automated in `tests/hooks/test-drift-check.sh`); new protocol 3a (native import expansion, `/compact` survival, `SubagentStart` delivery, `if`-filter narrowing, `InstructionsLoaded` diagnostics — each with a degraded-OK path) and 4a (skill reasoning branches incl. migration).
+
+### Known Limitations
+
+- Protocol 3a is manual and not yet run against a live runtime; on older Claude Code versions the `SubagentStart`/`InstructionsLoaded` entries may be ignored (documented degradation: no reminder / no diagnostics, everything else unaffected).
+- Windows without Git Bash still degrades to no hook execution; native `CLAUDE.md` loading is unaffected, and the create skill now tells the user once at install time.
+
+---
+
 ## 0.3.0 — Canonical-File Pivot: AGENTS.md + CLAUDE.md (2026-07-02)
 
 The strategic pivot: aiboarding stops generating a custom `AIBOARDING.md` and becomes a lifecycle manager for the standard onboarding files — a cross-agent `AGENTS.md` (read natively by Codex, Copilot, Cursor) plus a thin `CLAUDE.md` wrapper (`@AGENTS.md`) that Claude Code loads natively. Operational state moves out of the instruction files into a `.aiboarding/state.json` sidecar.

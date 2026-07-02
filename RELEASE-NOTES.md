@@ -6,6 +6,32 @@
 aiboarding onboards AI coding agents like fresh engineers: it maintains one compressed `AIBOARDING.md` per repository and uses committed hooks to inject it into every agent context and flag it when it drifts. The v0.1.0 foundation established the plugin scaffold, the cross-platform polyglot hook templates (the `sync` and `update` enforcement layer), and a dependency-free bash test harness. v0.1.1 added the `create-aiboarding` generation skill. v0.1.2 added the `update-aiboarding` triage skill — completing the create → sync → update lifecycle. v0.1.3 ships distribution (the marketplace listing) and a committed verification runbook for the live-runtime behaviors the test harness cannot reach. v0.2.0 fixes the `update-aiboarding` self-referential drift loop — the first production-hook behavior bug since distribution.
 </overview>
 
+## v0.4.0 — Hook Modernization: Native-First Delivery (2026-07-02)
+
+### Highlights
+
+The injection era ends. Native instruction loading (CLAUDE.md + `@AGENTS.md`, `/compact` re-injection) replaces the `SessionStart` full-document hook; the native `SubagentStart` event replaces the never-verified `PreToolUse[Task]` workaround with a short pointer instead of a full-document paste; the drift hook only spawns after git commands via an `"if": "Bash(git *)"` filter; and a debug-only `InstructionsLoaded` hook makes instruction loading provable from a log. Hooks are now strictly surgical: fallback warning, sub-agent pointer, drift nudge, diagnostics.
+
+<release_entry version="0.4.0" status="EARLY">
+
+### Removed
+
+- `SessionStart` full-document injection (native loading covers it; hook is now a fallback warner that never emits file bodies) and the `pre-task` hook plus its design-only `updatedInput` fallback.
+
+### Added
+
+- `subagent-start` (`SubagentStart` pointer reminder), `instructions-loaded` (`AIBOARDING_DEBUG=1` load log), and `if`-filtered `PostToolUse` drift wiring with seconds-based timeouts.
+
+### Changed
+
+- Verification runbook rewritten: 1a retired, 1e automated where deterministic; new 3a (live loading & hook-event matrix with degraded-OK paths) and 4a (skill reasoning + migration cases). Plugin manifest `0.3.0` → `0.4.0`.
+
+### Known limitations
+
+- 3a not yet run live; older runtimes may ignore `SubagentStart`/`InstructionsLoaded` entries (documented, safe degradation). Windows without Git Bash: hooks no-op, native loading unaffected, one-time install warning.
+
+</release_entry>
+
 ## v0.3.0 — Canonical-File Pivot: AGENTS.md + CLAUDE.md (2026-07-02)
 
 ### Highlights
