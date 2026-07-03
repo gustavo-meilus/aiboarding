@@ -43,6 +43,7 @@ read_frontmatter() {
   REPLY=""
   [ -f "$file" ] || return 0
   while IFS= read -r line; do
+    line="${line%$'\r'}"
     if [ "$line" = "---" ]; then
       if [ "$in_fm" -eq 0 ]; then in_fm=1; continue; else break; fi
     fi
