@@ -63,7 +63,7 @@ assert_contains "$out_c" '"hookEventName":"PostToolUse"' "nudge when a code comm
 - [ ] **Step 2: Run tests to verify the new cases fail**
 
 Run: `bash tests/hooks/test-post-commit.sh`
-Expected: FAIL at "no nudge when range is doc-only (single commit)" — the current hook nudges on any `last != HEAD`, so it emits PostToolUse instead of empty output.
+Expected: FAIL at "no nudge when range is doc-only (single commit)" - the current hook nudges on any `last != HEAD`, so it emits PostToolUse instead of empty output.
 
 - [ ] **Step 3: Implement the range filter**
 
@@ -75,7 +75,7 @@ In `templates/hooks/post-commit`, replace the final nudge block (lines 16-21, th
 #   purpose, prompting the user to run update-aiboarding to repair the pointer.
 # - last == HEAD: in sync, stay silent.
 # - Otherwise inspect the range: if every changed file is AIBOARDING.md itself
-#   (the no-op pointer-advance and content-patch commits), suppress — no real
+#   (the no-op pointer-advance and content-patch commits), suppress - no real
 #   content moved. Any git failure (e.g. a rebased-away pointer) or non-doc path
 #   falls through to a nudge, matching the drift-on-uncertainty stance.
 nudge=0
@@ -104,9 +104,9 @@ exit 0
 - [ ] **Step 4: Run tests to verify they pass**
 
 Run: `bash tests/hooks/test-post-commit.sh`
-Expected: no output and exit 0 (all assertions pass — existing deadbeef/in-sync/no-doc cases plus new (a)/(b)/(c)).
+Expected: no output and exit 0 (all assertions pass - existing deadbeef/in-sync/no-doc cases plus new (a)/(b)/(c)).
 
-Note: the existing first case (`last_synced_commit: deadbeef`) covers edge (d) — `git diff --name-only deadbeef..HEAD` fails, `changed` is empty, so the hook nudges, as before.
+Note: the existing first case (`last_synced_commit: deadbeef`) covers edge (d) - `git diff --name-only deadbeef..HEAD` fails, `changed` is empty, so the hook nudges, as before.
 
 - [ ] **Step 5: Run the full hook test suite**
 
@@ -125,5 +125,5 @@ git commit -m "fix: suppress drift nudge when range touches only AIBOARDING.md (
 ## Self-Review
 
 - **Spec coverage:** Logic steps 1-3 → Task 1 Step 3. Edge table rows: doc-only (a/b), doc+code (c), `last` empty (existing in-sync/empty handling + Step 3 branch), `last==HEAD` (existing test line 28), bad sha (existing deadbeef test line 19). All covered.
-- **Placeholders:** none — full hook block and full test code shown.
+- **Placeholders:** none - full hook block and full test code shown.
 - **Type/name consistency:** `nudge`, `changed`, `last`, `head_sha`, `PROJECT_DIR`, `raw`, `emit_cc_context` all match `_lib` and the existing hook.

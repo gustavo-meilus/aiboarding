@@ -10,19 +10,19 @@ Keep `AGENTS.md` current as the project evolves, without re-grilling the whole r
 **Announce at start:** "Using update-agent-onboarding to triage onboarding drift."
 
 ## Runtime awareness
-Works under Claude Code, Codex, Copilot CLI, or any SKILL.md-compatible agent — the
+Works under Claude Code, Codex, Copilot CLI, or any SKILL.md-compatible agent - the
 triage and patch logic below has no Claude Code dependency. Only the drift *nudge*
 that usually leads here is a Claude Code hook; on other runtimes, run this skill
 manually after meaningful commits.
 
 ## Triage
 Read `last_synced_commit` from `.aiboarding/state.json` (NOT from any instruction
-file — the pointer lives only in the sidecar).
+file - the pointer lives only in the sidecar).
 
 **If `state.json` is missing or the pointer is missing/empty**, the repo was never
 properly synced or the state was lost (fresh clone of a repo where state was
 gitignored, hand-edited state, or the drift hook fired as a repair signal). Do NOT
-take the No-op branch — go straight to the Targeted-delta patch for a full
+take the No-op branch - go straight to the Targeted-delta patch for a full
 re-validation of all nine sections, then reseed `state.json`.
 
 **If the repo has `AIBOARDING.md` and no `AGENTS.md`**, it is on the legacy layout:
@@ -31,14 +31,14 @@ stop and run `migrate-aiboarding` instead.
 1. **Gather the delta.** Run `git diff <last_synced_commit>..HEAD` and
    `git diff --name-only <last_synced_commit>..HEAD`. Drop paths matching
    `config.json:ignored_paths` plus the always-ignored set (`AGENTS.md`,
-   `CLAUDE.md`, `.aiboarding/*`). Reflect on the current conversation — it is the
+   `CLAUDE.md`, `.aiboarding/*`). Reflect on the current conversation - it is the
    "chat log" and is already in your context (after compaction, use the summary).
 2. **Classify scope impact** against the `AGENTS.md` sections:
-   - `Stack and Runtime` / `Build, Test, Run` — stack, tooling, or commands changed?
-   - `Architecture Map` — boundaries, directories, data flow moved?
-   - `Project Purpose` / `Domain Model` — new concepts or changed behavior?
-   - `Agent Guardrails` / `Known Failure Modes` — new gotchas or constraints?
-   - `Verification Before Completion` / `Escalation` — done-criteria or stop-and-ask
+   - `Stack and Runtime` / `Build, Test, Run` - stack, tooling, or commands changed?
+   - `Architecture Map` - boundaries, directories, data flow moved?
+   - `Project Purpose` / `Domain Model` - new concepts or changed behavior?
+   - `Agent Guardrails` / `Known Failure Modes` - new gotchas or constraints?
+   - `Verification Before Completion` / `Escalation` - done-criteria or stop-and-ask
      cases changed?
 3. **Branch:** no relevant change → No-op (below). Relevant change → Targeted-delta patch.
 
@@ -49,7 +49,7 @@ If triage finds no scope-relevant change:
 - **Hard invariant: do not touch `AGENTS.md` or `CLAUDE.md`.** Not even whitespace.
   The pointer advance is a state-only write; this is what keeps the drift hook from
   ever re-nudging on its own bookkeeping.
-- Do **not** ask the user — this advance is automatic.
+- Do **not** ask the user - this advance is automatic.
 - Briefly report: "No onboarding-relevant changes in <range>; advanced sync pointer."
 
 ## Targeted-delta patch: scope changed

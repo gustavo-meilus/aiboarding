@@ -60,7 +60,7 @@ read_frontmatter() {
 
 # Read the value of a top-level scalar key from an aiboarding JSON file into
 # REPLY. NOT a JSON parser: a line scanner that relies on the aiboarding write
-# contract — skills write state.json/config.json pretty-printed with one
+# contract - skills write state.json/config.json pretty-printed with one
 # top-level key per line ("key": value). First match wins; nested objects must
 # not reuse a hook-read key name. Strips the trailing comma and surrounding
 # quotes; unescapes \" and \\ only.
@@ -124,7 +124,7 @@ json_get_array_items() {
 }
 
 # Return 0 if <path> matches any glob in the newline-separated <globs> list.
-# Uses bash `case` matching, where * also crosses '/' — so "docs/archive/*"
+# Uses bash `case` matching, where * also crosses '/' - so "docs/archive/*"
 # matches the whole subtree.
 path_matches_any() {
   # path_matches_any <path> <globs>

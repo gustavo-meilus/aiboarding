@@ -1,10 +1,10 @@
-# Drift-hook range filter — design
+# Drift-hook range filter - design
 
 Fixes [issue #1](https://github.com/gustavo-meilus/aiboarding/issues/1): the
 `update-aiboarding` no-op pointer-advance creates a self-referential loop. The
 `last_synced_commit` pointer lives inside the tracked `AIBOARDING.md`, so every
 commit that advances it is itself a new commit that pushes HEAD past the pointer
-— the post-commit drift hook then fires again, indefinitely.
+ -  the post-commit drift hook then fires again, indefinitely.
 
 ## Root cause
 
@@ -23,7 +23,7 @@ discipline.
 
 Scope is limited to `templates/hooks/post-commit` plus regression tests. The
 `update-aiboarding` skill is unchanged: the no-op branch still advances the
-pointer and lands one marker commit — that commit is now silently absorbed
+pointer and lands one marker commit - that commit is now silently absorbed
 instead of re-nudging.
 
 ## Logic (`templates/hooks/post-commit`)
@@ -35,7 +35,7 @@ After computing `last` and `head_sha`, before emitting:
 2. **New range check:**
    `changed="$(git -C "$PROJECT_DIR" diff --name-only "$last"..HEAD 2>/dev/null)"`
    - If the git call fails (e.g. `last` sha is gone after a rebase), fall
-     through to **nudge** — the safe default, consistent with the existing
+     through to **nudge** - the safe default, consistent with the existing
      drift-on-uncertainty stance.
 3. If `changed` is non-empty and **every line equals `AIBOARDING.md`** →
    suppress (no nudge). Otherwise → nudge with the existing message.

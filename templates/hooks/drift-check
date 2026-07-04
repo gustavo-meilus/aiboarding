@@ -7,7 +7,7 @@
 # Bash call, exit silently for non-git commands).
 #
 # Drift-on-uncertainty stance: an empty pointer, a failed git call, or an
-# empty diff range all nudge — silence is reserved for provable in-sync.
+# empty diff range all nudge - silence is reserved for provable in-sync.
 set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 . "${SCRIPT_DIR}/_lib"

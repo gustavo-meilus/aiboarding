@@ -3,7 +3,7 @@
 #
 #   check-size-budget <file> [max-lines] [max-bytes] [strict-max-bytes]
 #
-# Defaults: 220 lines / 24000 bytes (warn), 32768 bytes (hard fail — the
+# Defaults: 220 lines / 24000 bytes (warn), 32768 bytes (hard fail - the
 # OpenAI Codex project_doc_max_bytes default; instruction files past it are
 # silently truncated by Codex).
 #

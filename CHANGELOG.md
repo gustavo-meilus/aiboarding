@@ -4,7 +4,7 @@
 
 aiboarding is a Claude Code plugin distributed from `gustavo-meilus/aiboarding`. Each entry below corresponds to a git tag of the same name on `main`.
 
-**Install (Claude Code) — marketplace listing published as of v0.1.3:**
+**Install (Claude Code) - marketplace listing published as of v0.1.3:**
 
 ```text
 /plugin marketplace add gustavo-meilus/aiboarding
@@ -17,21 +17,21 @@ aiboarding is a Claude Code plugin distributed from `gustavo-meilus/aiboarding`.
 /plugin install aiboarding@aiboarding --version v0.1.0
 ```
 
-## 0.5.0 — Compression Engine, Audit & Cross-CLI Distribution (2026-07-02)
+## 0.5.0 - Compression Engine, Audit & Cross-CLI Distribution (2026-07-02)
 
 Completes the modernization arc: compression becomes a first-class, verifiable engine; a read-only auditor lints the onboarding files; and the plugin's manifests and skills are polished for cross-CLI reach (the skills are standard SKILL.md, runnable under Codex and Copilot CLI too).
 
 ### Added
 
-- **`compress-onboarding` skill** — standalone compression for any instruction file: sticky levels (`off`/`lite`/`full`/`ultra`), hard byte-preservation invariants, auto-clarity exemptions (Guardrails/Escalation capped at `lite`; destructive-action instructions stay full sentences), approval-gated diff, and receipts appended to `state.json` (exact bytes/lines; token counts labeled approximate unless a real tokenizer is available — no unlabeled token claims).
-- **`check-preservation` tool** — dependency-free bash verifier that extracts protected spans (fenced blocks as single units, inline backtick spans, URLs, path tokens) from the pre-compression file and asserts byte-for-byte survival; the compression gate runs it until clean, and the test harness pins it with good/bad fixtures.
-- **`audit-agent-onboarding` skill** — read-only linter: size budget + nested-`AGENTS.md` Codex-cap chain, duplication, contradictions, stale/vague commands, missing guardrail/verification sections, skill/lint leakage, `.claude/rules/` extraction candidates, secrets and unframed destructive commands, wrapper integrity; `--stats` renders compression receipts. Findings are never auto-applied.
-- **Manifest test suite** (`tests/plugin/test-manifests.sh`) — JSON validity of every shipped manifest/template, required plugin/marketplace keys, CHANGELOG-vs-manifest version match, skill frontmatter contract (name = directory, description present, aliases marked DEPRECATED), settings wiring completeness, and template completeness for everything the create skill installs.
+- **`compress-onboarding` skill** - standalone compression for any instruction file: sticky levels (`off`/`lite`/`full`/`ultra`), hard byte-preservation invariants, auto-clarity exemptions (Guardrails/Escalation capped at `lite`; destructive-action instructions stay full sentences), approval-gated diff, and receipts appended to `state.json` (exact bytes/lines; token counts labeled approximate unless a real tokenizer is available - no unlabeled token claims).
+- **`check-preservation` tool** - dependency-free bash verifier that extracts protected spans (fenced blocks as single units, inline backtick spans, URLs, path tokens) from the pre-compression file and asserts byte-for-byte survival; the compression gate runs it until clean, and the test harness pins it with good/bad fixtures.
+- **`audit-agent-onboarding` skill** - read-only linter: size budget + nested-`AGENTS.md` Codex-cap chain, duplication, contradictions, stale/vague commands, missing guardrail/verification sections, skill/lint leakage, `.claude/rules/` extraction candidates, secrets and unframed destructive commands, wrapper integrity; `--stats` renders compression receipts. Findings are never auto-applied.
+- **Manifest test suite** (`tests/plugin/test-manifests.sh`) - JSON validity of every shipped manifest/template, required plugin/marketplace keys, CHANGELOG-vs-manifest version match, skill frontmatter contract (name = directory, description present, aliases marked DEPRECATED), settings wiring completeness, and template completeness for everything the create skill installs.
 
 ### Changed
 
 - **`plugin.json`** gains the recommended distribution metadata (`displayName`, `homepage`, `repository`, `license`, `keywords`) and the repositioned description; **`marketplace.json`** drops the undocumented `$schema` URL and gains `tags`.
-- **README repositioned** — aiboarding is a lifecycle manager for standard onboarding files, not an injector: new architecture table, honest claims (no "guarantees"; the stale "no native sub-agent-spawn hook exists" line is gone), Quick Start on the new skill names (plugin-namespaced as `/aiboarding:<skill>`), and a cross-CLI install section (skills are portable SKILL.md; `.agents/skills/` is the shared install path for Codex and Copilot CLI, where hook wiring is skipped and drift triage is manual).
+- **README repositioned** - aiboarding is a lifecycle manager for standard onboarding files, not an injector: new architecture table, honest claims (no "guarantees"; the stale "no native sub-agent-spawn hook exists" line is gone), Quick Start on the new skill names (plugin-namespaced as `/aiboarding:<skill>`), and a cross-CLI install section (skills are portable SKILL.md; `.agents/skills/` is the shared install path for Codex and Copilot CLI, where hook wiring is skipped and drift triage is manual).
 - Skill frontmatter stays on the portable subset (`name`, `description`) so the skills run unmodified under other SKILL.md-compatible agents.
 
 ### Known Limitations
@@ -41,25 +41,25 @@ Completes the modernization arc: compression becomes a first-class, verifiable e
 
 ---
 
-## 0.4.0 — Hook Modernization: Native-First Delivery (2026-07-02)
+## 0.4.0 - Hook Modernization: Native-First Delivery (2026-07-02)
 
 Deletes the injection machinery that the platform made redundant and adopts the native hook surface. Delivery is now entirely native instruction loading; hooks remain only for the lifecycle behaviors native files cannot do.
 
 ### Removed
 
-- **Full-document `SessionStart` injection** — Claude Code loads `CLAUDE.md` (and its `@AGENTS.md` import) natively at session start and re-injects the project-root `CLAUDE.md` after `/compact`; hook injection was pure token duplication. `session-start` is now a fallback warner: silent when the layout is complete, names exactly the missing file or import line otherwise, nudges migration on the legacy layout — and never emits file bodies.
-- **`pre-task` (`PreToolUse[Task]`) sub-agent injection** — the workaround for the missing sub-agent-spawn hook, whose `additionalContext` delivery was never verified (runbook 1a). `SubagentStart` is native now; the workaround and its design-only `updatedInput` Mechanism B are deleted.
+- **Full-document `SessionStart` injection** - Claude Code loads `CLAUDE.md` (and its `@AGENTS.md` import) natively at session start and re-injects the project-root `CLAUDE.md` after `/compact`; hook injection was pure token duplication. `session-start` is now a fallback warner: silent when the layout is complete, names exactly the missing file or import line otherwise, nudges migration on the legacy layout - and never emits file bodies.
+- **`pre-task` (`PreToolUse[Task]`) sub-agent injection** - the workaround for the missing sub-agent-spawn hook, whose `additionalContext` delivery was never verified (runbook 1a). `SubagentStart` is native now; the workaround and its design-only `updatedInput` Mechanism B are deleted.
 
 ### Added
 
-- **`subagent-start` hook** (`SubagentStart`) — sends spawned sub-agents a short pointer at `AGENTS.md` naming the binding sections, never the document body: sub-agent context is the scarcest context, and the doc is on disk for the sub-agent to read.
-- **`instructions-loaded` hook** (`InstructionsLoaded`) — with `AIBOARDING_DEBUG=1`, appends each load event (`file_path`, `load_reason`) to untracked `.aiboarding/logs/hooks.log`; inert otherwise. "Did the context actually load?" becomes a checkable log.
-- **`if`-filtered drift wiring** — the `PostToolUse` entry now carries `"if": "Bash(git *)"`, so the drift process only spawns after git commands (closing the v0.1.0 matcher-breadth limitation). `drift-check`'s stdin self-gate keeps behavior correct on runtimes that ignore `if`.
+- **`subagent-start` hook** (`SubagentStart`) - sends spawned sub-agents a short pointer at `AGENTS.md` naming the binding sections, never the document body: sub-agent context is the scarcest context, and the doc is on disk for the sub-agent to read.
+- **`instructions-loaded` hook** (`InstructionsLoaded`) - with `AIBOARDING_DEBUG=1`, appends each load event (`file_path`, `load_reason`) to untracked `.aiboarding/logs/hooks.log`; inert otherwise. "Did the context actually load?" becomes a checkable log.
+- **`if`-filtered drift wiring** - the `PostToolUse` entry now carries `"if": "Bash(git *)"`, so the drift process only spawns after git commands (closing the v0.1.0 matcher-breadth limitation). `drift-check`'s stdin self-gate keeps behavior correct on runtimes that ignore `if`.
 
 ### Changed
 
 - `templates/settings/hooks.json` final shape: four events, `timeout` values in seconds (10/10/15/5), `SessionStart` matcher gains `resume`, redundant `"async": false` removed.
-- **Verification runbook rewritten** — 1a retired (hook deleted), 1e superseded (deterministic halves automated in `tests/hooks/test-drift-check.sh`); new protocol 3a (native import expansion, `/compact` survival, `SubagentStart` delivery, `if`-filter narrowing, `InstructionsLoaded` diagnostics — each with a degraded-OK path) and 4a (skill reasoning branches incl. migration).
+- **Verification runbook rewritten** - 1a retired (hook deleted), 1e superseded (deterministic halves automated in `tests/hooks/test-drift-check.sh`); new protocol 3a (native import expansion, `/compact` survival, `SubagentStart` delivery, `if`-filter narrowing, `InstructionsLoaded` diagnostics - each with a degraded-OK path) and 4a (skill reasoning branches incl. migration).
 
 ### Known Limitations
 
@@ -68,23 +68,23 @@ Deletes the injection machinery that the platform made redundant and adopts the 
 
 ---
 
-## 0.3.0 — Canonical-File Pivot: AGENTS.md + CLAUDE.md (2026-07-02)
+## 0.3.0 - Canonical-File Pivot: AGENTS.md + CLAUDE.md (2026-07-02)
 
-The strategic pivot: aiboarding stops generating a custom `AIBOARDING.md` and becomes a lifecycle manager for the standard onboarding files — a cross-agent `AGENTS.md` (read natively by Codex, Copilot, Cursor) plus a thin `CLAUDE.md` wrapper (`@AGENTS.md`) that Claude Code loads natively. Operational state moves out of the instruction files into a `.aiboarding/state.json` sidecar.
+The strategic pivot: aiboarding stops generating a custom `AIBOARDING.md` and becomes a lifecycle manager for the standard onboarding files - a cross-agent `AGENTS.md` (read natively by Codex, Copilot, Cursor) plus a thin `CLAUDE.md` wrapper (`@AGENTS.md`) that Claude Code loads natively. Operational state moves out of the instruction files into a `.aiboarding/state.json` sidecar.
 
 ### Fixed
 
-- **Issue [#1](https://github.com/gustavo-meilus/aiboarding/issues/1)'s root cause, structurally** — the sync pointer no longer lives inside a committed instruction file. Advancing `last_synced_commit` writes only `.aiboarding/state.json`, so the pointer-advance can never re-fire the drift hook against the doc itself. The v0.2.0 doc-only-range suppression survives solely in the legacy branch for unmigrated repos.
+- **Issue [#1](https://github.com/gustavo-meilus/aiboarding/issues/1)'s root cause, structurally** - the sync pointer no longer lives inside a committed instruction file. Advancing `last_synced_commit` writes only `.aiboarding/state.json`, so the pointer-advance can never re-fire the drift hook against the doc itself. The v0.2.0 doc-only-range suppression survives solely in the legacy branch for unmigrated repos.
 
 ### Added
 
-- **`create-agent-onboarding` skill** — the v0.1.1 six-phase engine (crawl + grilling + hard-gated reconciliation + compression + idempotent install), retargeted: synthesis lands in a nine-section tool-agnostic `AGENTS.md` (Project Purpose → Escalation), delivery is native loading via the `CLAUDE.md` wrapper, and a new **blocking validation gate** checks the import line, size budget, command resolution, and pointer freshness before success may be reported. Pre-flight routing protects existing files: legacy `AIBOARDING.md` → migration; existing `AGENTS.md`/`CLAUDE.md` → never overwritten.
-- **`update-agent-onboarding` skill** — triage now reads the state sidecar; the no-op branch advances the pointer **without touching any instruction file** (the hard invariant this release exists for). Targeted-delta discipline unchanged: patch only affected sections, byte-preserve the rest, approval-gate every content change.
-- **`migrate-aiboarding` skill** — one-shot v1→v2: frontmatter → `state.json`, three H1 sections mapped onto the nine-section schema (scoped grill only for the two unmapped sections), hook rewiring, archive-or-banner retirement of the legacy doc, all behind a single preview-first approval gate.
-- **`drift-check` hook** (replaces `post-commit`) — compares `state.json:last_synced_commit` to `HEAD`; range classification is config-driven (always-ignored `AGENTS.md`/`CLAUDE.md`/`.aiboarding/*` plus `config.json:ignored_paths` globs); stdin git-gate as defense in depth; legacy `AIBOARDING.md` branch preserves exact v0.2.0 behavior with a migration nudge.
-- **Deterministic tools** (`templates/tools/`, installed to `<repo>/.aiboarding/tools/`) — `inject-fenced` (idempotent `<!-- aiboarding-begin/end -->` block injection with clean removal) and `check-size-budget` (220-line/24 KiB warnings; hard fail past the 32 KiB Codex `project_doc_max_bytes` silent-truncation cap).
-- **State/config templates** — default `.aiboarding/config.json` (compression level, size budgets, drift `ignored_paths`) and the `.aiboarding/.gitignore` payload.
-- **`_lib` state readers** — `resolve_paths`, `json_get`, `json_get_array_items`, `path_matches_any`: pure-bash line scanners honoring the one-key-per-line write contract (still no `jq`/`sed`/`awk`).
+- **`create-agent-onboarding` skill** - the v0.1.1 six-phase engine (crawl + grilling + hard-gated reconciliation + compression + idempotent install), retargeted: synthesis lands in a nine-section tool-agnostic `AGENTS.md` (Project Purpose → Escalation), delivery is native loading via the `CLAUDE.md` wrapper, and a new **blocking validation gate** checks the import line, size budget, command resolution, and pointer freshness before success may be reported. Pre-flight routing protects existing files: legacy `AIBOARDING.md` → migration; existing `AGENTS.md`/`CLAUDE.md` → never overwritten.
+- **`update-agent-onboarding` skill** - triage now reads the state sidecar; the no-op branch advances the pointer **without touching any instruction file** (the hard invariant this release exists for). Targeted-delta discipline unchanged: patch only affected sections, byte-preserve the rest, approval-gate every content change.
+- **`migrate-aiboarding` skill** - one-shot v1→v2: frontmatter → `state.json`, three H1 sections mapped onto the nine-section schema (scoped grill only for the two unmapped sections), hook rewiring, archive-or-banner retirement of the legacy doc, all behind a single preview-first approval gate.
+- **`drift-check` hook** (replaces `post-commit`) - compares `state.json:last_synced_commit` to `HEAD`; range classification is config-driven (always-ignored `AGENTS.md`/`CLAUDE.md`/`.aiboarding/*` plus `config.json:ignored_paths` globs); stdin git-gate as defense in depth; legacy `AIBOARDING.md` branch preserves exact v0.2.0 behavior with a migration nudge.
+- **Deterministic tools** (`templates/tools/`, installed to `<repo>/.aiboarding/tools/`) - `inject-fenced` (idempotent `<!-- aiboarding-begin/end -->` block injection with clean removal) and `check-size-budget` (220-line/24 KiB warnings; hard fail past the 32 KiB Codex `project_doc_max_bytes` silent-truncation cap).
+- **State/config templates** - default `.aiboarding/config.json` (compression level, size budgets, drift `ignored_paths`) and the `.aiboarding/.gitignore` payload.
+- **`_lib` state readers** - `resolve_paths`, `json_get`, `json_get_array_items`, `path_matches_any`: pure-bash line scanners honoring the one-key-per-line write contract (still no `jq`/`sed`/`awk`).
 
 ### Changed
 
@@ -94,17 +94,17 @@ The strategic pivot: aiboarding stops generating a custom `AIBOARDING.md` and be
 ### Known Limitations
 
 - One state-only pointer-advance commit per cycle still lands (state is committed for a team-shared pointer); the drift hook classifies it as non-drift via the always-ignored path set.
-- The new skills' reasoning branches (routing, migration mapping, validation gate) are agent-reasoning behaviors verified by review, not yet against a live runtime — consistent with prior releases.
+- The new skills' reasoning branches (routing, migration mapping, validation gate) are agent-reasoning behaviors verified by review, not yet against a live runtime - consistent with prior releases.
 
 ---
 
-## 0.2.0 — Drift-Hook Loop Fix (2026-06-09)
+## 0.2.0 - Drift-Hook Loop Fix (2026-06-09)
 
 Fixes the first production-hook behavior bug since distribution: the `update-aiboarding` no-op pointer-advance created a self-referential drift loop. No skill or distribution change.
 
 ### Fixed
 
-- **Self-referential drift loop** ([#1](https://github.com/gustavo-meilus/aiboarding/issues/1)) — because `last_synced_commit` lives inside the committed `AIBOARDING.md`, every commit that advanced the pointer pushed `HEAD` past it and re-fired the `post-commit` drift hook, generating an unbounded chain of no-op commits and nudges. The hook now inspects the range: when every commit in `last_synced_commit..HEAD` touches only `AIBOARDING.md`, the nudge is suppressed. Any non-doc path, empty diff, or git failure (e.g. a rebased-away pointer) still nudges — preserving the drift-on-uncertainty stance. Chosen over commit-message matching because it catches both the no-op pointer-advance and the content-patch commit in one rule, with no message-format dependency.
+- **Self-referential drift loop** ([#1](https://github.com/gustavo-meilus/aiboarding/issues/1)) - because `last_synced_commit` lives inside the committed `AIBOARDING.md`, every commit that advanced the pointer pushed `HEAD` past it and re-fired the `post-commit` drift hook, generating an unbounded chain of no-op commits and nudges. The hook now inspects the range: when every commit in `last_synced_commit..HEAD` touches only `AIBOARDING.md`, the nudge is suppressed. Any non-doc path, empty diff, or git failure (e.g. a rebased-away pointer) still nudges - preserving the drift-on-uncertainty stance. Chosen over commit-message matching because it catches both the no-op pointer-advance and the content-patch commit in one rule, with no message-format dependency.
 
 ### Changed
 
@@ -116,17 +116,17 @@ Fixes the first production-hook behavior bug since distribution: the `update-aib
 
 ---
 
-## 0.1.3 — Distribution & Verification Runbook (2026-05-29)
+## 0.1.3 - Distribution & Verification Runbook (2026-05-29)
 
 Makes the plugin installable and documents how to verify the behaviors the test harness cannot reach. No production hook or skill code changed.
 
 ### Added
 
-- **Marketplace manifest** (`.claude-plugin/marketplace.json`) — a single-plugin marketplace (name `aiboarding`, `source: "./"`) so the published install commands resolve: `/plugin marketplace add gustavo-meilus/aiboarding` then `/plugin install aiboarding@aiboarding`.
-- **Verification runbook** (`docs/VERIFICATION.md`) — committed manual protocols, each with setup/steps/expected/pass-fail:
-  - **2a** — marketplace install check.
-  - **1a** — `PreToolUse[Task]` injection canary protocol, plus a design-only `additionalContext` → `updatedInput` decision tree for the contingent fix if injection fails.
-  - **1e** — the four `update-aiboarding` reasoning-branch cases (no-op, targeted-delta, hook-loop sanity, empty-pointer guard).
+- **Marketplace manifest** (`.claude-plugin/marketplace.json`) - a single-plugin marketplace (name `aiboarding`, `source: "./"`) so the published install commands resolve: `/plugin marketplace add gustavo-meilus/aiboarding` then `/plugin install aiboarding@aiboarding`.
+- **Verification runbook** (`docs/VERIFICATION.md`) - committed manual protocols, each with setup/steps/expected/pass-fail:
+  - **2a** - marketplace install check.
+  - **1a** - `PreToolUse[Task]` injection canary protocol, plus a design-only `additionalContext` → `updatedInput` decision tree for the contingent fix if injection fails.
+  - **1e** - the four `update-aiboarding` reasoning-branch cases (no-op, targeted-delta, hook-loop sanity, empty-pointer guard).
 
 ### Changed
 
@@ -135,20 +135,20 @@ Makes the plugin installable and documents how to verify the behaviors the test 
 
 ### Known Limitations
 
-- The runbook protocols are **manual and not yet run** against a live Claude Code install; the hook-injection (1a) and `update-aiboarding` skill-reasoning (1e) behaviors remain unverified. The `updatedInput` fallback (Mechanism B) is **design-only** — no code unless the 1a protocol fails.
+- The runbook protocols are **manual and not yet run** against a live Claude Code install; the hook-injection (1a) and `update-aiboarding` skill-reasoning (1e) behaviors remain unverified. The `updatedInput` fallback (Mechanism B) is **design-only** - no code unless the 1a protocol fails.
 
 ---
 
-## 0.1.2 — update-aiboarding Skill (2026-05-29)
+## 0.1.2 - update-aiboarding Skill (2026-05-29)
 
-Completes the create → sync → update lifecycle: the `update-aiboarding` skill — the reasoning half that the `post-commit` drift hook nudges toward — now exists.
+Completes the create → sync → update lifecycle: the `update-aiboarding` skill - the reasoning half that the `post-commit` drift hook nudges toward - now exists.
 
 ### Added
 
-- **`update-aiboarding` skill** (`skills/update-aiboarding/SKILL.md`) — a prose triage skill:
-  - **Triage** — reads `last_synced_commit` from the `AIBOARDING.md` frontmatter, runs `git diff <last_synced_commit>..HEAD`, reflects on the conversation, and classifies scope impact across the three H1 sections. A missing/empty pointer is guarded: it routes to a full re-validation rather than silently no-op'ing (an empty `git diff ..HEAD` resolves to `HEAD..HEAD` and shows no delta).
-  - **No-op branch** — when nothing in scope changed, advances `last_synced_commit` to `HEAD` automatically (no approval, no body rewrite) so the drift hook stops re-nudging.
-  - **Targeted-delta patch** — when scope drifted, reuses `create-aiboarding`'s Phases 1–3 (scoped grill) and the `caveman` compression pass, re-drafting only the affected sections (untouched sections left byte-for-byte intact), advancing the pointer, and gating every content change on user approval.
+- **`update-aiboarding` skill** (`skills/update-aiboarding/SKILL.md`) - a prose triage skill:
+  - **Triage** - reads `last_synced_commit` from the `AIBOARDING.md` frontmatter, runs `git diff <last_synced_commit>..HEAD`, reflects on the conversation, and classifies scope impact across the three H1 sections. A missing/empty pointer is guarded: it routes to a full re-validation rather than silently no-op'ing (an empty `git diff ..HEAD` resolves to `HEAD..HEAD` and shows no delta).
+  - **No-op branch** - when nothing in scope changed, advances `last_synced_commit` to `HEAD` automatically (no approval, no body rewrite) so the drift hook stops re-nudging.
+  - **Targeted-delta patch** - when scope drifted, reuses `create-aiboarding`'s Phases 1–3 (scoped grill) and the `caveman` compression pass, re-drafting only the affected sections (untouched sections left byte-for-byte intact), advancing the pointer, and gating every content change on user approval.
 
 ### Changed
 
@@ -161,19 +161,19 @@ Completes the create → sync → update lifecycle: the `update-aiboarding` skil
 
 ---
 
-## 0.1.1 — create-aiboarding Skill (2026-05-29)
+## 0.1.1 - create-aiboarding Skill (2026-05-29)
 
 Adds the generation half of the lifecycle: the `create-aiboarding` skill that authors `AIBOARDING.md` and installs the v0.1.0 hook templates into a target repo.
 
 ### Added
 
-- **`create-aiboarding` skill** (`skills/create-aiboarding/SKILL.md`) — a six-phase prose skill:
-  - **Phase 1** — parallel-style discovery: a background crawl of dependency manifests, structure, and docs (Track A) alongside a relentless, one-question-at-a-time grilling interrogation (Track B).
-  - **Phase 2** — steers the interrogation toward architectural constraints and AI-specific failure modes, with an explicit completion criterion.
-  - **Phase 3** — a **hard gate** (both tracks must finish first) followed by reconciliation grilling on discrepancies between the crawl and the user's answers.
-  - **Phase 4** — synthesis into the umbrella document schema (frontmatter + three H1 sections), with `last_synced_commit` set to `HEAD`.
-  - **Phase 5** — `caveman`-skill compression, preserving structure/code/frontmatter, gated on user approval before writing.
-  - **Phase 6** — agent-driven, idempotent install: copies the five hook templates into `<repo>/.aiboarding/hooks/` and merges `templates/settings/hooks.json` into `<repo>/.claude/settings.json`.
+- **`create-aiboarding` skill** (`skills/create-aiboarding/SKILL.md`) - a six-phase prose skill:
+  - **Phase 1** - parallel-style discovery: a background crawl of dependency manifests, structure, and docs (Track A) alongside a relentless, one-question-at-a-time grilling interrogation (Track B).
+  - **Phase 2** - steers the interrogation toward architectural constraints and AI-specific failure modes, with an explicit completion criterion.
+  - **Phase 3** - a **hard gate** (both tracks must finish first) followed by reconciliation grilling on discrepancies between the crawl and the user's answers.
+  - **Phase 4** - synthesis into the umbrella document schema (frontmatter + three H1 sections), with `last_synced_commit` set to `HEAD`.
+  - **Phase 5** - `caveman`-skill compression, preserving structure/code/frontmatter, gated on user approval before writing.
+  - **Phase 6** - agent-driven, idempotent install: copies the five hook templates into `<repo>/.aiboarding/hooks/` and merges `templates/settings/hooks.json` into `<repo>/.claude/settings.json`.
 
 ### Changed
 
@@ -183,26 +183,26 @@ Adds the generation half of the lifecycle: the `create-aiboarding` skill that au
 ### Known Limitations
 
 - **`update-aiboarding` not yet implemented.** The `post-commit` hook nudges to run it, but the drift-triage skill itself is still planned. Running `create-aiboarding` produces a working create + sync flow; the automated update flow is not yet available.
-- **Skill runtime caveats unchanged from v0.1.0** — PreToolUse `additionalContext` delivery to sub-agents is unverified; the `PostToolUse` matcher remains `Bash` (self-gated). Phase 6's `${CLAUDE_PLUGIN_ROOT}` / skill-relative template-path resolution is not yet exercised against a live install.
+- **Skill runtime caveats unchanged from v0.1.0** - PreToolUse `additionalContext` delivery to sub-agents is unverified; the `PostToolUse` matcher remains `Bash` (self-gated). Phase 6's `${CLAUDE_PLUGIN_ROOT}` / skill-relative template-path resolution is not yet exercised against a live install.
 
 ---
 
-## 0.1.0 — Foundation: Plugin Scaffold & Hook Templates (2026-05-29)
+## 0.1.0 - Foundation: Plugin Scaffold & Hook Templates (2026-05-29)
 
 First public release. Ships the plugin scaffold and the cross-platform `sync`/`update` hook templates with a full test harness. The generation and update skills are designed (see `docs/superpowers/`) but not yet implemented.
 
 ### Added
 
-- **Plugin manifest** — `.claude-plugin/plugin.json` (`aiboarding` namespace, `v0.1.0`).
-- **Shared hook library** — `templates/hooks/_lib`: pure-bash JSON escaping (no `jq`/`sed`/`awk`), project/document path resolution, frontmatter reader (scoped to the `---` block), and the Claude Code `hookSpecificOutput` emitter.
-- **`session-start` hook** — `SessionStart` (`startup|clear|compact`) injection of `AIBOARDING.md` as agent context; missing-document fallback prompts the user to run `create-aiboarding`.
-- **`pre-task` hook** — `PreToolUse[Task]` injection of the document into spawned sub-agents (workaround for the absence of a native sub-agent-spawn hook).
-- **`post-commit` hook** — `PostToolUse[Bash]` drift nudge comparing the frontmatter `last_synced_commit` to git `HEAD`; silent when no document, no `HEAD`, or in-sync.
-- **`run-hook.cmd`** — cross-platform polyglot wrapper (valid CMD and bash); locates Git Bash on Windows, runs directly on POSIX, and degrades silently when no bash is available.
-- **Settings snippet** — `templates/settings/hooks.json`, the `.claude/settings.json` block wiring all three hooks via `run-hook.cmd`.
-- **Test harness** — dependency-free bash harness (`tests/run.sh`, `tests/lib/assert.sh`) with five suites covering the shared library and every hook, plus `with-doc`/`no-doc` fixtures.
-- **`.gitattributes`** — pins LF line endings for all extensionless hook scripts and the polyglot wrapper (CRLF breaks Git Bash shebangs and string comparisons on Windows).
-- **Design artifacts** — architecture umbrella, `create`/`sync`/`update` specs, and three implementation plans under `docs/superpowers/`.
+- **Plugin manifest** - `.claude-plugin/plugin.json` (`aiboarding` namespace, `v0.1.0`).
+- **Shared hook library** - `templates/hooks/_lib`: pure-bash JSON escaping (no `jq`/`sed`/`awk`), project/document path resolution, frontmatter reader (scoped to the `---` block), and the Claude Code `hookSpecificOutput` emitter.
+- **`session-start` hook** - `SessionStart` (`startup|clear|compact`) injection of `AIBOARDING.md` as agent context; missing-document fallback prompts the user to run `create-aiboarding`.
+- **`pre-task` hook** - `PreToolUse[Task]` injection of the document into spawned sub-agents (workaround for the absence of a native sub-agent-spawn hook).
+- **`post-commit` hook** - `PostToolUse[Bash]` drift nudge comparing the frontmatter `last_synced_commit` to git `HEAD`; silent when no document, no `HEAD`, or in-sync.
+- **`run-hook.cmd`** - cross-platform polyglot wrapper (valid CMD and bash); locates Git Bash on Windows, runs directly on POSIX, and degrades silently when no bash is available.
+- **Settings snippet** - `templates/settings/hooks.json`, the `.claude/settings.json` block wiring all three hooks via `run-hook.cmd`.
+- **Test harness** - dependency-free bash harness (`tests/run.sh`, `tests/lib/assert.sh`) with five suites covering the shared library and every hook, plus `with-doc`/`no-doc` fixtures.
+- **`.gitattributes`** - pins LF line endings for all extensionless hook scripts and the polyglot wrapper (CRLF breaks Git Bash shebangs and string comparisons on Windows).
+- **Design artifacts** - architecture umbrella, `create`/`sync`/`update` specs, and three implementation plans under `docs/superpowers/`.
 
 ### Known Limitations
 
@@ -214,4 +214,4 @@ First public release. Ships the plugin scaffold and the cross-platform `sync`/`u
 ### Non-Goals (v0.1.0)
 
 - Generating or updating the document (owned by the planned `create`/`update` skills).
-- A marketplace listing — distribution wiring lands alongside the v0.2.0 skills.
+- A marketplace listing - distribution wiring lands alongside the v0.2.0 skills.

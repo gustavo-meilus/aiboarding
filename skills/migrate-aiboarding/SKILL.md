@@ -6,7 +6,7 @@ description: Use when a repo has a legacy AIBOARDING.md (v1 layout) and should m
 # Migrating AIBOARDING.md → AGENTS.md + CLAUDE.md
 
 One-shot migration from the v1 custom-injection layout to the standard-files
-layout. The onboarding knowledge in `AIBOARDING.md` is an investment — carry it
+layout. The onboarding knowledge in `AIBOARDING.md` is an investment - carry it
 over; never regenerate from scratch and never delete anything without approval.
 
 **Announce at start:** "Using migrate-aiboarding to move this repo to the AGENTS.md layout."
@@ -20,7 +20,7 @@ Read the `AIBOARDING.md` frontmatter (`aiboarding_version`, `generated`,
 `last_synced_commit`). These seed `.aiboarding/state.json`:
 - `aiboarding_version: 2`
 - `generated`: today's date
-- `last_synced_commit`: carried over verbatim (empty stays empty — the repair
+- `last_synced_commit`: carried over verbatim (empty stays empty - the repair
   semantics of an empty pointer are preserved).
 
 ## Step 2: Map the body
@@ -37,7 +37,7 @@ Preserve the compressed density of the source text; split it, don't rewrite it.
 Backtick-quote any command, identifier, path, or error string that isn't already.
 
 Two v2 sections have no v1 source: `Verification Before Completion` and
-`Escalation — Ask the User When`. Run a short, scoped grilling pass (the
+`Escalation - Ask the User When`. Run a short, scoped grilling pass (the
 one-question-at-a-time style from create-agent-onboarding) ONLY for these gaps.
 
 ## Step 3: Generate the wrapper and lifecycle files
@@ -50,7 +50,7 @@ Claude Code-only).
 In `<repo>/.claude/settings.json`:
 - Replace the `SessionStart` full-injection entry with the current template's entry
   (the modern `session-start` is a fallback warner, not an injector).
-- **Delete** the `PreToolUse[Task]` entry (`pre-task` is retired — `SubagentStart`
+- **Delete** the `PreToolUse[Task]` entry (`pre-task` is retired - `SubagentStart`
   is native now).
 - Replace the `PostToolUse` entry so it dispatches `drift-check` (not `post-commit`).
 - Add the `SubagentStart` and `InstructionsLoaded` entries from the template.

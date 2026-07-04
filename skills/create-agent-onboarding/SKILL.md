@@ -6,9 +6,9 @@ description: Use when a repo has no AGENTS.md and an AI coding agent needs onboa
 # Creating agent onboarding files
 
 Treat the AI as a fresh engineer. Generate a compressed, high-signal `AGENTS.md`
-at the repo root — the canonical, tool-agnostic onboarding document read natively
+at the repo root - the canonical, tool-agnostic onboarding document read natively
 by Codex, Copilot, Cursor and imported by Claude Code via a thin `CLAUDE.md`
-wrapper — then bootstrap the lifecycle that keeps it current.
+wrapper - then bootstrap the lifecycle that keeps it current.
 
 **Announce at start:** "Using create-agent-onboarding to generate this repo's onboarding files."
 
@@ -24,7 +24,7 @@ and `config.json`, and tell the user drift triage is manual (run
 ## Phase 0: Pre-flight routing
 Inspect the repo root before generating anything:
 - **`AIBOARDING.md` exists (legacy v1 layout):** stop and run `migrate-aiboarding`
-  instead — never regenerate from scratch over an existing onboarding investment.
+  instead - never regenerate from scratch over an existing onboarding investment.
 - **`AGENTS.md` already exists:** treat it as primary input. Skip greenfield
   grilling; interrogate only the gaps against the section schema below, then
   propose a restructure as an approval-gated diff. Never overwrite silently.
@@ -33,26 +33,26 @@ Inspect the repo root before generating anything:
   `.aiboarding/tools/inject-fenced` (marker-fenced, idempotent, removable).
 
 ## Shared contracts
-**`AGENTS.md` schema** — tool-agnostic, no frontmatter, no Claude-specific syntax.
+**`AGENTS.md` schema** - tool-agnostic, no frontmatter, no Claude-specific syntax.
 H2 sections in this exact order:
 1. `## Project Purpose`
 2. `## Stack and Runtime`
-3. `## Build, Test, Run` — exact commands; fast checks and full checks
-4. `## Architecture Map` — directories, boundaries, data flow, dependency direction
-5. `## Domain Model` — entities, workflows, invariants, vocabulary
-6. `## Agent Guardrails` — what agents must NOT assume/refactor/delete/rename/"simplify"
-7. `## Known Failure Modes` — mistakes previous agents made or will likely make
-8. `## Verification Before Completion` — commands agents must run before claiming done
-9. `## Escalation — Ask the User When` — stop-and-ask cases
+3. `## Build, Test, Run` - exact commands; fast checks and full checks
+4. `## Architecture Map` - directories, boundaries, data flow, dependency direction
+5. `## Domain Model` - entities, workflows, invariants, vocabulary
+6. `## Agent Guardrails` - what agents must NOT assume/refactor/delete/rename/"simplify"
+7. `## Known Failure Modes` - mistakes previous agents made or will likely make
+8. `## Verification Before Completion` - commands agents must run before claiming done
+9. `## Escalation - Ask the User When` - stop-and-ask cases
 
-Backtick-quote every command, identifier, file path, and error string — the
+Backtick-quote every command, identifier, file path, and error string - the
 compression byte-preservation checker treats backtick spans as protected.
 
-**`CLAUDE.md` wrapper** — first line `@AGENTS.md`, then an aiboarding-fenced block
+**`CLAUDE.md` wrapper** - first line `@AGENTS.md`, then an aiboarding-fenced block
 of Claude-only workflow notes. Never duplicate `AGENTS.md` content: imports expand
 into context at launch, so duplication doubles token cost for zero benefit.
 
-**`.aiboarding/state.json`** — operational state, one top-level key per line
+**`.aiboarding/state.json`** - operational state, one top-level key per line
 (hooks read it with a line scanner, not a JSON parser):
 ```json
 {
@@ -66,18 +66,18 @@ into context at launch, so duplication doubles token cost for zero benefit.
 }
 ```
 State is committed. Advancing `last_synced_commit` must never modify `AGENTS.md`
-or `CLAUDE.md` — that separation is what prevents self-referential drift loops.
+or `CLAUDE.md` - that separation is what prevents self-referential drift loops.
 
 ## Phase 1: Background crawl + initial grilling
 Run two tracks. A single agent cannot truly act in parallel: perform Track A's file
 reads first and hold the findings, then immediately open Track B and keep grilling.
 
-**Track A — automated discovery (no user input):** read dependency manifests
+**Track A - automated discovery (no user input):** read dependency manifests
 (`package.json`, `pyproject.toml`, `go.mod`, `Cargo.toml`, etc.), the directory
 structure, CI configs, and any README/docs. Extract tech stack, build/test/run
 commands, and standard engineering basics. Hold these findings for Phase 3.
 
-**Track B — grilling interrogation:** open with:
+**Track B - grilling interrogation:** open with:
 > "I'm scanning your codebase structure in the background for the tech stack. While I
 > do that: what is the core business problem this project solves?"
 Then walk the conceptual tree **one question at a time**, challenging vague answers and
@@ -95,7 +95,7 @@ constraint, one AI-specific failure mode or guardrail, one verification command,
 one escalation case.
 
 ## Phase 3: Reconciliation & gap analysis
-**HARD GATE — do not start until BOTH Track A (crawl) and Track B (grilling) are
+**HARD GATE - do not start until BOTH Track A (crawl) and Track B (grilling) are
 complete.** Cross-examine Track A findings against Track B answers. Run a short, final
 grilling pass focused only on discrepancies, e.g.:
 > "The crawl found a Postgres connection string, but you didn't mention a database. How
@@ -116,7 +116,7 @@ compressed document to the user for approval before writing it to the repo root.
 
 ## Phase 6: Install & bootstrap
 After the document is approved and written, install the lifecycle with your own file
-tools (no shell installer), for cross-platform safety. Every step is idempotent —
+tools (no shell installer), for cross-platform safety. Every step is idempotent  - 
 running create twice must not duplicate hooks, settings entries, or fenced blocks.
 
 1. **Locate the templates** at `<plugin-root>/templates/`, where `<plugin-root>` is
