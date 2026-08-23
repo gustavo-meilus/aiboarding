@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+false # Ruleset canary: restored after blocked merge proof
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 . "$ROOT/tests/lib/assert.sh"
 
