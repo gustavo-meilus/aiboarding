@@ -116,7 +116,7 @@ Run the test suite (requires Git Bash on Windows):
 bash tests/run.sh
 ```
 
-Maintainers: run `claude plugin validate . --strict` before a release (see the [runbook](./docs/VERIFICATION.md)).
+Maintainers: release only an exact `origin/main` SHA accepted by `bash tools/verify-release-sha <target-sha>`; run `claude plugin validate . --strict` too (see the [runbook](./docs/VERIFICATION.md)).
 
 ## Using with Codex, Copilot CLI, and other agents
 

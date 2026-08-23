@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+target="${1:?usage: verify-release-sha <commit-sha>}"
+[ "$#" -eq 1 ] || { printf 'usage: verify-release-sha <commit-sha>\n' >&2; exit 2; }
+
+for workflow in executable-verification.yml hol-plugin-scanner.yml; do
+  evidence="$(gh run list --workflow "$workflow" --branch main --commit "$target" --event push --limit 1 --json headSha,status,conclusion --jq 'if length == 1 then .[0] | [.headSha, .status, .conclusion] | @tsv else empty end')"
+  IFS=$'\t' read -r sha status conclusion <<< "$evidence"
+  if [ "$sha" != "$target" ] || [ "$status" != completed ] || [ "$conclusion" != success ]; then
+    printf 'FAIL: %s lacks successful completed push evidence for %s\n' "$workflow" "$target" >&2
+    exit 1
+  fi
+done
+
+printf 'Verified release SHA: %s\n' "$target"

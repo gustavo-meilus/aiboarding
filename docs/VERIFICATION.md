@@ -5,6 +5,10 @@ reach: the marketplace install path (2a) and the live-runtime loading/hook behav
 (3a). Each protocol is **manual** - run it against a live Claude Code install. Record
 the outcome in `CHANGELOG.md` / `RELEASE-NOTES.md` when an item is confirmed.
 
+## Release CI evidence
+
+Before tagging a release, fetch `origin/main`, set `target_sha=$(git rev-parse origin/main)`, and run `bash tools/verify-release-sha "$target_sha"`. It requires GitHub-recorded successful push runs for that exact SHA; local harness output and maintainer claims do not substitute for this gate. Release changes enter `main` through a pull request with required checks.
+
 **What the bash suite already covers** (no manual protocol needed): every hook
 script's emitted JSON and silence conditions (`tests/hooks/`), the deterministic
 tools' guarantees (`tests/tools/`), and the drift-classification matrix - including
