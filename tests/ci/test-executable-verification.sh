@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+false # CI canary: restored by next commit
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 . "$ROOT/tests/lib/assert.sh"
 
