@@ -1,0 +1,9 @@
+{
+  "contracts": {"schema_version": 1, "id": "agent-outcome-benchmark"},
+  "tasks": [{"schema_version": 1, "id": "command-discovery-v1", "category": "command-discovery", "fixture": "fixture-v1", "instruction": "Run the documented check.", "expected_outcome": "pass", "permitted_environment": "fake-runtime", "grader_id": "grader-v1"}],
+  "conditions": [{"schema_version": 1, "id": "aiboarding-off", "provenance": {"source_revision": "fixture"}}],
+  "graders": [{"schema_version": 1, "id": "grader-v1", "provenance": "computed"}],
+  "experiment": {"schema_version": 1, "id": "fixture-experiment", "frozen": true, "identity": {"model": {"requested": "fixture-model", "observed": "fixture-model@1", "limitation": null}, "runtime": {"requested": "fake-runtime", "observed": null, "limitation": "fixture does not expose an immutable runtime version"}, "harness": "tests/live/verify_runtime.py", "task": "command-discovery-v1", "fixture": "fixture-v1", "permissions": "read-only", "tools": "none", "budget": "100", "timeout": "20", "grader": "grader-v1", "condition": "aiboarding-off", "repetitions": 1, "retry": "transient-only", "aggregation": "v1"}, "fingerprint": "6dc88f6fa67c0a90628159abd970beea20d9fde6cc8227fb034af31cc24e7d20"},
+  "trials": [{"schema_version": 1, "id": "trial-1", "task_id": "command-discovery-v1", "condition_id": "aiboarding-off", "repetition": 1, "experiment_fingerprint": "6dc88f6fa67c0a90628159abd970beea20d9fde6cc8227fb034af31cc24e7d20", "evidence": [{"provenance": "computed", "id": "grader-result"}]}],
+  "aggregate": {"schema_version": 1, "id": "aggregate-1", "experiment_fingerprint": "6dc88f6fa67c0a90628159abd970beea20d9fde6cc8227fb034af31cc24e7d20"}
+}

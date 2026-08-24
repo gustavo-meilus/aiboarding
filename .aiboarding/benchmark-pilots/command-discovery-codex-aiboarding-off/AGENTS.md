@@ -1,0 +1,1 @@
+Run bash tests/run.sh.

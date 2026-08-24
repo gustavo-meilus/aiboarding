@@ -1,0 +1,36 @@
+{
+  "canary_sha256": "ebcb228b45e517266c92e9d51f7769e743326533468514f6214cb4dec5b08b35",
+  "case": "positive",
+  "command": [
+    "claude",
+    "--print",
+    "--verbose",
+    "--output-format",
+    "stream-json",
+    "--no-session-persistence",
+    "--setting-sources",
+    "project",
+    "--tools",
+    "",
+    "--",
+    "What is the onboarding token?"
+  ],
+  "ended_at": 1787593024.2105563,
+  "evidence": {
+    "case.json": "3b1c82fd91d90911c06af49d193dac88e7e009607ee5e8b28ef0b586f26eb1ca",
+    "events.json": "49da72a01eef40c2737ec7c510c2ca91cde29eca3f4e968fb088c5fb86e4ba5b",
+    "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout.jsonl": "d3bf6ecebdabfc045f0c0f0b9507073727295ed9a67c376baffcfa146473032c"
+  },
+  "exit": 1,
+  "fixture": "generated",
+  "reason": "non-zero runtime exit",
+  "runtime": "claude",
+  "runtime_version": "2.1.237 (Claude Code)",
+  "source": {
+    "commit": "9734c279af034e9be60e90bd57f35e57a90ee946",
+    "dirty": true
+  },
+  "started_at": 1787593022.093761,
+  "verdict": "fail"
+}

@@ -3,8 +3,32 @@
 > Canonical record of versioned changes, feature additions, and removals for the aiboarding project. This document tracks the build-out from the foundation release toward the full create → sync → update lifecycle.
 
 <overview>
-aiboarding onboards AI coding agents like fresh engineers: it generates and maintains standard onboarding files - a cross-agent `AGENTS.md` plus a thin `CLAUDE.md` wrapper - with drift tracking in a `.aiboarding/state.json` sidecar and surgical hooks only for what native instruction loading cannot do. The v0.1.x line built the original custom-`AIBOARDING.md` injection lifecycle (scaffold, polyglot hook templates, create/update skills, marketplace distribution, verification runbook); v0.2.0 patched the drift-hook loop (issue #1). v0.3.0 pivoted to the standard files and fixed issue #1's root cause by moving the sync pointer out of the instruction files. v0.4.0 modernized the hooks around native loading (`SubagentStart` pointer, `if`-filtered drift, `InstructionsLoaded` diagnostics). v0.5.0 ships the verifiable compression engine, the read-only auditor, and the cross-CLI distribution polish.
+aiboarding onboards AI coding agents like fresh engineers: it generates and maintains standard onboarding files - a cross-agent `AGENTS.md` plus a thin `CLAUDE.md` wrapper - with drift tracking in a `.aiboarding/state.json` sidecar and surgical hooks only for what native instruction loading cannot do. The v0.1.x line built the original custom-`AIBOARDING.md` injection lifecycle (scaffold, polyglot hook templates, create/update skills, marketplace distribution, verification runbook); v0.2.0 patched the drift-hook loop (issue #1). v0.3.0 pivoted to the standard files and fixed issue #1's root cause by moving the sync pointer out of the instruction files. v0.4.0 modernized the hooks around native loading (`SubagentStart` pointer, `if`-filtered drift, `InstructionsLoaded` diagnostics). v0.5.0 ships the verifiable compression engine, the read-only auditor, and the cross-CLI distribution polish. v0.6.0 adds executable verification evidence, native Codex lifecycle support, and a reproducible agent-outcome benchmark.
 </overview>
+
+## v0.6.0 - Executable Verification & Agent Benchmarking (2026-08-24)
+
+### Highlights
+
+v0.6.0 makes onboarding quality inspectable rather than assumed. Opt-in live-runtime verification and mutation checks retain evidence without changing the ordinary offline test contract. The new agent-outcome benchmark freezes context conditions and task fixtures, grades results objectively, and publishes traceable evidence and aggregates so unfavorable outcomes remain visible.
+
+<release_entry version="0.6.0" status="EARLY">
+
+### Added
+
+- Live-runtime verification collection, CI wiring, and retained evidence; native Codex lifecycle hooks; and portable OpenSpec workflow commands.
+- Mutation-verification tools and fixtures for critical onboarding semantics, drift classification, instruction budgets, and evidence acceptance.
+- An agent-outcome benchmark with frozen conditions, sealed tasks, deterministic grading, isolated trials, evidence packaging, and offline aggregation/reporting.
+
+### Changed
+
+- Onboarding skills, templates, documentation, and deterministic tests now make evidence and compression-policy boundaries explicit.
+
+### Known limitations
+
+- Live execution remains opt-in and runtime-dependent; unavailable measurements are reported as unavailable, not zero or inferred.
+
+</release_entry>
 
 ## v0.5.0 - Compression Engine, Audit & Cross-CLI Distribution (2026-07-02)
 
@@ -222,8 +246,8 @@ Hooks run through a polyglot `run-hook.cmd`: on Windows, CMD locates Git Bash an
 ### Roadmap
 
 - **Modernization complete (v0.3.0–v0.5.0)** - standard files, native-first hooks, compression engine, auditor, cross-CLI skills.
-- **v0.6.0 - live verification** - automate the [runbook](./docs/VERIFICATION.md) 3a/4a protocols against a headless runtime; wire into CI.
-- **v1.0.0 - evidence** - run the benchmark matrix (onboarding configurations × compression arms with an honest naive-truncation control) and publish receipt-backed numbers; formally deprecate the legacy `AIBOARDING.md` mode (still supported).
+- **v0.7.0 - broader live verification** - extend the headless runtime matrix while keeping authenticated execution explicit and evidence-backed.
+- **v1.0.0 - broader evidence** - expand the benchmark matrix beyond the maintained task corpus and formally deprecate the legacy `AIBOARDING.md` mode (still supported).
 
 ### Full changelog
 

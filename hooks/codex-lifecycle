@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+# Codex adapter: native hook JSON in, runtime-neutral decisions out.
+set -euo pipefail
+
+root="${PLUGIN_ROOT:-}"
+[ -n "$root" ] || exit 0
+input="$(cat 2>/dev/null || true)"
+
+json_field() {
+  local key="$1"
+  printf '%s' "$input" | sed -n "s/.*\\\"${key}\\\"[[:space:]]*:[[:space:]]*\\\"\\([^\\\"]*\\)\\\".*/\\1/p" | head -n 1
+}
+
+event="$(json_field hook_event_name)"
+cwd="$(json_field cwd)"
+case "$event" in SessionStart|SubagentStart|PostToolUse) ;; *) exit 0;; esac
+case "$cwd" in /*|[A-Za-z]:[\\/]* ) ;; *) exit 0;; esac
+project="$(git -C "$cwd" rev-parse --show-toplevel 2>/dev/null || true)"
+[ -n "$project" ] || exit 0
+
+emit() {
+  local context="$1" escaped
+  escaped="${context//\\/\\\\}"
+  escaped="${escaped//\"/\\\"}"
+  escaped="${escaped//$'\n'/\\n}"
+  printf '{"hookSpecificOutput":{"hookEventName":"%s","additionalContext":"%s"}}\n' "$event" "$escaped"
+}
+
+decision() {
+  bash "$root/templates/tools/lifecycle-decision" --project "$project" --event "$1"
+}
+
+route_of() { sed -n 's/.*"route":"\([^"]*\)".*/\1/p' | head -n 1; }
+context_of() { sed -n 's/.*"context":"\(.*\)"}.*/\1/p' | head -n 1; }
+
+case "$event" in
+  SessionStart|SubagentStart)
+    result="$(decision "$(printf '%s' "$event" | tr '[:upper:]' '[:lower:]' | sed 's/start$/-start/')")"
+    context="$(printf '%s' "$result" | context_of)"
+    [ -z "$context" ] || emit "$context"
+    ;;
+  PostToolUse)
+    [ "$(json_field tool_name)" = "Bash" ] || exit 0
+    command="$(json_field command)"
+    case "$command" in git|git\ *|git.exe|git.exe\ *) ;; *) exit 0;; esac
+    head="$(git -C "$project" rev-parse HEAD 2>/dev/null || true)"
+    [ -n "$head" ] || exit 0
+    last="$(sed -n 's/.*"last_synced_commit"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' "$project/.aiboarding/state.json" 2>/dev/null | head -n 1)"
+    [ "$last" = "$head" ] && exit 0
+    report="$(bash "$root/templates/tools/classify-drift" --project "$project" --base "$last" --head "$head" 2>/dev/null || true)"
+    route="$(printf '%s' "$report" | route_of)"
+    case "$route" in ''|irrelevant) exit 0;; esac
+    emit "<aiboarding-drift>Onboarding drift route: $route ($last..HEAD). Run the update-agent-onboarding skill.</aiboarding-drift>"
+    ;;
+esac

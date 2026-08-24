@@ -1,0 +1,1 @@
+{"schema_version":1,"record_id":"validation-fixture","type":"onboarding-validation","outcome":"pass","repository":{"identity":"example/repo","head":"feedface"},"details":{"subjects":["AGENTS.md"],"validators":["preservation"]}}

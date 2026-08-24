@@ -1,0 +1,1 @@
+{"id":"command-discovery","category":"command-discovery","instruction":"Use the repository's documented check.","expected_outcome":"PASS","permitted_environment":"codex","applicable_conditions":["none","aiboarding-off"],"materiality":"onboarding names the command","wrong_reason":"invalid-command","grader":"grader.py","retained_files":["outcome"]}

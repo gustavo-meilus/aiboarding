@@ -1,0 +1,145 @@
+{
+  "exit": 1,
+  "results": [
+    {
+      "canary_sha256": "ebcb228b45e517266c92e9d51f7769e743326533468514f6214cb4dec5b08b35",
+      "case": "positive",
+      "command": [
+        "claude",
+        "--print",
+        "--verbose",
+        "--output-format",
+        "stream-json",
+        "--no-session-persistence",
+        "--setting-sources",
+        "project",
+        "--tools",
+        "",
+        "--",
+        "What is the onboarding token?"
+      ],
+      "ended_at": 1787593024.2105563,
+      "evidence": {
+        "case.json": "3b1c82fd91d90911c06af49d193dac88e7e009607ee5e8b28ef0b586f26eb1ca",
+        "events.json": "49da72a01eef40c2737ec7c510c2ca91cde29eca3f4e968fb088c5fb86e4ba5b",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.jsonl": "d3bf6ecebdabfc045f0c0f0b9507073727295ed9a67c376baffcfa146473032c"
+      },
+      "exit": 1,
+      "fixture": "generated",
+      "reason": "non-zero runtime exit",
+      "runtime": "claude",
+      "runtime_version": "2.1.237 (Claude Code)",
+      "source": {
+        "commit": "9734c279af034e9be60e90bd57f35e57a90ee946",
+        "dirty": true
+      },
+      "started_at": 1787593022.093761,
+      "verdict": "fail"
+    },
+    {
+      "canary_sha256": "2aeb1c9deffc7c08b10ede32ce67b3e99b5e26d8055009c2eb93c23f44ac2233",
+      "case": "negative",
+      "command": [
+        "claude",
+        "--print",
+        "--verbose",
+        "--output-format",
+        "stream-json",
+        "--no-session-persistence",
+        "--setting-sources",
+        "project",
+        "--tools",
+        "",
+        "--",
+        "What is the onboarding token?"
+      ],
+      "ended_at": 1787593025.8643775,
+      "evidence": {
+        "case.json": "a36b815905159c73d38647c25742662ecab236689f90a5ca572cc54b88c089be",
+        "events.json": "dc4753b23ea34e79a0cfa949d4b97091ee3f7ae06a0d1a9a21991a92a41a9bfa",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.jsonl": "070e19b4af0abbc5f95fbf6d6b4cf1b0bb8c2ee75080efe32accbd95b538cb49"
+      },
+      "exit": 1,
+      "fixture": "generated",
+      "reason": "non-zero runtime exit",
+      "runtime": "claude",
+      "runtime_version": "2.1.237 (Claude Code)",
+      "source": {
+        "commit": "9734c279af034e9be60e90bd57f35e57a90ee946",
+        "dirty": true
+      },
+      "started_at": 1787593024.3611865,
+      "verdict": "fail"
+    },
+    {
+      "canary_sha256": "cdd62ad524c84088d096e6d6b4d88200b05a12c4f03b6f76f935798febd23662",
+      "case": "positive",
+      "command": [
+        "codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--sandbox",
+        "read-only",
+        "--dangerously-bypass-hook-trust",
+        "Return exactly the onboarding token. If none is loaded, return NONE. Do not use tools or explain."
+      ],
+      "ended_at": 1787593046.1824524,
+      "evidence": {
+        "case.json": "aa3fa9682dbb8cd606f088dfae2c8de779e2f289dab5ca8487974c03a0e0ae5b",
+        "events.json": "e82cc892a70960aaa853cd914e3f5a9370bcbbb89662ec69d333aa08000ed10c",
+        "stderr.txt": "c6b5053c67cc6f7dda29a58e5d2b8c97f3880785a6526eff66f2491c756abfb7",
+        "stdout.jsonl": "7fe67db9b97e75fbe6080a15782b60fca5f538f19f185931409bbf0f87ebc8f3"
+      },
+      "exit": null,
+      "fixture": "generated",
+      "reason": "timeout",
+      "runtime": "codex",
+      "runtime_version": "codex-cli 0.149.1",
+      "source": {
+        "commit": "9734c279af034e9be60e90bd57f35e57a90ee946",
+        "dirty": true
+      },
+      "started_at": 1787593026.080507,
+      "verdict": "fail"
+    },
+    {
+      "canary_sha256": "9eda20ef50d484c5b082d6b6a6796d0ef63d826a1a89da253df26e90f219028f",
+      "case": "negative",
+      "command": [
+        "codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--sandbox",
+        "read-only",
+        "--dangerously-bypass-hook-trust",
+        "Return exactly the onboarding token. If none is loaded, return NONE. Do not use tools or explain."
+      ],
+      "ended_at": 1787593056.0637424,
+      "evidence": {
+        "case.json": "44a98104dbd78d2a009aa9a5f19457b025095a1ae603cdf51fd93b5a69293146",
+        "events.json": "78e03666e5485666c665134779fee36f617ad13779df41b1a879a868dd0c3cb7",
+        "stderr.txt": "c6b5053c67cc6f7dda29a58e5d2b8c97f3880785a6526eff66f2491c756abfb7",
+        "stdout.jsonl": "8b7e86bfc3c42ac335db7c52feff1b58156faf8c18132a8ef9cc7f6aad1d288a"
+      },
+      "exit": 0,
+      "fixture": "generated",
+      "reason": "",
+      "runtime": "codex",
+      "runtime_version": "codex-cli 0.149.1",
+      "source": {
+        "commit": "9734c279af034e9be60e90bd57f35e57a90ee946",
+        "dirty": true
+      },
+      "started_at": 1787593046.3469255,
+      "verdict": "pass"
+    }
+  ],
+  "source": {
+    "commit": "9734c279af034e9be60e90bd57f35e57a90ee946",
+    "dirty": true
+  }
+}

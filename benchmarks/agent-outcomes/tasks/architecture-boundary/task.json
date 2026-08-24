@@ -1,0 +1,1 @@
+{"id":"architecture-boundary","category":"architecture-boundary","instruction":"Keep adapters from importing domain internals.","expected_outcome":"PASS","permitted_environment":"fake-runtime","applicable_conditions":["none","aiboarding-off"],"materiality":"onboarding defines the boundary","wrong_reason":"boundary-violation","grader":"grader.py"}

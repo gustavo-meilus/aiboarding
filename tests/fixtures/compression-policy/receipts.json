@@ -1,0 +1,6 @@
+[
+  {"file":"AGENTS.md","level":"full","high_consequence_regions":[{"location":"Agent Guardrails","category":"guardrails","outcome":"preserved","explicit_opt_in":false}]},
+  {"file":"AGENTS.md","level":"ultra","high_consequence_regions":[{"location":"Escalation - Ask the User When","category":"escalation","outcome":"rewritten","explicit_opt_in":true}]},
+  {"file":"AGENTS.md","level":"full","high_consequence_regions":[]},
+  {"file":"AGENTS.md","level":"full"}
+]

@@ -1,0 +1,1 @@
+{"id":"known-failure-mode","category":"known-failure-mode","instruction":"Avoid the documented failure mode.","expected_outcome":"PASS","permitted_environment":"fake-runtime","applicable_conditions":["none","aiboarding-off"],"materiality":"onboarding documents the failure mode","wrong_reason":"known-failure","grader":"grader.py"}

@@ -3,6 +3,7 @@
 # needs LF for its bash half (cmd.exe tolerates LF fine).
 *.sh text eol=lf
 templates/hooks/run-hook.cmd text eol=lf
+.aiboarding/hooks/run-hook.cmd text eol=lf
 templates/hooks/session-start text eol=lf
 templates/hooks/pre-task text eol=lf
 templates/hooks/post-commit text eol=lf
@@ -13,5 +14,8 @@ templates/hooks/instructions-loaded text eol=lf
 templates/tools/inject-fenced text eol=lf
 templates/tools/check-size-budget text eol=lf
 templates/tools/check-preservation text eol=lf
-tests/fixtures/**/*.md text eol=lf
-tests/fixtures/**/*.json text eol=lf
+templates/tools/** text eol=lf
+.aiboarding/hooks/** text eol=lf
+.aiboarding/tools/** text eol=lf
+skills/update-agent-onboarding/classify-drift text eol=lf
+tests/fixtures/** text eol=lf
