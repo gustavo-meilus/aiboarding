@@ -1,0 +1,1 @@
+{"schema_version":1,"record_id":"runtime-fixture","type":"live-runtime-verification","outcome":"degraded","repository":{"identity":"example/repo","head":"feedface"},"details":{"runtime":"codex","version":"1","protocol":"native-load","verdict":"degraded","evidence":["summary.json"]}}

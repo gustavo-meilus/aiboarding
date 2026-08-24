@@ -35,7 +35,7 @@ err="$(bash "$TOOL" "$tmp/huge.md" 2>&1 >/dev/null)"
 rc=$?
 set -e
 assert_eq "$rc" "1" "over strict cap exits 1" || exit 1
-assert_contains "$err" 'project_doc_max_bytes' "failure names the Codex cap" || exit 1
+assert_contains "$err" 'effective Codex instruction chain separately' "local failure does not claim whole-chain safety" || exit 1
 
 # 5. Missing file: usage error, exit 2.
 set +e

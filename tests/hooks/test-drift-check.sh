@@ -3,6 +3,7 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 . "$ROOT/tests/lib/assert.sh"
 HOOK="$ROOT/templates/hooks/drift-check"
+CLASSIFIER="$ROOT/skills/update-agent-onboarding/classify-drift"
 
 # Helper: fresh scratch git repo with one code commit.
 new_repo() {
@@ -10,6 +11,9 @@ new_repo() {
   git -C "$dir" init -q
   git -C "$dir" config user.email t@t.t
   git -C "$dir" config user.name t
+  mkdir -p "$dir/.aiboarding/tools"
+  cp "$CLASSIFIER" "$dir/.aiboarding/tools/classify-drift"
+  chmod +x "$dir/.aiboarding/tools/classify-drift"
   printf 'x\n' > "$dir/file.txt"
   git -C "$dir" add file.txt
   git -C "$dir" commit -q -m one
@@ -56,6 +60,16 @@ git -C "$tmp" add AGENTS.md .aiboarding/state.json
 git -C "$tmp" commit -q -m "docs: onboarding update"
 out="$(run_hook "$tmp")"
 assert_eq "$out" "" "no nudge when range touches only AGENTS.md and .aiboarding/" || exit 1
+
+# Evidence is lifecycle bookkeeping and must not re-trigger drift.
+head="$(git -C "$tmp" rev-parse HEAD)"
+write_state "$tmp" "$head"
+mkdir -p "$tmp/.aiboarding/evidence/v1"
+printf '{"schema_version":1}\n' > "$tmp/.aiboarding/evidence/v1/example.json"
+git -C "$tmp" add .aiboarding
+git -C "$tmp" commit -q -m "chore: record evidence"
+out="$(run_hook "$tmp")"
+assert_eq "$out" "" "no nudge for evidence-only range" || exit 1
 
 # 4. Config ignored_paths respected (README-only range stays silent).
 printf -- '{\n  "ignored_paths": [\n    "README.md"\n  ]\n}\n' > "$tmp/.aiboarding/config.json"

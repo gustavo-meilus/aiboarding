@@ -17,6 +17,27 @@ aiboarding is a Claude Code plugin distributed from `gustavo-meilus/aiboarding`.
 /plugin install aiboarding@aiboarding --version v0.1.0
 ```
 
+## 0.6.0 - Executable Verification & Agent Benchmarking (2026-08-24)
+
+Adds executable verification evidence and an objective, reproducible onboarding-outcome benchmark while preserving ordinary offline development workflows.
+
+### Added
+
+- **Live-runtime verification** - opt-in runtime collection and CI wiring retain inspectable evidence without adding authenticated or paid execution to the normal test suite.
+- **Onboarding mutation verification** - deterministic evidence, audit tools, and fixtures catch regressions in critical guidance, instruction budgets, and drift behavior.
+- **Agent-outcome benchmark** - frozen conditions, sealed task packs, deterministic graders, isolated trials, evidence packaging, aggregation, and published pilot/report artifacts.
+- **Codex lifecycle support** - native lifecycle hooks and portable OpenSpec workflow commands extend the maintained onboarding workflow across supported agents.
+
+### Changed
+
+- Onboarding skills, templates, and verification guidance now make evidence requirements, drift classification, and compression-policy boundaries explicit.
+
+### Known Limitations
+
+- Full benchmark execution remains opt-in and runtime-dependent; unavailable measurements are retained as unavailable rather than inferred.
+
+---
+
 ## 0.5.0 - Compression Engine, Audit & Cross-CLI Distribution (2026-07-02)
 
 Completes the modernization arc: compression becomes a first-class, verifiable engine; a read-only auditor lints the onboarding files; and the plugin's manifests and skills are polished for cross-CLI reach (the skills are standard SKILL.md, runnable under Codex and Copilot CLI too).

@@ -1,0 +1,12 @@
+verification-removal|killed|challenge|sensors=inferred|detectors=audit-review[inferred]
+guardrail-weakening|killed|challenge|sensors=inferred|detectors=audit-review[inferred]
+guardrail-reversal|killed|challenge|sensors=inferred|detectors=audit-review[inferred]
+protected-command|killed|syntax-baseline|sensors=preservation,semantic-audit|detectors=semantic-audit[inferred],preservation[computed]
+architecture-direction|killed|challenge|sensors=inferred|detectors=audit-review[inferred]
+runtime-version|killed|challenge|sensors=inferred|detectors=audit-review[inferred]
+cross-file-contradiction|killed|challenge|sensors=inferred|detectors=audit-review[inferred]
+escalation-removal|killed|challenge|sensors=inferred|detectors=audit-review[inferred]
+nested-conflict|killed|challenge|sensors=inferred|detectors=audit-review[inferred]
+instruction-chain-budget|killed|challenge|sensors=audit|detectors=audit[computed]
+corpus=1122617018-1627 applicable=10 killed=10 survivors=0 challenge=9/9 syntax-baseline=1/1
+limitation=score measures this maintained corpus, not complete onboarding correctness

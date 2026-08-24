@@ -1,0 +1,30 @@
+{
+  "experiment_fingerprint": "5f48f049c6eba836b64b30654294dadbe744011bdf0e8a34ee28561097ade9d8",
+  "trials": 4,
+  "rows": [
+    {
+      "task": "command-discovery",
+      "condition": "none",
+      "success": "pass",
+      "evidence": "2"
+    },
+    {
+      "task": "command-discovery",
+      "condition": "none",
+      "success": "pass",
+      "evidence": "1"
+    },
+    {
+      "task": "command-discovery",
+      "condition": "aiboarding-off",
+      "success": "pass",
+      "evidence": "1"
+    },
+    {
+      "task": "command-discovery",
+      "condition": "aiboarding-off",
+      "success": "pass",
+      "evidence": "2"
+    }
+  ]
+}

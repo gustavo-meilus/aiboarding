@@ -16,7 +16,7 @@ Think of it as Dependabot for AI-agent context: the onboarding files stay curren
 - Tracks drift in `.aiboarding/state.json` and nudges after relevant commits.
 - Patches only the sections affected by recent changes, never the whole file.
 - Compresses instructions while byte-preserving commands, paths, URLs, and code.
-- Audits bloat, stale commands, contradictions, secrets, and the Codex 32 KiB truncation risk.
+- Audits bloat, stale commands, contradictions, secrets, and effective Codex instruction-chain limits.
 
 ```text
 /plugin marketplace add gustavo-meilus/aiboarding
@@ -37,7 +37,7 @@ A new engineer joining a project gets onboarded: they read the docs, learn the s
 | **Update** | `update-agent-onboarding` | Triages commits since the last sync; patches only drifted sections, or silently advances the state pointer on no-ops. |
 | **Migrate** | `migrate-aiboarding` | One-shot move from the legacy `AIBOARDING.md` layout, preserving the onboarding investment. |
 | **Compress** | `compress-onboarding` | Levels `off`/`lite`/`full`/`ultra`; byte-preserves code, commands, URLs, and paths (machine-verified); writes token receipts. |
-| **Audit** | `audit-agent-onboarding` | Read-only linter: bloat, contradictions, stale commands, secrets, the Codex 32 KiB truncation cap; `--stats` shows compression receipts. |
+| **Audit** | `audit-agent-onboarding` | Read-only linter: bloat, contradictions, stale commands, secrets, local guidance budgets, and effective Codex instruction-chain limits; `--stats` shows compression receipts. |
 
 ## How AIBoarding fits Loop Engineering
 
@@ -64,18 +64,20 @@ Delivery is native: Claude Code loads `CLAUDE.md` (and its `@AGENTS.md` import) 
 | Cross-agent onboarding | `AGENTS.md` | Canonical repo guidance for all coding agents |
 | Claude loader | `CLAUDE.md` (`@AGENTS.md`) | Native load, `/compact` survival, Claude-only notes |
 | Drift state | `.aiboarding/state.json` | Sync pointer + compression receipts, outside instruction files |
-| Drift hook | `PostToolUse` + `if: Bash(git *)` | Nudge only after git-relevant activity |
+| Drift hook | Claude `PostToolUse` or optional Codex `PostToolUse[Bash]` | Nudge only after git-relevant activity |
 | Sub-agent reminder | `SubagentStart` | Short pointer at `AGENTS.md` for spawned agents (never the body) |
 | Diagnostics | `InstructionsLoaded` (`AIBOARDING_DEBUG=1`) | Prove which instruction files loaded |
 | Fallback | `SessionStart` | Warn only when a file or the import line is missing |
 
 Keeping the sync pointer in the state sidecar, never inside an instruction file, is what makes drift tracking loop-proof: advancing the pointer can't re-trigger the drift hook ([issue #1](https://github.com/gustavo-meilus/aiboarding/issues/1), fixed structurally in v0.3.0).
 
-Hooks are committed into the target repo (`.aiboarding/hooks/` + `.claude/settings.json`), so every collaborator gets them without installing the plugin. All hooks run through a single **polyglot `run-hook.cmd`**, one file valid as both Windows CMD and bash (pattern adapted from [obra/superpowers](https://github.com/obra/superpowers)). If no bash is found on Windows, hooks no-op and the create skill warns once; native loading is unaffected.
+Claude hooks are committed into the target repo (`.aiboarding/hooks/` + `.claude/settings.json`). Codex plugin installs bundle optional native hooks in `hooks/hooks.json`; inspect and trust them with `/hooks`. Both paths stay advisory: if hooks are disabled, untrusted, unavailable, or skills are copied standalone, run `update-agent-onboarding` after meaningful commits. Hooks never duplicate the `AGENTS.md` body. Claude uses polyglot `run-hook.cmd`; without Bash on Windows it no-ops and native loading remains unaffected.
 
 ## The `AGENTS.md` Document
 
-Tool-agnostic, no frontmatter, nine H2 sections, target under 200 lines / 24 KiB (hard cap 32 KiB, since Codex silently truncates past its `project_doc_max_bytes` default):
+Tool-agnostic, no frontmatter, nine H2 sections, target under 200 lines / 24 KiB.
+Those are AIBoarding recommendations; the audit separately validates each effective
+Codex instruction chain against configured `project_doc_max_bytes` (default 32 KiB).
 
 ```markdown
 ## Project Purpose            what it does and why
@@ -116,6 +118,14 @@ Run the test suite (requires Git Bash on Windows):
 bash tests/run.sh
 ```
 
+Live runtime checks are opt-in and retain sanitized case evidence outside the
+normal suite:
+
+```bash
+python3 tests/live/verify_runtime.py --live --strict --evidence-dir /tmp/aiboarding-live-evidence
+python3 tests/live/verify_marketplace.py all
+```
+
 Maintainers: release only an exact `origin/main` SHA accepted by `bash tools/verify-release-sha <target-sha>`; run `claude plugin validate . --strict` too (see the [runbook](./docs/VERIFICATION.md)).
 
 ## Using with Codex, Copilot CLI, and other agents
@@ -128,13 +138,13 @@ mkdir -p .agents/skills
 cp -r /tmp/aiboarding/skills/* .agents/skills/
 ```
 
-(Personal installs: `~/.codex/skills/` or `~/.agents/skills/`. Copilot CLI also reads `.github/skills/` and `.claude/skills/`.) On these runtimes the skills skip the Claude Code hook wiring and say so: generation, updating, compression, and auditing work everywhere; drift *nudging* is a Claude Code hook, so elsewhere you run `update-agent-onboarding` manually after meaningful commits.
+(Personal installs: `~/.codex/skills/` or `~/.agents/skills/`. Copilot CLI also reads `.github/skills/` and `.claude/skills/`.) Copied skills skip hook wiring: generation, updating, compression, and auditing work everywhere; run `update-agent-onboarding` manually after meaningful commits. Installed Codex plugins may provide optional native hooks after `/hooks` trust review.
 
 ## Repository Layout
 
 ```
 aiboarding/
-├── .claude-plugin/              # plugin + marketplace manifests
+├── .claude-plugin/ · .codex-plugin/ # Claude marketplace + Codex plugin manifests
 ├── skills/
 │   ├── create-agent-onboarding/ # 6-phase generation + install + validation gate
 │   ├── update-agent-onboarding/ # drift triage + targeted-delta patch
@@ -158,13 +168,16 @@ aiboarding/
 │   ├── VERIFICATION.md          # live-runtime runbook (2a, 3a, 4a)
 │   └── superpowers/             # design specs & implementation plans
 ├── .gitattributes               # pins LF for hook scripts
+├── hooks/                        # optional native Codex hook adapter + config
 ├── CHANGELOG.md · RELEASE-NOTES.md · LICENSE
 ```
 
 ## Roadmap
 
-- **v0.6.0 (live verification)**: automate runbook protocols 3a/4a against a headless runtime; CI integration.
+- **v0.6.0 (live verification)**: expand the isolated native-load harness to lifecycle protocols when runtime authentication and stable hook event evidence are available.
 - **v1.0.0 (evidence)**: benchmark matrix (onboarding configurations × compression levels, with an honest naive-truncation control) published with receipt tables; formal deprecation of the legacy `AIBOARDING.md` mode (still supported today via the drift hook's legacy branch and `migrate-aiboarding`).
+
+Benchmark execution is opt-in and cost-bearing: use `python3 benchmarks/agent-outcomes/pilot.py --output <evidence-dir> --timeout 60`; deterministic contracts remain in `bash tests/run.sh`.
 
 ## Contributing
 

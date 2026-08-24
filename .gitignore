@@ -1,2 +1,5 @@
 # git worktrees created for isolated implementation work
 .claude/worktrees/
+.aiboarding/live-evidence/
+graphify-out/
+__pycache__/

@@ -5,10 +5,11 @@
   "repository": "https://github.com/gustavo-meilus/aiboarding",
   "license": "MIT",
   "skills": "./skills/",
+  "hooks": "./hooks/hooks.json",
   "interface": {
     "displayName": "AIBoarding",
     "shortDescription": "Generate, maintain, compress, and audit AI-agent onboarding files.",
-    "longDescription": "AIBoarding creates and maintains standard AI-agent onboarding files for repositories. It generates AGENTS.md, keeps CLAUDE.md as a thin loader, tracks drift through sidecar state, offers compression and audit skills, and ships deterministic hook templates for Claude Code lifecycle nudges.",
+    "longDescription": "AIBoarding creates and maintains standard AI-agent onboarding files for repositories. It generates AGENTS.md, keeps CLAUDE.md as a thin loader, tracks drift through sidecar state, offers compression and audit skills, and ships optional native Codex lifecycle nudges.",
     "developerName": "Gustavo Meilus",
     "category": "Development & Workflow",
     "capabilities": [

@@ -1,0 +1,32 @@
+{
+  "canary_sha256": "f201717acda9f4feb9636a72b4ddc500718111dc1f3460fe52a6cb7f8e5ac644",
+  "case": "positive",
+  "command": [
+    "codex",
+    "exec",
+    "--json",
+    "--ephemeral",
+    "--sandbox",
+    "read-only",
+    "--dangerously-bypass-hook-trust",
+    "Return exactly the onboarding token. If none is loaded, return NONE. Do not use tools or explain."
+  ],
+  "ended_at": 1787593084.2752845,
+  "evidence": {
+    "case.json": "775cda915d5d14f974564466cb8f53a9b166c50164b7a8f536a9451eee859c6b",
+    "events.json": "b1296298fbd29964a7173ca2b2b8f968531ba8cfd71166042583b2ab4f2a8037",
+    "stderr.txt": "c6b5053c67cc6f7dda29a58e5d2b8c97f3880785a6526eff66f2491c756abfb7",
+    "stdout.jsonl": "0e2bf5cd04904a82363f159221371254465eb1aea2eb2f325de17371c0a3da3c"
+  },
+  "exit": 0,
+  "fixture": "generated",
+  "reason": "",
+  "runtime": "codex",
+  "runtime_version": "codex-cli 0.149.1",
+  "source": {
+    "commit": "9734c279af034e9be60e90bd57f35e57a90ee946",
+    "dirty": true
+  },
+  "started_at": 1787593074.2575822,
+  "verdict": "pass"
+}

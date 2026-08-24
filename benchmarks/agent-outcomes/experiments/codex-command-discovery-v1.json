@@ -1,0 +1,12 @@
+{
+  "contracts": {"schema_version": 1, "id": "agent-outcome-benchmark"},
+  "tasks": [{"schema_version": 1, "id": "command-discovery@1", "category": "command-discovery", "fixture": "command-discovery-fixture@1", "instruction": "Use the repository's documented check.", "expected_outcome": "PASS", "permitted_environment": "codex", "grader_id": "command-discovery/grader.py@1"}],
+  "conditions": [
+    {"schema_version": 1, "id": "none", "provenance": {"source_revision": "tests/fixtures/agent-outcomes/conditions/none.json"}},
+    {"schema_version": 1, "id": "aiboarding-off", "provenance": {"source_revision": "tests/fixtures/agent-outcomes/conditions/aiboarding-off.json"}}
+  ],
+  "graders": [{"schema_version": 1, "id": "command-discovery/grader.py@1", "provenance": "computed"}],
+  "experiment": {"schema_version": 1, "id": "codex-command-discovery-v1", "frozen": true, "identity": {"model": {"requested": "default", "observed": null, "limitation": "Codex CLI does not expose an immutable provider model revision"}, "runtime": {"requested": "codex", "observed": "codex-cli 0.149.1", "limitation": null}, "harness": "benchmarks/agent-outcomes/pilot.py@1", "task": "command-discovery@1", "fixture": "command-discovery-fixture@1", "permissions": "danger-full-access in disposable fixture", "tools": "Codex shell", "budget": "4 turns maximum; usage cost unavailable", "timeout": "60 seconds per turn", "grader": "command-discovery/grader.py@1", "condition": "none,aiboarding-off", "repetitions": 2, "retry": "none", "aggregation": "aggregate.py@1"}, "fingerprint": "980a3a0b1421e1830dbf70b3fc34cbf639fedc22a420d73c99f2d081f1825932"},
+  "trials": [],
+  "aggregate": {"schema_version": 1, "id": "codex-command-discovery-v1-aggregate", "experiment_fingerprint": "980a3a0b1421e1830dbf70b3fc34cbf639fedc22a420d73c99f2d081f1825932"}
+}

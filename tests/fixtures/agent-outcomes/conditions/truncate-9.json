@@ -1,0 +1,1 @@
+{"schema_version":1,"id":"truncate-9","budget":9,"source_condition":"aiboarding-full","file_mapping":{"AGENTS.md":"AGENTS.md","nested/AGENTS.md":"nested/AGENTS.md"},"files":{"AGENTS.md":"Run ","nested/AGENTS.md":"tests"},"provenance":{"boundary":"byte-prefix","inapplicable":false}}

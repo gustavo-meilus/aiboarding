@@ -1,0 +1,21 @@
+{
+  "canary_sha256": "9eda20ef50d484c5b082d6b6a6796d0ef63d826a1a89da253df26e90f219028f",
+  "case": "negative",
+  "command": [
+    "codex",
+    "exec",
+    "--json",
+    "--ephemeral",
+    "--sandbox",
+    "read-only",
+    "--dangerously-bypass-hook-trust",
+    "Return exactly the onboarding token. If none is loaded, return NONE. Do not use tools or explain."
+  ],
+  "fixture": "generated",
+  "runtime": "codex",
+  "source": {
+    "commit": "9734c279af034e9be60e90bd57f35e57a90ee946",
+    "dirty": true
+  },
+  "started_at": 1787593046.3469255
+}

@@ -1,0 +1,11 @@
+id|source|operator|applicability|harm|sensors|class|positive|mutant
+verification-removal|audit-base|verification-removal|yes|required verification removed|inferred|challenge|verification-removal/positive|verification-removal/mutant
+guardrail-weakening|audit-base|guardrail-weakening|yes|guardrail weakened|inferred|challenge|guardrail-weakening/positive|guardrail-weakening/mutant
+guardrail-reversal|audit-base|guardrail-reversal|yes|guardrail reversed|inferred|challenge|guardrail-reversal/positive|guardrail-reversal/mutant
+protected-command|compression-base|protected-command|yes|command changed|preservation,semantic-audit|syntax-baseline|protected-command/positive|protected-command/mutant
+architecture-direction|audit-base|architecture-direction|yes|dependency direction reversed|inferred|challenge|architecture-direction/positive|architecture-direction/mutant
+runtime-version|audit-base|runtime-version|yes|runtime drift|inferred|challenge|runtime-version/positive|runtime-version/mutant
+cross-file-contradiction|audit-base|cross-file-contradiction|yes|instructions conflict|inferred|challenge|cross-file-contradiction/positive|cross-file-contradiction/mutant
+escalation-removal|audit-base|escalation-removal|yes|escalation removed|inferred|challenge|escalation-removal/positive|escalation-removal/mutant
+nested-conflict|audit-base|nested-conflict|yes|nested instructions conflict|inferred|challenge|nested-conflict/positive|nested-conflict/mutant
+instruction-chain-budget|audit-base|instruction-chain-budget|yes|effective chain over cap|audit|challenge|instruction-chain-budget/positive|instruction-chain-budget/mutant

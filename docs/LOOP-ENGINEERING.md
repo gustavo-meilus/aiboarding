@@ -28,7 +28,7 @@ Every loop iteration begins with context loading. If that context is stale, bloa
 
 - **Fresh**: the drift hook nudges after relevant commits; `update-agent-onboarding` patches only the affected sections.
 - **Compact**: `compress-onboarding` reduces token cost while byte-preserving commands, paths, URLs, and code, with machine-verified receipts.
-- **Audited**: `audit-agent-onboarding` catches bloat, stale commands, contradictions, secret-like tokens, and the Codex 32 KiB truncation cap before an agent trips over them.
+- **Audited**: `audit-agent-onboarding` catches bloat, stale commands, contradictions, secret-like tokens, and effective Codex instruction-chain budget failures before an agent trips over them.
 
 ## Honest boundaries
 
@@ -36,7 +36,9 @@ Claims we make and claims we don't:
 
 - AIBoarding maintains standard agent onboarding files (`AGENTS.md`, a thin `CLAUDE.md` wrapper, a state sidecar). It does not make agents "understand any codebase perfectly"; it gives them a maintained starting context and a verification checklist.
 - AIBoarding does not replace prompting, skills, or evals. It makes the durable-context part of those systems maintainable.
-- Drift *nudging* is a Claude Code hook. On other runtimes you run the update skill manually after meaningful commits.
+- Drift nudging uses Claude repo hooks or optional native Codex plugin hooks. If
+  unavailable, disabled, untrusted, or using copied standalone skills, run the update
+  skill manually after meaningful commits.
 
 ## Companion tooling
 

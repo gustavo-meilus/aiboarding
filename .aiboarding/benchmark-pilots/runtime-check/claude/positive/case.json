@@ -1,0 +1,25 @@
+{
+  "canary_sha256": "ebcb228b45e517266c92e9d51f7769e743326533468514f6214cb4dec5b08b35",
+  "case": "positive",
+  "command": [
+    "claude",
+    "--print",
+    "--verbose",
+    "--output-format",
+    "stream-json",
+    "--no-session-persistence",
+    "--setting-sources",
+    "project",
+    "--tools",
+    "",
+    "--",
+    "What is the onboarding token?"
+  ],
+  "fixture": "generated",
+  "runtime": "claude",
+  "source": {
+    "commit": "9734c279af034e9be60e90bd57f35e57a90ee946",
+    "dirty": true
+  },
+  "started_at": 1787593022.093761
+}

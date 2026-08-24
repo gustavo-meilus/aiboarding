@@ -1,0 +1,1 @@
+{"schema_version":1,"id":"contradictory","mutation_scenario_id":"cross-file-contradiction","files":{"AGENTS.md":"Do not run tests."},"provenance":{"contradiction":"seeded mutation"}}

@@ -1,0 +1,25 @@
+[
+  {
+    "thread_id": "01a034d8-eb27-7183-a941-f89fef53dc47",
+    "type": "thread.started"
+  },
+  {
+    "item": {
+      "id": "item_0",
+      "message": "`--dangerously-bypass-hook-trust` is enabled. Enabled hooks may run without review for this invocation.",
+      "type": "error"
+    },
+    "type": "item.completed"
+  },
+  {
+    "item": {
+      "id": "item_1",
+      "message": "`--dangerously-bypass-hook-trust` is enabled. Enabled hooks may run without review for this invocation.",
+      "type": "error"
+    },
+    "type": "item.completed"
+  },
+  {
+    "type": "turn.started"
+  }
+]

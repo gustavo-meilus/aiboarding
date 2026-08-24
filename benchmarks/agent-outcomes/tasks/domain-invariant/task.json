@@ -1,0 +1,1 @@
+{"id":"domain-invariant","category":"domain-invariant","instruction":"Preserve the declared domain invariant.","expected_outcome":"PASS","permitted_environment":"fake-runtime","applicable_conditions":["none","aiboarding-off"],"materiality":"onboarding declares the invariant","wrong_reason":"invariant-violation","grader":"grader.py"}

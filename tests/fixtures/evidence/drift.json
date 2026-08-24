@@ -1,0 +1,1 @@
+{"schema_version":1,"record_id":"drift-fixture","type":"drift-classification","outcome":"pass","repository":{"identity":"example/repo","base":"deadbeef","head":"feedface"},"details":{"disposition":"irrelevant","paths":[],"sections":[]}}

@@ -7,6 +7,8 @@ ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 # --- JSON well-formedness (python3 when available; balance sanity otherwise) --
 json_files="$ROOT/.claude-plugin/plugin.json
 $ROOT/.claude-plugin/marketplace.json
+$ROOT/.codex-plugin/plugin.json
+$ROOT/hooks/hooks.json
 $ROOT/templates/settings/hooks.json
 $ROOT/templates/state/config.json
 $ROOT/tests/fixtures/modern/.aiboarding/state.json
@@ -85,9 +87,27 @@ assert_not_contains "$settings" 'post-commit' "no stale post-commit wiring" || e
 for f in run-hook.cmd _lib session-start subagent-start drift-check instructions-loaded; do
   [ -f "$ROOT/templates/hooks/$f" ] || { printf 'FAIL: missing hook template %s\n' "$f"; exit 1; }
 done
-for f in inject-fenced check-size-budget check-preservation; do
+for f in inject-fenced check-size-budget check-preservation classify-drift audit-onboarding-evidence verify-onboarding-mutations write-evidence; do
   [ -f "$ROOT/templates/tools/$f" ] || { printf 'FAIL: missing tool template %s\n' "$f"; exit 1; }
+done
+[ -f "$ROOT/skills/update-agent-onboarding/classify-drift" ] || { printf 'FAIL: missing classifier companion\n'; exit 1; }
+cmp -s "$ROOT/skills/update-agent-onboarding/classify-drift" "$ROOT/templates/tools/classify-drift" || { printf 'FAIL: classifier companion differs from install template\n'; exit 1; }
+[ -f "$ROOT/templates/tools/lifecycle-decision" ] || { printf 'FAIL: missing lifecycle decision helper\n'; exit 1; }
+for skill in create-agent-onboarding migrate-aiboarding; do
+  assert_contains "$(cat "$ROOT/skills/$skill/SKILL.md")" 'write-evidence' "$skill installs evidence writer" || exit 1
 done
 for f in config.json dot-gitignore; do
   [ -f "$ROOT/templates/state/$f" ] || { printf 'FAIL: missing state template %s\n' "$f"; exit 1; }
 done
+
+# --- Codex plugin hooks -------------------------------------------------------
+codex_manifest="$(cat "$ROOT/.codex-plugin/plugin.json")"
+assert_contains "$codex_manifest" '"hooks": "./hooks/hooks.json"' "Codex manifest points at bundled hooks" || exit 1
+hooks="$(cat "$ROOT/hooks/hooks.json")"
+for event in SessionStart SubagentStart PostToolUse; do
+  assert_contains "$hooks" "\"$event\"" "Codex hooks declare $event" || exit 1
+done
+assert_contains "$hooks" '"matcher": "^Bash$"' "Codex drift hook matches Bash" || exit 1
+assert_contains "$hooks" 'PLUGIN_ROOT/hooks/codex-lifecycle' "Unix command uses plugin root" || exit 1
+assert_contains "$hooks" 'commandWindows' "Windows command override exists" || exit 1
+[ -f "$ROOT/hooks/codex-lifecycle" ] || { printf 'FAIL: missing Codex lifecycle adapter\n'; exit 1; }

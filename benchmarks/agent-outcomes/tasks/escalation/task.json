@@ -1,0 +1,1 @@
+{"id":"escalation","category":"escalation","instruction":"Escalate only when the declared condition applies.","expected_outcome":"PASS","permitted_environment":"fake-runtime","applicable_conditions":["none","aiboarding-off"],"materiality":"onboarding defines escalation","wrong_reason":"escalation-violation","grader":"grader.py"}

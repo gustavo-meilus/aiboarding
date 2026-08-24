@@ -1,0 +1,1 @@
+{"schema_version":1,"record_id":"compression-fixture","type":"compression-verification","outcome":"pass","repository":{"identity":"example/repo","head":"feedface"},"details":{"level":"full","bytes_before":10,"bytes_after":8,"lines_before":2,"lines_after":1,"preservation":"pass","size":"pass"}}
