@@ -11,6 +11,7 @@ templates/hooks/_lib text eol=lf
 templates/hooks/subagent-start text eol=lf
 templates/hooks/drift-check text eol=lf
 templates/hooks/instructions-loaded text eol=lf
+hooks/codex-lifecycle text eol=lf
 templates/tools/inject-fenced text eol=lf
 templates/tools/check-size-budget text eol=lf
 templates/tools/check-preservation text eol=lf
