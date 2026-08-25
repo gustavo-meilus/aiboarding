@@ -83,7 +83,7 @@ EOF
   fi
 
   if [ "$nudge" -eq 1 ]; then
-    raw="$(printf '<aiboarding-drift>Commits have landed since AIBOARDING.md was last synced (%s..HEAD). This repo uses the legacy aiboarding layout - run the migrate-aiboarding skill to move to AGENTS.md + CLAUDE.md, or update-aiboarding to triage the drift.</aiboarding-drift>' "$last")"
+    raw="$(printf '<aiboarding-drift>Commits have landed since AIBOARDING.md was last synced (%s..HEAD). This repo uses the legacy aiboarding layout - run the migrate-aiboarding skill to move to AGENTS.md + CLAUDE.md.</aiboarding-drift>' "$last")"
     emit_cc_context "PostToolUse" "$raw"
   fi
 fi

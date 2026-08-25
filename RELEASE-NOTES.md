@@ -3,8 +3,36 @@
 > Canonical record of versioned changes, feature additions, and removals for the aiboarding project. This document tracks the build-out from the foundation release toward the full create → sync → update lifecycle.
 
 <overview>
-aiboarding onboards AI coding agents like fresh engineers: it generates and maintains standard onboarding files - a cross-agent `AGENTS.md` plus a thin `CLAUDE.md` wrapper - with drift tracking in a `.aiboarding/state.json` sidecar and surgical hooks only for what native instruction loading cannot do. The v0.1.x line built the original custom-`AIBOARDING.md` injection lifecycle (scaffold, polyglot hook templates, create/update skills, marketplace distribution, verification runbook); v0.2.0 patched the drift-hook loop (issue #1). v0.3.0 pivoted to the standard files and fixed issue #1's root cause by moving the sync pointer out of the instruction files. v0.4.0 modernized the hooks around native loading (`SubagentStart` pointer, `if`-filtered drift, `InstructionsLoaded` diagnostics). v0.5.0 ships the verifiable compression engine, the read-only auditor, and the cross-CLI distribution polish. v0.6.0 adds executable verification evidence, native Codex lifecycle support, and a reproducible agent-outcome benchmark.
+aiboarding onboards AI coding agents like fresh engineers: it generates and maintains standard onboarding files - a cross-agent `AGENTS.md` plus a thin `CLAUDE.md` wrapper - with drift tracking in a `.aiboarding/state.json` sidecar and surgical hooks only for what native instruction loading cannot do. The v0.1.x line built the original custom-`AIBOARDING.md` injection lifecycle (scaffold, polyglot hook templates, create/update skills, marketplace distribution, verification runbook); v0.2.0 patched the drift-hook loop (issue #1). v0.3.0 pivoted to the standard files and fixed issue #1's root cause by moving the sync pointer out of the instruction files. v0.4.0 modernized the hooks around native loading (`SubagentStart` pointer, `if`-filtered drift, `InstructionsLoaded` diagnostics). v0.5.0 ships the verifiable compression engine, the read-only auditor, and the cross-CLI distribution polish. v0.6.0 adds executable verification evidence, native Codex lifecycle support, and a reproducible agent-outcome benchmark. v1.0.0 establishes the maintained lifecycle and its public, cross-agent package surfaces.
 </overview>
+
+## v1.0.0 - Stable Onboarding Lifecycle (2026-08-25)
+
+### Highlights
+
+v1.0.0 establishes the maintained onboarding lifecycle: canonical `AGENTS.md` guidance, a thin Claude adapter, deterministic drift and evidence tooling, and aligned Claude Code and Codex package metadata. The public repository now presents the lifecycle, its proof, and its limits without turning unavailable runtime evidence into a claim.
+
+<release_entry version="1.0.0" status="STABLE">
+
+### Added
+
+- Self-contained brand assets and lifecycle demo; contributor guidance, code of conduct, issue forms, and pull-request guidance.
+
+### Changed
+
+- README and marketplace metadata focus on canonical `AGENTS.md` guidance, evidence boundaries, and supported lifecycle behavior.
+- Claude Code and Codex plugin manifests both declare version `1.0.0`.
+- Deterministic audit evidence and drift checks retain bounded results while preserving silent default hook behavior.
+
+### Removed
+
+- Deprecated `create-aiboarding` and `update-aiboarding` aliases; use `create-agent-onboarding` and `update-agent-onboarding`.
+
+### Known limitations
+
+- Live-runtime verification and benchmark execution remain opt-in and runtime-dependent; unavailable evidence is retained as unavailable rather than inferred.
+
+</release_entry>
 
 ## v0.6.0 - Executable Verification & Agent Benchmarking (2026-08-24)
 
@@ -245,9 +273,9 @@ Hooks run through a polyglot `run-hook.cmd`: on Windows, CMD locates Git Bash an
 
 ### Roadmap
 
-- **Modernization complete (v0.3.0–v0.5.0)** - standard files, native-first hooks, compression engine, auditor, cross-CLI skills.
-- **v0.7.0 - broader live verification** - extend the headless runtime matrix while keeping authenticated execution explicit and evidence-backed.
-- **v1.0.0 - broader evidence** - expand the benchmark matrix beyond the maintained task corpus and formally deprecate the legacy `AIBOARDING.md` mode (still supported).
+- **v1.0.0 lifecycle established** - canonical files, native-first hooks, compression, auditing, executable evidence, and cross-CLI package metadata.
+- **Broader live verification** - extend the headless runtime matrix while keeping authenticated execution explicit and evidence-backed.
+- **Broader evidence** - expand the benchmark matrix beyond the maintained task corpus and formally retire the legacy `AIBOARDING.md` mode when compatibility permits.
 
 ### Full changelog
 

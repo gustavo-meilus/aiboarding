@@ -1,11 +1,11 @@
 {
   "name": "aiboarding",
-  "description": "Onboard AI agents like fresh engineers: standard onboarding files (AGENTS.md + CLAUDE.md), generated, compressed, audited, and kept current.",
+  "description": "Keep canonical AGENTS.md onboarding current for AI coding agents, with drift tracking, compression, and auditing.",
   "owner": { "name": "Gustavo Meilus", "url": "https://github.com/gustavo-meilus" },
   "plugins": [
     {
       "name": "aiboarding",
-      "description": "Onboard AI agents like fresh engineers: generates and maintains standard onboarding files (AGENTS.md + CLAUDE.md) with drift tracking, compression, and auditing.",
+      "description": "Keep canonical AGENTS.md onboarding current for AI coding agents, with drift tracking, compression, and auditing.",
       "source": "./",
       "category": "productivity",
       "tags": ["onboarding", "agents-md", "documentation", "context", "drift"]

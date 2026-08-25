@@ -62,17 +62,15 @@ for skill_md in "$ROOT"/skills/*/SKILL.md; do
   fi
 done
 
-# Expected skill set: five modern skills + two deprecated aliases.
+# Expected skill set: the five supported skills.
 for s in create-agent-onboarding update-agent-onboarding migrate-aiboarding \
-         compress-onboarding audit-agent-onboarding create-aiboarding update-aiboarding; do
+         compress-onboarding audit-agent-onboarding; do
   [ -f "$ROOT/skills/$s/SKILL.md" ] || { printf 'FAIL: missing skill %s\n' "$s"; exit 1; }
 done
 
-# Aliases must self-describe as deprecated so auto-selection prefers new names.
-read_frontmatter "$ROOT/skills/create-aiboarding/SKILL.md" "description"
-assert_contains "$REPLY" "DEPRECATED" "create-aiboarding is marked deprecated" || exit 1
-read_frontmatter "$ROOT/skills/update-aiboarding/SKILL.md" "description"
-assert_contains "$REPLY" "DEPRECATED" "update-aiboarding is marked deprecated" || exit 1
+for retired in create-aiboarding update-aiboarding; do
+  [ ! -d "$ROOT/skills/$retired" ] || { printf 'FAIL: retired skill %s remains\n' "$retired"; exit 1; }
+done
 
 # --- Settings template wiring --------------------------------------------------
 settings="$(cat "$ROOT/templates/settings/hooks.json")"

@@ -17,6 +17,30 @@ aiboarding is a Claude Code plugin distributed from `gustavo-meilus/aiboarding`.
 /plugin install aiboarding@aiboarding --version v0.1.0
 ```
 
+## 1.0.0 - Stable Onboarding Lifecycle (2026-08-25)
+
+Promotes the maintained cross-agent onboarding lifecycle to 1.0 with a focused public surface, clearer package metadata, and retired deprecated aliases.
+
+### Added
+
+- **Repository identity and contribution surfaces** - self-contained brand assets, a fixture-derived lifecycle demo, contributor guidance, code of conduct, issue forms, and a pull-request template.
+
+### Changed
+
+- **Public product surface** - the README, Claude marketplace metadata, and Codex plugin metadata now describe canonical `AGENTS.md` guidance, evidence boundaries, and the supported lifecycle concisely.
+- **Package versions** - both the Claude Code and Codex plugin manifests now declare `1.0.0`.
+- **Lifecycle evidence** - the audit evidence and drift behavior preserve documented bounded results while remaining deterministic and silent by default.
+
+### Removed
+
+- Deprecated `create-aiboarding` and `update-aiboarding` skill aliases. Use `create-agent-onboarding` and `update-agent-onboarding`.
+
+### Known Limitations
+
+- Live-runtime verification and benchmark execution remain opt-in and runtime-dependent; unavailable evidence is retained as unavailable rather than inferred.
+
+---
+
 ## 0.6.0 - Executable Verification & Agent Benchmarking (2026-08-24)
 
 Adds executable verification evidence and an objective, reproducible onboarding-outcome benchmark while preserving ordinary offline development workflows.
