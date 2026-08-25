@@ -11,6 +11,9 @@ printf '# Root\n' > "$tmp/AGENTS.md"
 printf '@AGENTS.md\n<!-- aiboarding-begin:notes -->\n<!-- aiboarding-end:notes -->\n' > "$tmp/CLAUDE.md"
 bash "$TOOL" "$tmp"
 
+printf '@AGENTS.md\r\n<!-- aiboarding-begin:notes -->\r\n<!-- aiboarding-end:notes -->\r\n' > "$tmp/CLAUDE.md"
+bash "$TOOL" "$tmp"
+
 printf 'missing import\n<!-- aiboarding-begin:notes -->\n' > "$tmp/CLAUDE.md"
 set +e
 out="$(bash "$TOOL" "$tmp")"; rc=$?
@@ -37,7 +40,7 @@ assert_eq "$rc" 1 'strict and chain failures exit 1' || exit 1
 assert_contains "$out" 'FAIL|computed|codex-project-doc-budget|nested:1' 'nested chain limit detected' || exit 1
 assert_contains "$out" 'chain AGENTS.md (20000 bytes), nested/AGENTS.md (20000 bytes); total 40000 bytes > limit 32768 bytes (Codex default)' 'chain finding has ordered exact evidence' || exit 1
 
-printf '# Root\n`bash scripts/good.sh`\n`npm run good`\n`make good`\n`bash scripts/missing.sh`\n`npm run missing`\n`make missing`\n`run tests`\n' > "$tmp/AGENTS.md"
+printf '# Root\n`bash scripts/good.sh AGENTS.md`\n`scripts/good.sh AGENTS.md`\n`npm run good`\n`make good`\n`bash scripts/missing.sh`\n`npm run missing`\n`make missing`\n`run tests`\n' > "$tmp/AGENTS.md"
 printf '@AGENTS.md\n' > "$tmp/CLAUDE.md"
 mkdir -p "$tmp/scripts"; printf 'ok\n' > "$tmp/scripts/good.sh"
 printf '{"scripts":{"good":"true"}}\n' > "$tmp/package.json"
@@ -49,7 +52,19 @@ assert_eq "$rc" 1 'missing supported references exit 1' || exit 1
 assert_contains "$out" 'missing command path scripts/missing.sh' 'missing path detected' || exit 1
 assert_contains "$out" 'missing package script missing' 'missing script detected' || exit 1
 assert_contains "$out" 'missing make target missing' 'missing target detected' || exit 1
+assert_not_contains "$out" 'scripts/good.sh AGENTS.md' 'shell command arguments ignored for path check' || exit 1
 assert_not_contains "$out" 'run tests' 'ambiguous text ignored' || exit 1
+
+mkdir -p "$tmp/tests/fixtures/example"
+printf '`npm run missing`\n' > "$tmp/tests/fixtures/example/AGENTS.md"
+mkdir -p "$tmp/no-instruction/child"
+printf '# Child\n' > "$tmp/no-instruction/child/AGENTS.md"
+set +e
+out="$(bash "$TOOL" "$tmp")"; rc=$?
+set -e
+assert_eq "$rc" 1 'fixture onboarding does not add findings' || exit 1
+assert_not_contains "$out" 'tests/fixtures' 'fixture onboarding is excluded' || exit 1
+rm -rf "$tmp/tests" "$tmp/no-instruction"
 
 set +e
 bash "$TOOL" "$tmp/nope" >/dev/null 2>&1; rc=$?

@@ -84,7 +84,7 @@ check_wrapper() {
   begin_re='^[[:space:]]*<!--[[:space:]]aiboarding-begin:([^[:space:]>]+)[[:space:]]-->[[:space:]]*$'
   end_re='^[[:space:]]*<!--[[:space:]]aiboarding-end:([^[:space:]>]+)[[:space:]]-->[[:space:]]*$'
   [ -f "$file" ] || return 0
-  if ! grep -qx '@AGENTS.md' "$file"; then
+  if ! tr -d '\r' < "$file" | grep -qx '@AGENTS.md'; then
     emit FAIL wrapper-integrity 'CLAUDE.md:1' 'missing required @AGENTS.md import'
   fi
   while IFS= read -r marker; do
@@ -126,15 +126,17 @@ check_command() {
   case "$text" in
     bash\ *|sh\ *)
       target="${text#* }"
+      target="${target%% *}"
       case "$target" in
         /*|../*|*/../*|.. ) ;;
         */*) [ -e "$root/$target" ] || emit FAIL stale-command "$(relative "$file"):$line" "missing command path $target" ;;
       esac
       ;;
     ./*|[^/]*/*)
-      case "$text" in
+      target="${text%% *}"
+      case "$target" in
         ../*|*/../*) ;;
-        *) [ -e "$root/$text" ] || emit FAIL stale-command "$(relative "$file"):$line" "missing command path $text" ;;
+        *) [ -e "$root/$target" ] || emit FAIL stale-command "$(relative "$file"):$line" "missing command path $target" ;;
       esac
       ;;
     npm\ run\ *|pnpm\ run\ *|yarn\ run\ *)
@@ -173,6 +175,7 @@ selected_instruction() {
   for name in AGENTS.override.md AGENTS.md "${fallback_names[@]}"; do
     [ -n "$name" ] && [ -f "$dir/$name" ] && [ -s "$dir/$name" ] && { printf '%s\n' "$dir/$name"; return; }
   done
+  return 0
 }
 
 check_chain() {
@@ -196,12 +199,12 @@ check_chain() {
   [ "$total" -le "$runtime_limit" ] || emit FAIL codex-project-doc-budget "$(relative "$endpoint"):1" "endpoint $(relative "$endpoint"); chain $chain; total $total bytes > limit $runtime_limit bytes ($limit_source)"
 }
 
-mapfile -d '' audit_files < <(find "$root" -path "$root/.git" -prune -o -type f \( -name AGENTS.md -o -name CLAUDE.md -o -path '*/.claude/rules/*.md' \) -print0)
+mapfile -d '' audit_files < <(find "$root" \( -path "$root/.git" -o -path "$root/tests/fixtures" \) -prune -o -type f \( -name AGENTS.md -o -name CLAUDE.md -o -path '*/.claude/rules/*.md' \) -print0)
 for file in "${audit_files[@]}"; do
   check_size "$file"
   check_commands "$file"
 done
-mapfile -d '' instruction_dirs < <(find "$root" -path "$root/.git" -prune -o -type f \( -name AGENTS.override.md -o -name AGENTS.md $(for name in "${fallback_names[@]}"; do printf -- '-o -name %q ' "$name"; done) \) -size +0c -printf '%h\0' | sort -zu)
+mapfile -d '' instruction_dirs < <(find "$root" \( -path "$root/.git" -o -path "$root/tests/fixtures" \) -prune -o -type f \( -name AGENTS.override.md -o -name AGENTS.md $(for name in "${fallback_names[@]}"; do printf -- '-o -name %q ' "$name"; done) \) -size +0c -printf '%h\0' | sort -zu)
 for dir in "${instruction_dirs[@]}"; do check_chain "$dir"; done
 check_wrapper
 

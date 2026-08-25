@@ -79,9 +79,11 @@ Run `bash templates/tools/verify-onboarding-mutations tests/fixtures/mutations v
 
 **Expected:** marketplace adds without error; plugin installs; the five skills
 (`create-agent-onboarding`, `update-agent-onboarding`, `migrate-aiboarding`,
-`compress-onboarding`, `audit-agent-onboarding`) plus the two deprecated aliases
-appear in the skill list (plugin-namespaced as `/aiboarding:<name>`); the hook and
-tool templates are present in the installed plugin.
+`compress-onboarding`, `audit-agent-onboarding`) appear in the skill list
+(plugin-namespaced as `/aiboarding:<name>`); the hook and tool templates are
+present in the installed plugin. Existing callers must migrate
+`create-aiboarding` to `create-agent-onboarding` and `update-aiboarding` to
+`update-agent-onboarding`.
 
 **Pass:** all commands succeed and all skills are listed.
 **Fail:** any resolution error → re-check `name`/`source` in `marketplace.json`.
