@@ -1,7 +1,7 @@
 {
   "name": "aiboarding",
   "displayName": "AIBoarding",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Keep canonical AGENTS.md onboarding current for AI coding agents, with drift tracking, compression, and auditing.",
   "author": { "name": "Gustavo Meilus" },
   "homepage": "https://github.com/gustavo-meilus/aiboarding",

@@ -3,8 +3,27 @@
 > Canonical record of versioned changes, feature additions, and removals for the aiboarding project. This document tracks the build-out from the foundation release toward the full create → sync → update lifecycle.
 
 <overview>
-aiboarding onboards AI coding agents like fresh engineers: it generates and maintains standard onboarding files - a cross-agent `AGENTS.md` plus a thin `CLAUDE.md` wrapper - with drift tracking in a `.aiboarding/state.json` sidecar and surgical hooks only for what native instruction loading cannot do. The v0.1.x line built the original custom-`AIBOARDING.md` injection lifecycle (scaffold, polyglot hook templates, create/update skills, marketplace distribution, verification runbook); v0.2.0 patched the drift-hook loop (issue #1). v0.3.0 pivoted to the standard files and fixed issue #1's root cause by moving the sync pointer out of the instruction files. v0.4.0 modernized the hooks around native loading (`SubagentStart` pointer, `if`-filtered drift, `InstructionsLoaded` diagnostics). v0.5.0 ships the verifiable compression engine, the read-only auditor, and the cross-CLI distribution polish. v0.6.0 adds executable verification evidence, native Codex lifecycle support, and a reproducible agent-outcome benchmark. v1.0.0 establishes the maintained lifecycle and its public, cross-agent package surfaces.
+aiboarding onboards AI coding agents like fresh engineers: it generates and maintains standard onboarding files - a cross-agent `AGENTS.md` plus a thin `CLAUDE.md` wrapper - with drift tracking in a `.aiboarding/state.json` sidecar and surgical hooks only for what native instruction loading cannot do. The v0.1.x line built the original custom-`AIBOARDING.md` injection lifecycle (scaffold, polyglot hook templates, create/update skills, marketplace distribution, verification runbook); v0.2.0 patched the drift-hook loop (issue #1). v0.3.0 pivoted to the standard files and fixed issue #1's root cause by moving the sync pointer out of the instruction files. v0.4.0 modernized the hooks around native loading (`SubagentStart` pointer, `if`-filtered drift, `InstructionsLoaded` diagnostics). v0.5.0 ships the verifiable compression engine, the read-only auditor, and the cross-CLI distribution polish. v0.6.0 adds executable verification evidence, native Codex lifecycle support, and a reproducible agent-outcome benchmark. v1.0.0 establishes the maintained lifecycle and its public, cross-agent package surfaces. v1.0.1 repairs the Windows Codex hook launcher.
 </overview>
+
+## v1.0.1 - Windows Codex Hook Launcher Fix (2026-08-25)
+
+### Highlights
+
+v1.0.1 repairs the Windows-specific Codex lifecycle command so Bash receives a valid plugin-root path, preserving quiet non-Git behavior and delivering qualifying drift context through the existing adapter.
+
+<release_entry version="1.0.1" status="STABLE">
+
+### Fixed
+
+- Windows Codex lifecycle overrides use Bash-compatible `PLUGIN_ROOT` expansion and resolve the bundled `hooks/codex-lifecycle` adapter.
+- Deterministic checks prevent a PowerShell-style environment expression from returning and exercise the configured Windows launcher for silent and drift-signaling paths.
+
+### Known limitations
+
+- Live-runtime verification and benchmark execution remain opt-in and runtime-dependent; unavailable evidence is retained as unavailable rather than inferred.
+
+</release_entry>
 
 ## v1.0.0 - Stable Onboarding Lifecycle (2026-08-25)
 
@@ -274,6 +293,7 @@ Hooks run through a polyglot `run-hook.cmd`: on Windows, CMD locates Git Bash an
 ### Roadmap
 
 - **v1.0.0 lifecycle established** - canonical files, native-first hooks, compression, auditing, executable evidence, and cross-CLI package metadata.
+- **v1.0.1 Windows launcher fix** - Bash-compatible Codex hook startup with deterministic launch-path coverage.
 - **Broader live verification** - extend the headless runtime matrix while keeping authenticated execution explicit and evidence-backed.
 - **Broader evidence** - expand the benchmark matrix beyond the maintained task corpus and formally retire the legacy `AIBOARDING.md` mode when compatibility permits.
 
