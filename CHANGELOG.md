@@ -17,6 +17,16 @@ aiboarding is a Claude Code plugin distributed from `gustavo-meilus/aiboarding`.
 /plugin install aiboarding@aiboarding --version v0.1.0
 ```
 
+## 1.0.1 - Windows Codex Hook Launcher Fix (2026-08-25)
+
+Fixes the Windows Codex lifecycle launcher so Bash expands the plugin root correctly and drift events reach the bundled adapter.
+
+### Fixed
+
+- **Windows Codex lifecycle hooks** - all bundled Windows overrides now use Bash-compatible `PLUGIN_ROOT` expansion, with deterministic coverage for adapter resolution, silent non-Git events, and qualifying drift context.
+
+---
+
 ## 1.0.0 - Stable Onboarding Lifecycle (2026-08-25)
 
 Promotes the maintained cross-agent onboarding lifecycle to 1.0 with a focused public surface, clearer package metadata, and retired deprecated aliases.

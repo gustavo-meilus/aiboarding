@@ -108,4 +108,7 @@ done
 assert_contains "$hooks" '"matcher": "^Bash$"' "Codex drift hook matches Bash" || exit 1
 assert_contains "$hooks" 'PLUGIN_ROOT/hooks/codex-lifecycle' "Unix command uses plugin root" || exit 1
 assert_contains "$hooks" 'commandWindows' "Windows command override exists" || exit 1
+assert_not_contains "$hooks" '$env:PLUGIN_ROOT' "Windows Bash commands avoid PowerShell environment syntax" || exit 1
+windows_count="$(grep -Fc '"commandWindows": "bash \"$PLUGIN_ROOT/hooks/codex-lifecycle\""' "$ROOT/hooks/hooks.json")"
+assert_eq "$windows_count" "3" "every Windows lifecycle command resolves bundled adapter" || exit 1
 [ -f "$ROOT/hooks/codex-lifecycle" ] || { printf 'FAIL: missing Codex lifecycle adapter\n'; exit 1; }

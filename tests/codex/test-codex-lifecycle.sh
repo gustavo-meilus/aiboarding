@@ -4,6 +4,7 @@ ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 . "$ROOT/tests/lib/assert.sh"
 HOOK="$ROOT/hooks/codex-lifecycle"
 CLAUDE="$ROOT/templates/hooks/drift-check"
+WINDOWS_LAUNCHER="$(grep -m1 '"commandWindows"' "$ROOT/hooks/hooks.json" | sed 's/.*"commandWindows": "\(.*\)",/\1/' | sed 's/\\"/"/g')"
 
 repo() {
   local dir="$1"
@@ -19,6 +20,7 @@ repo() {
 
 payload() { printf '{"hook_event_name":"%s","cwd":"%s"%s}' "$1" "$2" "${3:-}"; }
 run() { PLUGIN_ROOT="$ROOT" bash "$HOOK"; }
+run_windows() { PLUGIN_ROOT="$ROOT" bash -c "$WINDOWS_LAUNCHER"; }
 state() { mkdir -p "$1/.aiboarding"; printf '{\n  "last_synced_commit": "%s"\n}\n' "$2" > "$1/.aiboarding/state.json"; }
 
 tmp="$(mktemp -d)"
@@ -53,6 +55,8 @@ rm "$tmp/AIBOARDING.md"
 state "$tmp" "$base"
 out="$(payload PostToolUse "$tmp" ',"tool_name":"Bash","tool_input":{"command":"echo git"}' | run)"
 assert_eq "$out" "" "non-Git Bash command is silent" || exit 1
+out="$(payload PostToolUse "$tmp" ',"tool_name":"Bash","tool_input":{"command":"echo git"}' | run_windows)"
+assert_eq "$out" "" "Windows launcher starts and keeps non-Git Bash silent" || exit 1
 out="$(payload PostToolUse "$tmp" ',"tool_name":"Bash","tool_input":{"command":"git status"}' | run)"
 assert_eq "$out" "" "in-sync is silent" || exit 1
 printf '# AGENTS\n' > "$tmp/AGENTS.md"
@@ -63,6 +67,8 @@ printf 'changed\n' >> "$tmp/file.txt"
 git -C "$tmp" add file.txt && git -C "$tmp" commit -qm code
 out="$(payload PostToolUse "$tmp" ',"tool_name":"Bash","tool_input":{"command":"git commit -m x"}' | run)"
 assert_contains "$out" 'semantic-review' "relevant range signals shared route" || exit 1
+out="$(payload PostToolUse "$tmp" ',"tool_name":"Bash","tool_input":{"command":"git commit -m x"}' | run_windows)"
+assert_contains "$out" '<aiboarding-drift>' "Windows launcher returns drift context" || exit 1
 out="$(printf '{"tool_name":"Bash","tool_input":{"command":"git commit -m x"}' | CLAUDE_PROJECT_DIR="$tmp" bash "$CLAUDE")"
 assert_contains "$out" 'semantic-review' "Claude receives same route" || exit 1
 state "$tmp" ""
