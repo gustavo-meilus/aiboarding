@@ -18,10 +18,18 @@ chmod +x "$tmp/.aiboarding/hooks/collector"
 
 # Collector is evidence-only: it records input and never emits hook context.
 payload='{"hook_event_name":"SessionStart","session_id":"case-session"}'
-out="$(printf '%s' "$payload" | AIBOARDING_COLLECTOR_FILE="$tmp/collector.jsonl" bash "$tmp/.aiboarding/hooks/collector")"
+out="$(printf '%s' "$payload" | bash "$tmp/.aiboarding/hooks/collector" "$tmp/collector.jsonl")"
 assert_eq "$out" "" "collector stays silent" || exit 1
 recorded="$(<"$tmp/collector.jsonl")"
 assert_contains "$recorded" 'case-session' "collector retains runtime input" || exit 1
+
+if [ "${OS:-}" = Windows_NT ] && command -v cmd.exe >/dev/null 2>&1; then
+  wrapper="$(cygpath -w "$ROOT/templates/hooks/run-hook.cmd")"
+  collector="$(cygpath -w "$tmp/.aiboarding/hooks/collector")"
+  windows_file="$(cygpath -w "$tmp/collector-windows.jsonl")"
+  printf '%s' "$payload" | cmd.exe /d /s /c "\"$wrapper\" \"$collector\" \"$windows_file\"" >/dev/null
+  assert_contains "$(<"$tmp/collector-windows.jsonl")" 'case-session' "Windows wrapper runs collector" || exit 1
+fi
 
 # A copied production hook remains independently attributable and silent for a valid layout.
 printf 'CANARY\n' > "$tmp/AGENTS.md"

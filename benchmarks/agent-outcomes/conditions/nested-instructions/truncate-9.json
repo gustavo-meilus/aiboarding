@@ -1,0 +1,37 @@
+{
+  "files": {
+    "AGENTS.md": {
+      "bytes": 4,
+      "content": "Run ",
+      "sha256": "1950947bd11c64edb3f2f761ce7e533d74d7348146cd41b80d989ed8495cc88c"
+    },
+    "nested/AGENTS.md": {
+      "bytes": 5,
+      "content": "tests",
+      "sha256": "59830ebc3a4184110566bf1a290d08473dfdcbd492ce498b14cd1a5e2fa2e441"
+    }
+  },
+  "id": "truncate-9",
+  "measured_tokens": {
+    "reason": "no runtime tokenizer",
+    "status": "unavailable"
+  },
+  "provenance": {
+    "boundary": "byte-prefix",
+    "inapplicable": false
+  },
+  "schema_version": 2,
+  "sha256": "6540cfddc44cffb276fccb2f0d0b3e0af3448d39c71869a031eb5e507070c05a",
+  "source": {
+    "path": "truncate-9.json",
+    "sha256": "6f6b2ba454bfdfd1e9b0aa76f7bd9d800734f32ed37af9fe7aba4e5143f68786"
+  },
+  "truncation": {
+    "budget": 9,
+    "file_mapping": {
+      "AGENTS.md": "AGENTS.md",
+      "nested/AGENTS.md": "nested/AGENTS.md"
+    },
+    "source_condition": "aiboarding-full"
+  }
+}

@@ -2,10 +2,11 @@
   "description": "Optional AIBoarding lifecycle nudges for Codex.",
   "hooks": {
     "SessionStart": [{
+      "matcher": "startup|resume",
       "hooks": [{
         "type": "command",
         "command": "bash \"$PLUGIN_ROOT/hooks/codex-lifecycle\"",
-        "commandWindows": "bash \"$PLUGIN_ROOT/hooks/codex-lifecycle\"",
+        "commandWindows": "\"%PLUGIN_ROOT%\\templates\\hooks\\run-hook.cmd\" \"%PLUGIN_ROOT%\\hooks\\codex-lifecycle\"",
         "timeout": 10,
         "additionalContextLimit": 300
       }]
@@ -14,7 +15,7 @@
       "hooks": [{
         "type": "command",
         "command": "bash \"$PLUGIN_ROOT/hooks/codex-lifecycle\"",
-        "commandWindows": "bash \"$PLUGIN_ROOT/hooks/codex-lifecycle\"",
+        "commandWindows": "\"%PLUGIN_ROOT%\\templates\\hooks\\run-hook.cmd\" \"%PLUGIN_ROOT%\\hooks\\codex-lifecycle\"",
         "timeout": 10,
         "additionalContextLimit": 300
       }]
@@ -24,7 +25,7 @@
       "hooks": [{
         "type": "command",
         "command": "bash \"$PLUGIN_ROOT/hooks/codex-lifecycle\"",
-        "commandWindows": "bash \"$PLUGIN_ROOT/hooks/codex-lifecycle\"",
+        "commandWindows": "\"%PLUGIN_ROOT%\\templates\\hooks\\run-hook.cmd\" \"%PLUGIN_ROOT%\\hooks\\codex-lifecycle\"",
         "timeout": 15,
         "additionalContextLimit": 300
       }]

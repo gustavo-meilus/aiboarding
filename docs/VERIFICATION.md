@@ -1,23 +1,80 @@
 # AIBoarding verification coverage map
 
 `bash tests/run.sh` is deterministic-only and never launches an authenticated
-runtime. Run `python3 tests/live/verify_runtime.py --live --strict` explicitly
-for the isolated native-load controls; each run writes `case.json`, raw streams,
+runtime. Run `python3 tests/live/verify_runtime.py --live --strict --runtime codex --case positive --collect-hooks` explicitly
+for the one-session Codex boundary canary; each run writes `case.json`, sanitized streams,
 `result.json`, and `summary.json` under its selected evidence directory.
 
 | Coverage | Protocol | Authoritative evidence |
 | --- | --- | --- |
-| Automated (opt-in) | Codex and Claude native onboarding positive/negative controls | `tests/live/verify_runtime.py`, `summary.json` and case-local raw streams |
+| Automated (opt-in) | One Codex native-onboarding plus `UserPromptSubmit` pre-turn boundary canary | `tests/live/verify_runtime.py`, `summary.json`, and case-local sanitized streams |
 | Automated | Hook and tool structural contracts | `bash tests/run.sh` |
-| Partial | Claude lifecycle hooks | deterministic hook tests; live hook delivery remains runtime-dependent |
+| Partial | Claude lifecycle hooks | deterministic hook tests; broader Claude delivery remains manual |
 | Manual | `/compact` survival, public marketplace propagation, skill-reasoning protocols | retained procedures below |
 
 Never call a protocol passed without a retained runtime-versioned `summary.json`.
+The maintained workflow starts only that one positive Codex session, with Luna,
+low reasoning, a disposable user layer containing only authentication and the
+test collector whose output path is passed explicitly, ignored rules, web search disabled, ephemeral JSONL output, and
+read-only sandboxing. It never retries; it uploads sanitized
+evidence for every terminal verdict. Deterministic tests remain authoritative for
+absence, subagent, drift, silence, and host-launcher lifecycle behavior. Use the
+manual protocols below when broader Codex or Claude runtime behavior is needed.
 
 ### Agent-outcome benchmark (opt-in)
 
 Run deterministic checks with `bash tests/run.sh`. Run the small live pilot with
 `python3 benchmarks/agent-outcomes/pilot.py --output benchmarks/agent-outcomes/pilots/<label> --timeout 60`; it is cost-bearing and never reportable. Inspect or regrade a retained trial with `python3 benchmarks/agent-outcomes/tasks/command-discovery/grader.py <trial>/final-tree`. Published benchmark evidence identifies its runtime, model-version limitation, source/experiment revision, and artifact inventory; it makes no universal model-quality claim.
+
+### Lean Codex canary profile
+
+The frozen canary is one `command-discovery` trial under `aiboarding-full`, with
+no retries. It uses `gpt-5.6-luna`, low reasoning effort, ignored user
+configuration, ephemeral JSONL output, and a `workspace-write` sandbox; web
+search remains disabled. It proves the Codex/onboarding/evidence/grading plumbing
+only, not comparative model behavior. Validate its declared plan and trial ceiling
+before any paid run:
+
+```bash
+python3 benchmarks/agent-outcomes/benchmark.py benchmarks/agent-outcomes/experiments/codex-maintained-outcomes-v8-canary.json --fingerprint
+python3 benchmarks/agent-outcomes/pilot.py --profile benchmarks/agent-outcomes/experiments/codex-maintained-outcomes-v8-canary.json --dry-run --output /tmp/codex-maintained-dry-run
+```
+
+Only an authenticated maintainer should run the explicit cost-bearing command.
+It has a 60-second bound and retains failures, timeouts, and incomplete trials
+without tuning or rerunning cells. Optional `codex debug prompt-input` inspection
+may help troubleshoot model-visible onboarding, but is not required evidence:
+
+```bash
+codex debug prompt-input --help
+python3 benchmarks/agent-outcomes/pilot.py --profile benchmarks/agent-outcomes/experiments/codex-maintained-outcomes-v8-canary.json --output benchmarks/agent-outcomes/results/codex-maintained-outcomes-v8-canary
+```
+
+Never place credentials, home-directory configuration, or unrelated environment
+data in that result directory. Regenerate and inspect the unpublished diagnostic
+gate without invoking Codex, then regrade retained snapshots:
+
+```bash
+python3 benchmarks/agent-outcomes/pilot.py --profile benchmarks/agent-outcomes/experiments/codex-maintained-outcomes-v8-canary.json --offline benchmarks/agent-outcomes/results/codex-maintained-outcomes-v8-canary --output benchmarks/agent-outcomes/results/codex-maintained-outcomes-v8-canary
+python3 benchmarks/agent-outcomes/tasks/command-discovery/grader.py benchmarks/agent-outcomes/results/codex-maintained-outcomes-v8-canary/command-discovery/aiboarding-full/<session>/final-tree
+```
+
+Incomplete evidence blocks comparison expansion. A complete objective pass or
+complete objective fail is a viable canary outcome; neither is comparative
+evidence, and no comparison is needed when no comparative claim is needed.
+Historical `v7` diagnostics remain unchanged and unpublished.
+
+Only after `diagnostic-gate.json` reports `"viable": true` may an authorized
+maintainer explicitly spend on the larger comparison. This is a separate command;
+the diagnostic never starts it automatically:
+
+```bash
+python3 benchmarks/agent-outcomes/pilot.py --profile benchmarks/agent-outcomes/experiments/codex-maintained-outcomes-v6.json --expand-from benchmarks/agent-outcomes/results/codex-maintained-outcomes-v8-canary/diagnostic-gate.json --output benchmarks/agent-outcomes/results/codex-maintained-outcomes-v6
+```
+
+If the diagnostic is incomplete, do not rerun cells automatically or run the
+comparison. Keep its retained files for diagnosis. The existing offline packaging
+and reporting rules remain authoritative for any later comparison.
 
 Latest local live attempt (2026-08-23): Claude Code 2.1.237 failed both
 native-load controls because its OAuth session could not refresh; Codex CLI
@@ -136,7 +193,7 @@ Set `AIBOARDING_DEBUG=1`, start a session, inspect `.aiboarding/logs/hooks.log`.
 Record Codex version, plugin revision, trust state, each command, and pass/fail
 evidence. Do not claim this protocol passed until run in a live Codex install.
 
-1. Install or enable the AIBoarding plugin, open `/hooks`, inspect the bundled
+1. Record the Codex version, host, and hook trust state. Install or enable the AIBoarding plugin, open `/hooks`, inspect the bundled
    `hooks/hooks.json`, and trust its current definition. Confirm changed hooks return
    to review rather than running automatically.
 2. In a Git scratch repo, add a unique canary to `AGENTS.md`, start Codex, and ask
@@ -149,6 +206,18 @@ evidence. Do not claim this protocol passed until run in a live Codex install.
    silent; relevant range signals `update-agent-onboarding`.
 5. Disable the hook in `/hooks` (or run untrusted). Pass: skills still work and the
    documented fallback is manual `update-agent-onboarding` after meaningful commits.
+
+Repeat the applicable host check and retain its output with the record:
+
+- **Native Windows with Git Bash:** run the exact `commandWindows` command from
+  `hooks/hooks.json` through `cmd.exe` in a Git scratch repository whose path contains
+  spaces. A JSON-escaped Windows `cwd` must produce drift context after a relevant Git
+  change; a non-Git Bash command stays silent.
+- **Native Windows without compatible Git Bash:** invoke the same command after
+  removing Git for Windows from executable discovery. It exits successfully and emits
+  no context; record manual `update-agent-onboarding` as the lifecycle fallback.
+- **WSL, Linux, or macOS:** run the Unix `command` value through Bash. It must deliver
+  the same relevant/irrelevant lifecycle decisions as the adapter fixture.
 
 Official reference: <https://learn.chatgpt.com/docs/hooks>.
 

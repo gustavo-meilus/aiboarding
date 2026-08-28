@@ -1,0 +1,24 @@
+{
+  "files": {
+    "AGENTS.md": {
+      "bytes": 17,
+      "content": "Do not run tests.",
+      "sha256": "10d3b46cc86553c39e5d90e2b716646dcdace8577ebd83dc089c97dbc75f0202"
+    }
+  },
+  "id": "contradictory",
+  "measured_tokens": {
+    "reason": "no runtime tokenizer",
+    "status": "unavailable"
+  },
+  "mutation_scenario_id": "cross-file-contradiction",
+  "provenance": {
+    "contradiction": "seeded mutation"
+  },
+  "schema_version": 2,
+  "sha256": "e3fd9cfa0f325a0481d97e34927c7dcd52539c92f3f85c78d428b5ff374d79b4",
+  "source": {
+    "path": "contradictory.json",
+    "sha256": "b3860992d541ba56627c9c2821b404c05d76ef33de9a40fff7ae3836817e5b61"
+  }
+}

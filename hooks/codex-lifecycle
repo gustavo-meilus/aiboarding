@@ -13,6 +13,7 @@ json_field() {
 
 event="$(json_field hook_event_name)"
 cwd="$(json_field cwd)"
+cwd="${cwd//\\\\/\\}"
 case "$event" in SessionStart|SubagentStart|PostToolUse) ;; *) exit 0;; esac
 case "$cwd" in /*|[A-Za-z]:[\\/]* ) ;; *) exit 0;; esac
 project="$(git -C "$cwd" rev-parse --show-toplevel 2>/dev/null || true)"

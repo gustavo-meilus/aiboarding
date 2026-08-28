@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
-# Test-only inert hook observer. A case opts in with AIBOARDING_COLLECTOR_FILE.
+# Test-only inert hook observer. A case supplies its output path as $1.
 set -euo pipefail
-[ -n "${AIBOARDING_COLLECTOR_FILE:-}" ] || exit 0
-mkdir -p "$(dirname "$AIBOARDING_COLLECTOR_FILE")"
-tee -a "$AIBOARDING_COLLECTOR_FILE" > /dev/null
-printf '\n' >> "$AIBOARDING_COLLECTOR_FILE"
+collector_file="${1:-${AIBOARDING_COLLECTOR_FILE:-}}"
+[ -n "$collector_file" ] || exit 0
+mkdir -p "$(dirname "$collector_file")"
+tee -a "$collector_file" > /dev/null
+printf '\n' >> "$collector_file"

@@ -1,0 +1,35 @@
+[
+  {
+    "thread_id": "01a04513-9efa-75d0-b6e4-2d843038ccf1",
+    "type": "thread.started"
+  },
+  {
+    "item": {
+      "id": "item_0",
+      "message": "`--dangerously-bypass-hook-trust` is enabled. Enabled hooks may run without review for this invocation.",
+      "type": "error"
+    },
+    "type": "item.completed"
+  },
+  {
+    "item": {
+      "id": "item_1",
+      "message": "`--dangerously-bypass-hook-trust` is enabled. Enabled hooks may run without review for this invocation.",
+      "type": "error"
+    },
+    "type": "item.completed"
+  },
+  {
+    "type": "turn.started"
+  },
+  {
+    "message": "You've hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.com/codex/settings/usage to purchase more credits or try again at 7:02 PM.",
+    "type": "error"
+  },
+  {
+    "error": {
+      "message": "You've hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.com/codex/settings/usage to purchase more credits or try again at 7:02 PM."
+    },
+    "type": "turn.failed"
+  }
+]

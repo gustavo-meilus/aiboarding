@@ -1,0 +1,34 @@
+{
+  "aggregate": {"experiment_fingerprint": "9ade872931ded5e5329fb47a46f7c53d62cfe81d6709b356f709a2764837022f", "id": "codex-maintained-outcomes-v8-canary-aggregate", "schema_version": 1},
+  "conditions": [{"condition_id": "aiboarding-full", "id": "command-discovery:aiboarding-full", "path": "conditions/command-discovery/aiboarding-full.json", "provenance": {"frozen": true}, "schema_version": 1, "sha256": "11deeae563dafda1555def90e95eb9270206edf92af12f5af26f1b0eeac7da22", "task_id": "command-discovery"}],
+  "contracts": {"id": "agent-outcome-benchmark", "schema_version": 1},
+  "execution": {"kind": "diagnostic", "max_live_trials": 1},
+  "experiment": {
+    "fingerprint": "9ade872931ded5e5329fb47a46f7c53d62cfe81d6709b356f709a2764837022f",
+    "frozen": true,
+    "id": "codex-maintained-outcomes-v8-canary",
+    "identity": {
+      "aggregation": "aggregate.py@2",
+      "budget": "one bounded live trial; no retries",
+      "codex": {"ephemeral": true, "ignore_user_config": true, "jsonl": true, "model": "gpt-5.6-luna", "reasoning_effort": "low", "sandbox": "workspace-write", "timeout_seconds": 60, "web_search": "disabled"},
+      "condition": "frozen aiboarding-full bundle@2",
+      "fixture": "task-fixtures@2",
+      "grader": "task-local@2",
+      "harness": "benchmarks/agent-outcomes/pilot.py@9; v8 one-cell canary",
+      "model": {"limitation": "Codex CLI does not expose an immutable provider model revision", "observed": null, "requested": "gpt-5.6-luna"},
+      "permissions": "workspace-write in disposable fixture",
+      "repetitions": 1,
+      "retry": "none",
+      "runtime": {"limitation": "recorded at execution", "observed": null, "requested": "codex"},
+      "task": "command-discovery@2",
+      "timeout": "60 seconds per trial",
+      "tools": "Codex shell; web search disabled"
+    },
+    "ordering_seed": "codex-maintained-outcomes-v8-canary",
+    "schema_version": 1
+  },
+  "graders": [{"id": "command-discovery-grader-v2", "path": "tasks/command-discovery/grader.py", "provenance": "computed", "schema_version": 1, "sha256": "d341c1d7d966fa6ba365fb64d967425a249e737ecee3b6656608d0742fde3956"}],
+  "profile_version": 3,
+  "tasks": [{"category": "command-discovery", "expected_outcome": "checked outcome", "fixture": "tasks/command-discovery/fixture", "grader_id": "command-discovery-grader-v2", "id": "command-discovery", "instruction": "tasks/command-discovery/agent-instructions.md", "nested_support_proof": false, "path": "tasks/command-discovery/task.json", "permitted_environment": "codex", "schema_version": 1, "sha256": "4769cccc14ac651522b58b090668acace1a93721ed8f02824bb04549238ce373"}],
+  "trials": [{"condition_id": "aiboarding-full", "evidence": [], "experiment_fingerprint": "9ade872931ded5e5329fb47a46f7c53d62cfe81d6709b356f709a2764837022f", "id": "command-discovery:aiboarding-full:1", "repetition": 1, "schema_version": 1, "task_id": "command-discovery"}]
+}

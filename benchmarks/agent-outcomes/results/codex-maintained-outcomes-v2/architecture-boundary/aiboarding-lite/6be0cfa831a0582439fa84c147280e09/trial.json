@@ -1,0 +1,204 @@
+{
+  "commands": [
+    {
+      "command": "sha256:4b8ae5710d6b8094cd0bda35d0a4d37088013944cd7f9acc7846a0fb7f4244cf",
+      "valid": true
+    },
+    {
+      "command": "sha256:5ff29eb86b8735c6cce29f56f41616e0e19970ff3d0a52a02b4ef9e0caf40e22",
+      "valid": true
+    },
+    {
+      "command": "sha256:fc3ee4b3f3ff07f97401d7d06494764a040cb1a75708bdba8363877b06f07486",
+      "valid": true
+    },
+    {
+      "command": "sha256:21ba9cd4e98dfbca0462d0d5834146edab5e7121acb825803219bf2f8d70e5f2",
+      "valid": true
+    },
+    {
+      "command": "sha256:665618d06fdabd10e3037307b924533466b3c42fc1a143913112abd1c440893f",
+      "valid": true
+    }
+  ],
+  "completion": "{\"item\": {\"command\": \"sha256:4b8ae5710d6b8094cd0bda35d0a4d37088013944cd7f9acc7846a0fb7f4244cf\", \"id\": \"item_3\", \"type\": \"command_execution\"}, \"type\": \"item.started\"}\n{\"item\": {\"command\": \"sha256:4b8ae5710d6b8094cd0bda35d0a4d37088013944cd7f9acc7846a0fb7f4244cf\", \"id\": \"item_3\", \"type\": \"command_execution\"}, \"type\": \"item.completed\"}\n{\"item\": {\"command\": \"sha256:5ff29eb86b8735c6cce29f56f41616e0e19970ff3d0a52a02b4ef9e0caf40e22\", \"id\": \"item_4\", \"type\": \"command_execution\"}, \"type\": \"item.started\"}\n{\"item\": {\"command\": \"sha256:5ff29eb86b8735c6cce29f56f41616e0e19970ff3d0a52a02b4ef9e0caf40e22\", \"id\": \"item_4\", \"type\": \"command_execution\"}, \"type\": \"item.completed\"}\n{\"item\": {\"command\": \"sha256:fc3ee4b3f3ff07f97401d7d06494764a040cb1a75708bdba8363877b06f07486\", \"id\": \"item_5\", \"type\": \"command_execution\"}, \"type\": \"item.started\"}\n{\"item\": {\"command\": \"sha256:21ba9cd4e98dfbca0462d0d5834146edab5e7121acb825803219bf2f8d70e5f2\", \"id\": \"item_6\", \"type\": \"command_execution\"}, \"type\": \"item.started\"}\n{\"item\": {\"command\": \"sha256:665618d06fdabd10e3037307b924533466b3c42fc1a143913112abd1c440893f\", \"id\": \"item_7\", \"type\": \"command_execution\"}, \"type\": \"item.started\"}\n{\"item\": {\"command\": \"sha256:fc3ee4b3f3ff07f97401d7d06494764a040cb1a75708bdba8363877b06f07486\", \"id\": \"item_5\", \"type\": \"command_execution\"}, \"type\": \"item.completed\"}\n{\"item\": {\"command\": \"sha256:21ba9cd4e98dfbca0462d0d5834146edab5e7121acb825803219bf2f8d70e5f2\", \"id\": \"item_6\", \"type\": \"command_execution\"}, \"type\": \"item.completed\"}\n{\"item\": {\"command\": \"sha256:665618d06fdabd10e3037307b924533466b3c42fc1a143913112abd1c440893f\", \"id\": \"item_7\", \"type\": \"command_execution\"}, \"type\": \"item.completed\"}\n{\"item\": {\"id\": \"item_9\", \"type\": \"file_change\"}, \"type\": \"item.started\"}\n{\"item\": {\"id\": \"item_9\", \"type\": \"file_change\"}, \"type\": \"item.completed\"}\n",
+  "completion_status": [
+    {
+      "item": {
+        "command": "sha256:4b8ae5710d6b8094cd0bda35d0a4d37088013944cd7f9acc7846a0fb7f4244cf",
+        "id": "item_3",
+        "type": "command_execution"
+      },
+      "type": "item.started"
+    },
+    {
+      "item": {
+        "command": "sha256:4b8ae5710d6b8094cd0bda35d0a4d37088013944cd7f9acc7846a0fb7f4244cf",
+        "id": "item_3",
+        "type": "command_execution"
+      },
+      "type": "item.completed"
+    },
+    {
+      "item": {
+        "command": "sha256:5ff29eb86b8735c6cce29f56f41616e0e19970ff3d0a52a02b4ef9e0caf40e22",
+        "id": "item_4",
+        "type": "command_execution"
+      },
+      "type": "item.started"
+    },
+    {
+      "item": {
+        "command": "sha256:5ff29eb86b8735c6cce29f56f41616e0e19970ff3d0a52a02b4ef9e0caf40e22",
+        "id": "item_4",
+        "type": "command_execution"
+      },
+      "type": "item.completed"
+    },
+    {
+      "item": {
+        "command": "sha256:fc3ee4b3f3ff07f97401d7d06494764a040cb1a75708bdba8363877b06f07486",
+        "id": "item_5",
+        "type": "command_execution"
+      },
+      "type": "item.started"
+    },
+    {
+      "item": {
+        "command": "sha256:21ba9cd4e98dfbca0462d0d5834146edab5e7121acb825803219bf2f8d70e5f2",
+        "id": "item_6",
+        "type": "command_execution"
+      },
+      "type": "item.started"
+    },
+    {
+      "item": {
+        "command": "sha256:665618d06fdabd10e3037307b924533466b3c42fc1a143913112abd1c440893f",
+        "id": "item_7",
+        "type": "command_execution"
+      },
+      "type": "item.started"
+    },
+    {
+      "item": {
+        "command": "sha256:fc3ee4b3f3ff07f97401d7d06494764a040cb1a75708bdba8363877b06f07486",
+        "id": "item_5",
+        "type": "command_execution"
+      },
+      "type": "item.completed"
+    },
+    {
+      "item": {
+        "command": "sha256:21ba9cd4e98dfbca0462d0d5834146edab5e7121acb825803219bf2f8d70e5f2",
+        "id": "item_6",
+        "type": "command_execution"
+      },
+      "type": "item.completed"
+    },
+    {
+      "item": {
+        "command": "sha256:665618d06fdabd10e3037307b924533466b3c42fc1a143913112abd1c440893f",
+        "id": "item_7",
+        "type": "command_execution"
+      },
+      "type": "item.completed"
+    },
+    {
+      "item": {
+        "id": "item_9",
+        "type": "file_change"
+      },
+      "type": "item.started"
+    },
+    {
+      "item": {
+        "id": "item_9",
+        "type": "file_change"
+      },
+      "type": "item.completed"
+    }
+  ],
+  "condition_id": "aiboarding-lite",
+  "exit": null,
+  "experiment_fingerprint": "297cd3a46298c8e0ca5cd83f53492dd69bfabba23018ad557d185718992c8540",
+  "final_tree": "27603fefd1d68519b39a5ef60ac14ccea9904d28e7a58792366223989591371a",
+  "grader": {
+    "definition": "import json, sys\nfrom pathlib import Path\ntask = json.loads(Path(__file__).with_name(\"task.json\").read_text()); root = Path(sys.argv[1])\nok = all((root / name).is_file() and (root / name).read_text(encoding=\"utf-8\") == expected for name, expected in task[\"expected_files\"].items()) and not any(\"domain\" in path.read_text(encoding=\"utf-8\") for path in root.glob(\"*.py\"))\nif not ok: print(task[\"wrong_reason\"])\nraise SystemExit(0 if ok else 1)\n",
+    "snapshot": "final-tree",
+    "verdict": "fail"
+  },
+  "identity": {
+    "controls": {
+      "aggregation": "aggregate.py@2",
+      "budget": "2 repetitions; no retries",
+      "condition": "frozen task-specific bundles@2",
+      "fixture": "task-fixtures@2",
+      "grader": "task-local@2",
+      "harness": "benchmarks/agent-outcomes/pilot.py@5",
+      "model": {
+        "limitation": "Codex CLI does not expose an immutable provider model revision",
+        "observed": null,
+        "requested": "default"
+      },
+      "permissions": "danger-full-access in disposable fixture",
+      "repetitions": 2,
+      "retry": "none",
+      "runtime": {
+        "limitation": "recorded at execution",
+        "observed": null,
+        "requested": "codex"
+      },
+      "task": "maintained-corpus@2",
+      "timeout": "60 seconds per trial",
+      "tools": "Codex shell"
+    },
+    "controls_fingerprint": "297cd3a46298c8e0ca5cd83f53492dd69bfabba23018ad557d185718992c8540",
+    "experiment_fingerprint": "297cd3a46298c8e0ca5cd83f53492dd69bfabba23018ad557d185718992c8540",
+    "repository": "80b9e828a3ff5e3edba1ebe401d585fbfe7b793904f27fd4ec376aab7b6c5afb",
+    "session": "6be0cfa831a0582439fa84c147280e09"
+  },
+  "interventions": [],
+  "repetition": 1,
+  "retries": [],
+  "runtime": {
+    "observed": "codex-cli 0.149.1",
+    "requested": "codex"
+  },
+  "stderr": "",
+  "task_id": "architecture-boundary",
+  "timing": {
+    "elapsed": 60.193779945373535,
+    "timed_out": true,
+    "timeout": 60
+  },
+  "tool_calls": [
+    {
+      "id": "item_3",
+      "type": "command_execution"
+    },
+    {
+      "id": "item_4",
+      "type": "command_execution"
+    },
+    {
+      "id": "item_5",
+      "type": "command_execution"
+    },
+    {
+      "id": "item_6",
+      "type": "command_execution"
+    },
+    {
+      "id": "item_7",
+      "type": "command_execution"
+    },
+    {
+      "id": "item_9",
+      "type": "file_change"
+    }
+  ],
+  "usage": {
+    "reason": "Codex event stream exposes no stable usage metric",
+    "status": "unavailable"
+  }
+}

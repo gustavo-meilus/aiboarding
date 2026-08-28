@@ -1,0 +1,26 @@
+{
+  "files": {
+    "AGENTS.md": {
+      "bytes": 5,
+      "content": "Test.",
+      "sha256": "314ad142957febe390cc7223b4deb1d1b21c187f84f6e7257a23fe46c27fcae3"
+    }
+  },
+  "id": "aiboarding-ultra",
+  "measured_tokens": {
+    "reason": "no runtime tokenizer",
+    "status": "unavailable"
+  },
+  "provenance": {
+    "compression": "ultra",
+    "receipt": "fixture",
+    "skill_revision": "fixture",
+    "source_revision": "fixture"
+  },
+  "schema_version": 2,
+  "sha256": "5b654d87e3ae737fe8ac8a3fcad6115a642a4d40d973da0743f3259989887ebf",
+  "source": {
+    "path": "aiboarding-ultra.json",
+    "sha256": "b82fad2e12c5f9415e907623e6da3f52cda7aed9b52ec2e3a4c97132b4c3a52d"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "files": {
+    "AGENTS.md": {
+      "bytes": 72,
+      "content": "For this task, run `python check.py` before writing `PASS` to `outcome`.",
+      "sha256": "4f87b86cb161d5dbaccc02466adfcff4147a5b8509aeaa5e79b9a27b23e1cb33"
+    }
+  },
+  "id": "aiboarding-off",
+  "measured_tokens": {
+    "reason": "no runtime tokenizer",
+    "status": "unavailable"
+  },
+  "provenance": {
+    "compression": "off",
+    "skill_revision": "fixture",
+    "source_revision": "fixture"
+  },
+  "schema_version": 2,
+  "sha256": "461ab88bd6d007d27c6ddc4e0743bd13f849a19ed6687373cd3a096ac49ca273",
+  "source": {
+    "path": "aiboarding-off.json",
+    "sha256": "bf86af64ffc694c814031968d3ca7c3a3ecb85f4708755a3490827b5dce59205"
+  }
+}

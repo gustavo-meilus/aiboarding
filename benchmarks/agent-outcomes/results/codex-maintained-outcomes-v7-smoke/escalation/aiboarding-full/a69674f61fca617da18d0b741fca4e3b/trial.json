@@ -1,0 +1,67 @@
+{
+  "commands": [],
+  "completion": "\n",
+  "completion_status": [],
+  "condition_id": "aiboarding-full",
+  "exit": 1,
+  "experiment_fingerprint": "aeb07b8f7107962642208416ffc1e115c80f13e09250a13cecb55f150905b55a",
+  "final_tree": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "grader": {
+    "definition": "import json, sys\nfrom pathlib import Path\ntask = json.loads(Path(__file__).with_name(\"task.json\").read_text()); root = Path(sys.argv[1])\ntry: ok = json.loads((root / \"decision.json\").read_text())[\"escalated\"] is False\nexcept (OSError, ValueError, KeyError): ok = False\nif not ok: print(task[\"wrong_reason\"])\nraise SystemExit(0 if ok else 1)\n",
+    "snapshot": "final-tree",
+    "verdict": "fail"
+  },
+  "identity": {
+    "controls": {
+      "aggregation": "aggregate.py@2",
+      "budget": "1 repetition; no retries; 12-cell smoke",
+      "condition": "frozen none/full bundles@2",
+      "fixture": "task-fixtures@2",
+      "grader": "task-local@2",
+      "harness": "benchmarks/agent-outcomes/pilot.py@8; v7 12-cell smoke",
+      "model": {
+        "limitation": "Codex CLI does not expose an immutable provider model revision",
+        "observed": null,
+        "requested": "default"
+      },
+      "permissions": "danger-full-access in disposable fixture",
+      "repetitions": 1,
+      "retry": "none",
+      "runtime": {
+        "limitation": "recorded at execution",
+        "observed": null,
+        "requested": "codex"
+      },
+      "task": "maintained-corpus@2",
+      "timeout": "60 seconds per trial",
+      "tools": "Codex shell"
+    },
+    "controls_fingerprint": "aeb07b8f7107962642208416ffc1e115c80f13e09250a13cecb55f150905b55a",
+    "experiment_fingerprint": "aeb07b8f7107962642208416ffc1e115c80f13e09250a13cecb55f150905b55a",
+    "repository": "d2cada08f21432b9911b13086ef8815b5a942db377c9c9955faa01d3ba24c69c",
+    "session": "a69674f61fca617da18d0b741fca4e3b"
+  },
+  "interventions": [],
+  "repetition": 1,
+  "retention": {
+    "reason": "missing retained task evidence: decision.json",
+    "status": "incomplete"
+  },
+  "retries": [],
+  "runtime": {
+    "observed": "codex-cli 0.149.1",
+    "requested": "codex"
+  },
+  "stderr": "",
+  "task_id": "escalation",
+  "timing": {
+    "elapsed": 3.2391109466552734,
+    "timed_out": false,
+    "timeout": 60
+  },
+  "tool_calls": [],
+  "usage": {
+    "reason": "Codex event stream exposes no stable usage metric",
+    "status": "unavailable"
+  }
+}

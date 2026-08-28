@@ -1,0 +1,159 @@
+{
+  "commands": [
+    {
+      "command": "sha256:499c1433eab39fe1b0e087ef1417abf346d2211d3e6b1bd4d181fa3a8cc75859",
+      "valid": true
+    },
+    {
+      "command": "sha256:4854ac302f9258267d930920fcb22928d74e17d0b08d5c0ab9c5e89ef4bcdd91",
+      "valid": true
+    },
+    {
+      "command": "sha256:13069211b179d2b4a52767b3af069109d4561f0e6830bf28dfca2ab33123cd2d",
+      "valid": true
+    }
+  ],
+  "completion": "{\"item\": {\"command\": \"sha256:499c1433eab39fe1b0e087ef1417abf346d2211d3e6b1bd4d181fa3a8cc75859\", \"id\": \"item_3\", \"type\": \"command_execution\"}, \"type\": \"item.started\"}\n{\"item\": {\"command\": \"sha256:499c1433eab39fe1b0e087ef1417abf346d2211d3e6b1bd4d181fa3a8cc75859\", \"id\": \"item_3\", \"type\": \"command_execution\"}, \"type\": \"item.completed\"}\n{\"item\": {\"command\": \"sha256:4854ac302f9258267d930920fcb22928d74e17d0b08d5c0ab9c5e89ef4bcdd91\", \"id\": \"item_4\", \"type\": \"command_execution\"}, \"type\": \"item.started\"}\n{\"item\": {\"command\": \"sha256:4854ac302f9258267d930920fcb22928d74e17d0b08d5c0ab9c5e89ef4bcdd91\", \"id\": \"item_4\", \"type\": \"command_execution\"}, \"type\": \"item.completed\"}\n{\"item\": {\"id\": \"item_5\", \"type\": \"file_change\"}, \"type\": \"item.started\"}\n{\"item\": {\"id\": \"item_5\", \"type\": \"file_change\"}, \"type\": \"item.completed\"}\n{\"item\": {\"command\": \"sha256:13069211b179d2b4a52767b3af069109d4561f0e6830bf28dfca2ab33123cd2d\", \"id\": \"item_6\", \"type\": \"command_execution\"}, \"type\": \"item.started\"}\n{\"item\": {\"command\": \"sha256:13069211b179d2b4a52767b3af069109d4561f0e6830bf28dfca2ab33123cd2d\", \"id\": \"item_6\", \"type\": \"command_execution\"}, \"type\": \"item.completed\"}\n",
+  "completion_status": [
+    {
+      "item": {
+        "command": "sha256:499c1433eab39fe1b0e087ef1417abf346d2211d3e6b1bd4d181fa3a8cc75859",
+        "id": "item_3",
+        "type": "command_execution"
+      },
+      "type": "item.started"
+    },
+    {
+      "item": {
+        "command": "sha256:499c1433eab39fe1b0e087ef1417abf346d2211d3e6b1bd4d181fa3a8cc75859",
+        "id": "item_3",
+        "type": "command_execution"
+      },
+      "type": "item.completed"
+    },
+    {
+      "item": {
+        "command": "sha256:4854ac302f9258267d930920fcb22928d74e17d0b08d5c0ab9c5e89ef4bcdd91",
+        "id": "item_4",
+        "type": "command_execution"
+      },
+      "type": "item.started"
+    },
+    {
+      "item": {
+        "command": "sha256:4854ac302f9258267d930920fcb22928d74e17d0b08d5c0ab9c5e89ef4bcdd91",
+        "id": "item_4",
+        "type": "command_execution"
+      },
+      "type": "item.completed"
+    },
+    {
+      "item": {
+        "id": "item_5",
+        "type": "file_change"
+      },
+      "type": "item.started"
+    },
+    {
+      "item": {
+        "id": "item_5",
+        "type": "file_change"
+      },
+      "type": "item.completed"
+    },
+    {
+      "item": {
+        "command": "sha256:13069211b179d2b4a52767b3af069109d4561f0e6830bf28dfca2ab33123cd2d",
+        "id": "item_6",
+        "type": "command_execution"
+      },
+      "type": "item.started"
+    },
+    {
+      "item": {
+        "command": "sha256:13069211b179d2b4a52767b3af069109d4561f0e6830bf28dfca2ab33123cd2d",
+        "id": "item_6",
+        "type": "command_execution"
+      },
+      "type": "item.completed"
+    }
+  ],
+  "condition_id": "aiboarding-lite",
+  "exit": 0,
+  "experiment_fingerprint": "59a4e0d4ef7f7caa4a1d09352b3090512ff765b36dde0acc48dc8812e48fdca4",
+  "final_tree": "27603fefd1d68519b39a5ef60ac14ccea9904d28e7a58792366223989591371a",
+  "grader": {
+    "definition": "import json, sys\nfrom pathlib import Path\ntask = json.loads(Path(__file__).with_name(\"task.json\").read_text()); root = Path(sys.argv[1])\nok = all((root / name).is_file() and (root / name).read_text(encoding=\"utf-8\") == expected for name, expected in task[\"expected_files\"].items()) and not any(\"domain\" in path.read_text(encoding=\"utf-8\") for path in root.glob(\"*.py\"))\nif not ok: print(task[\"wrong_reason\"])\nraise SystemExit(0 if ok else 1)\n",
+    "snapshot": "final-tree",
+    "verdict": "fail"
+  },
+  "identity": {
+    "controls": {
+      "aggregation": "aggregate.py@2",
+      "budget": "2 repetitions; no retries",
+      "condition": "frozen task-specific bundles@2",
+      "fixture": "task-fixtures@2",
+      "grader": "task-local@2",
+      "harness": "benchmarks/agent-outcomes/pilot.py@6",
+      "model": {
+        "limitation": "Codex CLI does not expose an immutable provider model revision",
+        "observed": null,
+        "requested": "default"
+      },
+      "permissions": "danger-full-access in disposable fixture",
+      "repetitions": 2,
+      "retry": "none",
+      "runtime": {
+        "limitation": "recorded at execution",
+        "observed": null,
+        "requested": "codex"
+      },
+      "task": "maintained-corpus@2",
+      "timeout": "60 seconds per trial",
+      "tools": "Codex shell"
+    },
+    "controls_fingerprint": "59a4e0d4ef7f7caa4a1d09352b3090512ff765b36dde0acc48dc8812e48fdca4",
+    "experiment_fingerprint": "59a4e0d4ef7f7caa4a1d09352b3090512ff765b36dde0acc48dc8812e48fdca4",
+    "repository": "0953de1a759fb6d1da2f2643e0633a9753bf401db77b55fe8413715e6088e0c1",
+    "session": "ee74881a4127ba6f9488e9994e8767da"
+  },
+  "interventions": [],
+  "repetition": 1,
+  "retention": {
+    "status": "complete"
+  },
+  "retries": [],
+  "runtime": {
+    "observed": "codex-cli 0.149.1",
+    "requested": "codex"
+  },
+  "stderr": "Reading additional input from stdin...\n",
+  "task_id": "architecture-boundary",
+  "timing": {
+    "elapsed": 32.24758815765381,
+    "timed_out": false,
+    "timeout": 60
+  },
+  "tool_calls": [
+    {
+      "id": "item_3",
+      "type": "command_execution"
+    },
+    {
+      "id": "item_4",
+      "type": "command_execution"
+    },
+    {
+      "id": "item_5",
+      "type": "file_change"
+    },
+    {
+      "id": "item_6",
+      "type": "command_execution"
+    }
+  ],
+  "usage": {
+    "reason": "Codex event stream exposes no stable usage metric",
+    "status": "unavailable"
+  }
+}

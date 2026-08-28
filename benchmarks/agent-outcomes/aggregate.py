@@ -24,3 +24,20 @@ def matrix(trials, metric):
         key=(trial.get('task_id'),trial.get('condition_id'),trial.get('experiment_fingerprint'))
         result.setdefault(key,[]).append(trial.get(metric))
     return {key: binary(values) for key,values in result.items()}
+
+def summarize(rows):
+    """Keep all declared cells visible; exclude incomplete observations."""
+    complete = [row for row in rows if row.get("evidence") == "complete"]
+    successes = [row.get("success") == "pass" for row in complete]
+    return {"planned": len(rows), "complete": len(complete), "incomplete": len(rows) - len(complete), "task_success": binary(successes)}
+
+def metric_summaries(records):
+    result = {}
+    for record in records:
+        for name, observation in record.get("metrics", {}).items():
+            entry = result.setdefault(name, {"observed": [], "unavailable": 0})
+            if isinstance(observation, dict) and observation.get("status") == "observed":
+                entry["observed"].append(observation.get("value"))
+            else:
+                entry["unavailable"] += 1
+    return {name: {"summary": binary(values) if all(isinstance(value, bool) for value in values) else continuous(values), "unavailable": entry["unavailable"]} for name, entry in result.items() for values in [entry["observed"]]}

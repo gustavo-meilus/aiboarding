@@ -21,3 +21,4 @@ templates/tools/** text eol=lf
 skills/update-agent-onboarding/classify-drift text eol=lf
 tools/verify-release-sha text eol=lf
 tests/fixtures/** text eol=lf
+benchmarks/agent-outcomes/results/** text eol=lf

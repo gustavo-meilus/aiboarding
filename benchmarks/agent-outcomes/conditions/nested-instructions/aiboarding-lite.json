@@ -1,0 +1,26 @@
+{
+  "files": {
+    "AGENTS.md": {
+      "bytes": 10,
+      "content": "Run tests.",
+      "sha256": "a55957f0e2849be1c4ab256a478b71b35317fefc7c109e4baa396b9661d0c5d1"
+    }
+  },
+  "id": "aiboarding-lite",
+  "measured_tokens": {
+    "reason": "no runtime tokenizer",
+    "status": "unavailable"
+  },
+  "provenance": {
+    "compression": "lite",
+    "receipt": "fixture",
+    "skill_revision": "fixture",
+    "source_revision": "fixture"
+  },
+  "schema_version": 2,
+  "sha256": "b54f1af4c2fafccdd2a4bb5ce5fe686b01aabe6b14c3f0e8930f035212111ec6",
+  "source": {
+    "path": "aiboarding-lite.json",
+    "sha256": "aac59bbaa83e8f0428fc3b2f05dee70b308200580de4414ce085f04c413a3a66"
+  }
+}

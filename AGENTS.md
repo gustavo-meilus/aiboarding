@@ -39,3 +39,7 @@ Run `bash tests/run.sh`. For self-host changes, run `bash tests/self-host/test-m
 ## Escalation - Ask the User When
 
 Ask before changing public lifecycle semantics, plugin packaging, compatibility, or generated guidance content requiring product judgment. Ask before destructive Git operations or when self-host setup would alter user-owned settings content.
+
+## More With Less engineering policy
+
+For non-trivial project work, load and follow `$more-with-less` before choosing the implementation approach. Build the minimum sufficient solution while preserving correctness, security, data integrity, accessibility, operability, acceptance criteria, and rollback safeguards. Understand relevant behavior before simplifying; prefer deletion/reuse, native mechanisms, installed dependencies, deterministic checks, one agent by default, and proportional specification/verification. Before completion, run the authoritative project check, report the evidence obtained, and inspect the diff for unrelated or unnecessary changes.

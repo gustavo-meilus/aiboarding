@@ -102,13 +102,16 @@ done
 codex_manifest="$(cat "$ROOT/.codex-plugin/plugin.json")"
 assert_contains "$codex_manifest" '"hooks": "./hooks/hooks.json"' "Codex manifest points at bundled hooks" || exit 1
 hooks="$(cat "$ROOT/hooks/hooks.json")"
+assert_contains "$hooks" '"SessionStart": [{' "Codex manifest has SessionStart" || exit 1
+assert_contains "$hooks" '"matcher": "startup|resume"' "Codex SessionStart matches startup" || exit 1
 for event in SessionStart SubagentStart PostToolUse; do
   assert_contains "$hooks" "\"$event\"" "Codex hooks declare $event" || exit 1
 done
 assert_contains "$hooks" '"matcher": "^Bash$"' "Codex drift hook matches Bash" || exit 1
 assert_contains "$hooks" 'PLUGIN_ROOT/hooks/codex-lifecycle' "Unix command uses plugin root" || exit 1
 assert_contains "$hooks" 'commandWindows' "Windows command override exists" || exit 1
-assert_not_contains "$hooks" '$env:PLUGIN_ROOT' "Windows Bash commands avoid PowerShell environment syntax" || exit 1
-windows_count="$(grep -Fc '"commandWindows": "bash \"$PLUGIN_ROOT/hooks/codex-lifecycle\""' "$ROOT/hooks/hooks.json")"
-assert_eq "$windows_count" "3" "every Windows lifecycle command resolves bundled adapter" || exit 1
+windows_commands="$(grep '"commandWindows"' "$ROOT/hooks/hooks.json")"
+assert_not_contains "$windows_commands" '$PLUGIN_ROOT' "Windows commands avoid Bash environment syntax" || exit 1
+windows_count="$(grep -Fc '"commandWindows": "\"%PLUGIN_ROOT%\\templates\\hooks\\run-hook.cmd\" \"%PLUGIN_ROOT%\\hooks\\codex-lifecycle\""' "$ROOT/hooks/hooks.json")"
+assert_eq "$windows_count" "3" "every Windows lifecycle command enters the portability wrapper" || exit 1
 [ -f "$ROOT/hooks/codex-lifecycle" ] || { printf 'FAIL: missing Codex lifecycle adapter\n'; exit 1; }

@@ -1,0 +1,28 @@
+{
+  "canary_sha256": "17c58962f63a4561c234c81abc37bc516fc91cb87823e5ad1a78e1811dbb022a",
+  "case": "positive",
+  "command": [
+    "codex",
+    "exec",
+    "--json",
+    "--ephemeral",
+    "--sandbox",
+    "read-only",
+    "--model",
+    "gpt-5.6-luna",
+    "--config",
+    "model_reasoning_effort=\"low\"",
+    "--config",
+    "web_search=\"disabled\"",
+    "--ignore-rules",
+    "--dangerously-bypass-hook-trust",
+    "Return exactly the onboarding token. If none is loaded, return NONE. Do not use tools or explain."
+  ],
+  "fixture": "generated",
+  "runtime": "codex",
+  "source": {
+    "commit": "9d172fdf0c2a00257d81a0cb5c8da78a87f60d30",
+    "dirty": true
+  },
+  "started_at": 1787865766.5998087
+}

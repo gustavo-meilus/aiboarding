@@ -1,0 +1,48 @@
+Exception in thread Thread-3 (_readerthread):
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\Lib\threading.py", line 1044, in _bootstrap_inner
+    self.run()
+    ~~~~~~~~^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\Lib\threading.py", line 995, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\Lib\subprocess.py", line 1615, in _readerthread
+    buffer.append(fh.read())
+                  ~~~~~~~^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\Lib\encodings\cp1252.py", line 23, in decode
+    return codecs.charmap_decode(input,self.errors,decoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeDecodeError: 'charmap' codec can't decode byte 0x9d in position 644: character maps to <undefined>
+Traceback (most recent call last):
+  File "C:\Disk\github\aiboarding\benchmarks\agent-outcomes\pilot.py", line 191, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "C:\Disk\github\aiboarding\benchmarks\agent-outcomes\pilot.py", line 180, in main
+    results = [execute(task_paths[cell["task_id"]], condition_paths[cell["task_id"], cell["condition_id"]], document["experiment"]["fingerprint"], args.output, args.timeout, args.model, cell["repetition"], document["experiment"]["identity"]) for cell in cells]
+               ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Disk\github\aiboarding\benchmarks\agent-outcomes\pilot.py", line 125, in execute
+    _, trial = runner.run_pack(pack, condition, fingerprint, adapter, controls)
+               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Disk\github\aiboarding\benchmarks\agent-outcomes\runner.py", line 37, in run_pack
+    return run_trial(
+        pack / "fixture", conditions.contents(bundle), fingerprint,
+        lambda scratch, identity: adapter(scratch, task["instruction"], identity), controls,
+    )
+  File "C:\Disk\github\aiboarding\benchmarks\agent-outcomes\runner.py", line 26, in run_trial
+    return identity, adapter(scratch, identity)
+                     ~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Disk\github\aiboarding\benchmarks\agent-outcomes\runner.py", line 39, in <lambda>
+    lambda scratch, identity: adapter(scratch, task["instruction"], identity), controls,
+                              ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Disk\github\aiboarding\benchmarks\agent-outcomes\pilot.py", line 87, in adapter
+    events = sanitized_events(stdout, scratch)
+  File "C:\Disk\github\aiboarding\benchmarks\agent-outcomes\pilot.py", line 39, in sanitized_events
+    for line in live_runtime.redact(raw).splitlines():
+                ~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Disk\github\aiboarding\tests\live\verify_runtime.py", line 36, in redact
+    return re.sub(r"(?i)(bearer\\s+|(?:api[_-]?key|token|secret)[=:]\\s*)[^\\s\"']+", r"\\1[REDACTED]", value)
+           ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\Lib\re\__init__.py", line 208, in sub
+    return _compile(pattern, flags).sub(repl, string, count)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+TypeError: expected string or bytes-like object, got 'NoneType'

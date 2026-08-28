@@ -1,0 +1,24 @@
+{
+  "files": {
+    "AGENTS.md": {
+      "bytes": 14,
+      "content": "Run old-tests.",
+      "sha256": "2e18e075628995294b1773d674afd2771254d99754776426862333646b8600c1"
+    }
+  },
+  "id": "stale",
+  "measured_tokens": {
+    "reason": "no runtime tokenizer",
+    "status": "unavailable"
+  },
+  "provenance": {
+    "divergence": "old command"
+  },
+  "schema_version": 2,
+  "sha256": "b42fbd0f4e1498f56a47aead3c5c2a323c6bfd576ec791f4d84676cb3ec388d1",
+  "source": {
+    "path": "stale.json",
+    "sha256": "bfbdbbe745a31dc7b8d67d7aa446cfba8f7706c231c1947c3e187952082e2e12"
+  },
+  "source_revision": "older-fixture"
+}

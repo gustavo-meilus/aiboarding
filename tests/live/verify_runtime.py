@@ -40,7 +40,7 @@ def source_state() -> dict[str, object]:
     def git(*args: str) -> str:
         result = subprocess.run(["git", "-C", str(ROOT), *args], text=True, capture_output=True)
         return result.stdout.strip() if result.returncode == 0 else "unavailable"
-    return {"commit": git("rev-parse", "HEAD"), "dirty": bool(git("status", "--porcelain"))}
+    return {"commit": git("rev-parse", "HEAD"), "dirty": bool(git("status", "--porcelain", "--untracked-files=no"))}
 
 
 def executable_command(executable: str) -> list[str]:
@@ -54,7 +54,7 @@ def command_for(runtime: str, executable: str) -> list[str]:
     runner = executable_command(executable)
     if runtime == "claude":
         return [*runner, "--print", "--verbose", "--output-format", "stream-json", "--no-session-persistence", "--setting-sources", "project", "--tools", "", "--", "What is the onboarding token?"]
-    return [*runner, "exec", "--json", "--ephemeral", "--sandbox", "read-only", "--dangerously-bypass-hook-trust", "Return exactly the onboarding token. If none is loaded, return NONE. Do not use tools or explain."]
+    return [*runner, "exec", "--json", "--ephemeral", "--sandbox", "read-only", "--model", "gpt-5.6-luna", "--config", 'model_reasoning_effort="low"', "--config", 'web_search="disabled"', "--ignore-rules", "--dangerously-bypass-hook-trust", "Return exactly the onboarding token. If none is loaded, return NONE. Do not use tools or explain."]
 
 
 def parse_events(runtime: str, raw: str) -> tuple[list[object], str | None]:
@@ -71,12 +71,25 @@ def parse_events(runtime: str, raw: str) -> tuple[list[object], str | None]:
     return events, None
 
 
+def parse_collector(path: Path, scratch: Path) -> str | None:
+    try:
+        records = [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
+    except json.JSONDecodeError:
+        return "malformed UserPromptSubmit collector evidence"
+    if not records:
+        return "missing UserPromptSubmit collector evidence"
+    for record in records:
+        if isinstance(record, dict) and record.get("hook_event_name") == "UserPromptSubmit" and record.get("cwd") == str(scratch):
+            return None
+    return "unattributable or wrong-event UserPromptSubmit collector evidence"
+
+
 def event_text(events: list[object]) -> str:
     return "\n".join(json.dumps(event, sort_keys=True) for event in events)
 
 
 def has_terminal_error(events: list[object]) -> bool:
-    return any(isinstance(event, dict) and str(event.get("type", "")).lower() in {"error", "failed"} for event in events)
+    return any(isinstance(event, dict) and str(event.get("type", "")).lower() in {"error", "failed", "turn.failed"} and "item" not in event for event in events)
 
 
 def probe(runtime: str, executable: str) -> dict[str, object]:
@@ -101,8 +114,37 @@ def fresh_repository(prefix: str, fixture: Path | None = None) -> Path:
     return scratch
 
 
-def run_case(runtime: str, name: str, executable: str, runtime_version: str, evidence: Path, timeout: int, collect_hooks: bool) -> dict[str, object]:
+def install_codex_plugin(executable: str, environment: dict[str, str]) -> str | None:
+    for command in ([*executable_command(executable), "plugin", "marketplace", "add", str(ROOT), "--json"], [*executable_command(executable), "plugin", "add", "aiboarding", "--marketplace", "aiboarding", "--json"]):
+        result = subprocess.run(command, text=True, capture_output=True, env=environment)
+        if result.returncode:
+            return redact(result.stderr or result.stdout or "plugin installation failed")
+    return None
+
+
+def write_codex_collector_hook(codex_home: Path, scratch: Path, collector: Path, windows: bool | None = None) -> None:
+    collector_script = scratch / "collector.sh"
+    shutil.copy2(ROOT / "tests" / "live" / "collector.sh", collector_script)
+    collector_script.chmod(0o755)
+    command = f'bash "{collector_script}" "{collector}"'
+    command_windows = f'"{ROOT / "templates" / "hooks" / "run-hook.cmd"}" "{collector_script}" "{collector}"'
+    if windows is None:
+        windows = os.name == "nt"
+    if windows:
+        trampoline = scratch / "aiboarding-user-prompt-submit.cmd"
+        trampoline.write_text(
+            "@echo off\r\n"
+            f'call "{ROOT / "templates" / "hooks" / "run-hook.cmd"}" "%~dp0collector.sh" "%~dp0collector.jsonl"\r\n'
+            "exit /b %ERRORLEVEL%\r\n",
+            encoding="utf-8",
+        )
+        command_windows = r".\aiboarding-user-prompt-submit.cmd"
+    write_json(codex_home / "hooks.json", {"hooks": {"UserPromptSubmit": [{"hooks": [{"type": "command", "command": command, "commandWindows": command_windows, "timeout": 5}]}]}})
+
+
+def run_case(runtime: str, name: str, executable: str, runtime_version: str, evidence: Path, timeout: int, collect_hooks: bool, install_plugin: bool) -> dict[str, object]:
     case_dir = evidence / runtime / name
+    shutil.rmtree(case_dir, ignore_errors=True)
     case_dir.mkdir(parents=True, exist_ok=True)
     scratch = fresh_repository(f"aiboarding-{runtime}-{name}-")
     canary = "AIBOARDING-CANARY-" + secrets.token_hex(16)
@@ -112,22 +154,23 @@ def run_case(runtime: str, name: str, executable: str, runtime_version: str, evi
             (scratch / "CLAUDE.md").write_text("@AGENTS.md\n", encoding="utf-8")
     collector = case_dir / "collector.jsonl"
     scratch_collector = scratch / "collector.jsonl"
-    if collect_hooks and runtime == "codex":
-        hook_dir = scratch / ".codex"
-        hook_dir.mkdir()
-        collector_script = scratch / "collector.sh"
-        shutil.copy2(ROOT / "tests" / "live" / "collector.sh", collector_script)
-        collector_script.chmod(0o755)
-        command = f'bash "{collector_script}"'
-        write_json(hook_dir / "hooks.json", {"hooks": {"SessionStart": [{"hooks": [{"type": "command", "command": command, "commandWindows": command, "timeout": 5}]}]}})
     case = {"runtime": runtime, "case": name, "canary_sha256": hashlib.sha256(canary.encode()).hexdigest(), "source": source_state(), "fixture": "generated", "command": command_for(runtime, executable), "started_at": time.time()}
     write_json(case_dir / "case.json", case)
     # Keep the caller's authenticated runtime environment for execution, but
     # never serialize it into case evidence.
-    environment = {**os.environ, "AIBOARDING_LIVE_CASE": name, "AIBOARDING_LIVE_CANARY": canary, "AIBOARDING_COLLECTOR_FILE": str(scratch_collector)}
+    codex_home = Path(tempfile.mkdtemp(prefix="aiboarding-codex-home-")) if runtime == "codex" else None
+    environment = {**os.environ, "AIBOARDING_LIVE_CASE": name, "AIBOARDING_LIVE_CANARY": canary, "AIBOARDING_COLLECTOR_FILE": str(scratch_collector), "AIBOARDING_LIVE_SCRATCH": str(scratch)}
+    if codex_home:
+        auth = Path(os.environ.get("CODEX_HOME", Path.home() / ".codex")) / "auth.json"
+        if auth.is_file():
+            shutil.copy2(auth, codex_home / "auth.json")
+        environment["CODEX_HOME"] = str(codex_home)
+        if collect_hooks:
+            write_codex_collector_hook(codex_home, scratch, scratch_collector)
+    install_error = install_codex_plugin(executable, environment) if install_plugin and codex_home else None
     try:
-        result = subprocess.run(case["command"], cwd=scratch, text=True, capture_output=True, timeout=timeout, env=environment)
-        stdout, stderr, timed_out = result.stdout, result.stderr, False
+        result = None if install_error else subprocess.run(case["command"], cwd=scratch, text=True, capture_output=True, timeout=timeout, env=environment)
+        stdout, stderr, timed_out = ("", install_error, False) if install_error else (result.stdout, result.stderr, False)
     except subprocess.TimeoutExpired as error:
         stdout, stderr, timed_out, result = error.stdout or "", error.stderr or "", True, None
     stdout, stderr = redact(stdout), redact(stderr)
@@ -140,7 +183,9 @@ def run_case(runtime: str, name: str, executable: str, runtime_version: str, evi
     expected = canary in text if name == "positive" else canary not in text
     verdict = "pass"
     reason = ""
-    if timed_out:
+    if install_error:
+        verdict, reason = "fail", "plugin installation failed"
+    elif timed_out:
         verdict, reason = "fail", "timeout"
     elif result is None or result.returncode:
         verdict, reason = "fail", "non-zero runtime exit"
@@ -153,9 +198,11 @@ def run_case(runtime: str, name: str, executable: str, runtime_version: str, evi
     elif not expected:
         verdict, reason = "fail", "canary control mismatch"
     if scratch_collector.exists():
-        shutil.copy2(scratch_collector, collector)
-    if collect_hooks and verdict == "pass" and not collector.exists():
-        verdict, reason = "fail", "missing SessionStart collector evidence"
+        collector.write_text(redact(scratch_collector.read_text(encoding="utf-8")), encoding="utf-8")
+    if collect_hooks and verdict == "pass":
+        collector_error = parse_collector(collector, scratch) if collector.exists() else "missing UserPromptSubmit collector evidence"
+        if collector_error:
+            verdict, reason = "fail", collector_error
     evidence_files = ["case.json", "stdout.jsonl", "stderr.txt", "events.json"]
     if collector.exists():
         evidence_files.append("collector.jsonl")
@@ -163,6 +210,9 @@ def run_case(runtime: str, name: str, executable: str, runtime_version: str, evi
               "evidence": {name: digest(case_dir / name) for name in evidence_files}}
     write_json(case_dir / "result.json", record)
     shutil.rmtree(scratch)
+    if codex_home:
+        (codex_home / "auth.json").unlink(missing_ok=True)
+        shutil.rmtree(codex_home, ignore_errors=True)
     return record
 
 
@@ -210,7 +260,8 @@ def main() -> int:
     parser.add_argument("--evidence-dir", type=Path, default=ROOT / ".aiboarding" / "live-evidence")
     parser.add_argument("--timeout", type=int, default=20)
     parser.add_argument("--strict", action="store_true")
-    parser.add_argument("--collect-hooks", action="store_true", help="require scratch SessionStart collector evidence (Codex only)")
+    parser.add_argument("--collect-hooks", action="store_true", help="require scratch UserPromptSubmit collector evidence (Codex only)")
+    parser.add_argument("--install-plugin", action="store_true", help="install AIBoarding into a disposable Codex home")
     parser.add_argument("--lifecycle-evidence-project", type=Path, help="optionally import compact lifecycle records")
     args = parser.parse_args()
     if not args.live:
@@ -226,7 +277,7 @@ def main() -> int:
             results.append({"runtime": runtime, "case": "capability", "verdict": "degraded", "reason": capability["reason"], "capability": capability})
             continue
         for name in (("positive", "negative") if args.case == "all" else (args.case,)):
-            results.append(run_case(runtime, name, executable, str(capability["version"]), args.evidence_dir, args.timeout, args.collect_hooks))
+            results.append(run_case(runtime, name, executable, str(capability["version"]), args.evidence_dir, args.timeout, args.collect_hooks, args.install_plugin))
     verdicts = {result["verdict"] for result in results}
     exit_code = 1 if "fail" in verdicts or (args.strict and "degraded" in verdicts) else 2 if "degraded" in verdicts else 0
     summary = {"source": source_state(), "results": results, "exit": exit_code}

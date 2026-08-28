@@ -1,0 +1,18 @@
+{
+  "files": {},
+  "id": "none",
+  "measured_tokens": {
+    "reason": "no runtime tokenizer",
+    "status": "unavailable"
+  },
+  "provenance": {
+    "skill_revision": "fixture",
+    "source_revision": "fixture"
+  },
+  "schema_version": 2,
+  "sha256": "fa589bc2d04798075c4ff8d550d91627051ed9804a25fe8f8ecfb91ab5eae22e",
+  "source": {
+    "path": "none.json",
+    "sha256": "d8c657dcdfcacb792b314d50a795d45c7db2b4ed89d75dcbb627dc24eed93cec"
+  }
+}

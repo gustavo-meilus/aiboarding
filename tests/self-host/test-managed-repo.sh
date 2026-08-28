@@ -17,7 +17,8 @@ Domain Model
 Agent Guardrails
 Known Failure Modes
 Verification Before Completion
-Escalation - Ask the User When'
+Escalation - Ask the User When
+More With Less engineering policy'
 actual_sections="$(sed -n 's/^## //p' "$agents")"
 assert_eq "$actual_sections" "$expected_sections" "AGENTS.md has canonical section schema" || exit 1
 

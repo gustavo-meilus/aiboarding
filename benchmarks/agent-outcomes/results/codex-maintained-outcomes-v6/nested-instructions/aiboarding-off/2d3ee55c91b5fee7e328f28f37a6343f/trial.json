@@ -1,0 +1,207 @@
+{
+  "commands": [
+    {
+      "command": "sha256:071669a7ca8ff162d944867e8bf303dee79193d45ecc2507d33f6ed9a5483494",
+      "valid": true
+    },
+    {
+      "command": "sha256:463cdd073d2713196ec279f0d2ad08294dfed4741ec0aba9d359d17eaa83e6c5",
+      "valid": true
+    },
+    {
+      "command": "sha256:3091fd5f9d82e6b6e0855d6a4e86c695c733aada80476836257b72ccc47649d0",
+      "valid": true
+    },
+    {
+      "command": "sha256:6c3242b380ac4cd2a65b6c1bf578dd6da2eb34578e6c8cd987fbb416e8d3c381",
+      "valid": true
+    },
+    {
+      "command": "sha256:ecc550f370fa126717fdf26a2960cfa32a46507039d113e56f458a6285c52946",
+      "valid": true
+    }
+  ],
+  "completion": "{\"item\": {\"command\": \"sha256:071669a7ca8ff162d944867e8bf303dee79193d45ecc2507d33f6ed9a5483494\", \"id\": \"item_3\", \"type\": \"command_execution\"}, \"type\": \"item.started\"}\n{\"item\": {\"command\": \"sha256:071669a7ca8ff162d944867e8bf303dee79193d45ecc2507d33f6ed9a5483494\", \"id\": \"item_3\", \"type\": \"command_execution\"}, \"type\": \"item.completed\"}\n{\"item\": {\"command\": \"sha256:463cdd073d2713196ec279f0d2ad08294dfed4741ec0aba9d359d17eaa83e6c5\", \"id\": \"item_4\", \"type\": \"command_execution\"}, \"type\": \"item.started\"}\n{\"item\": {\"command\": \"sha256:463cdd073d2713196ec279f0d2ad08294dfed4741ec0aba9d359d17eaa83e6c5\", \"id\": \"item_4\", \"type\": \"command_execution\"}, \"type\": \"item.completed\"}\n{\"item\": {\"command\": \"sha256:3091fd5f9d82e6b6e0855d6a4e86c695c733aada80476836257b72ccc47649d0\", \"id\": \"item_5\", \"type\": \"command_execution\"}, \"type\": \"item.started\"}\n{\"item\": {\"command\": \"sha256:3091fd5f9d82e6b6e0855d6a4e86c695c733aada80476836257b72ccc47649d0\", \"id\": \"item_5\", \"type\": \"command_execution\"}, \"type\": \"item.completed\"}\n{\"item\": {\"id\": \"item_6\", \"type\": \"file_change\"}, \"type\": \"item.started\"}\n{\"item\": {\"id\": \"item_6\", \"type\": \"file_change\"}, \"type\": \"item.completed\"}\n{\"item\": {\"command\": \"sha256:6c3242b380ac4cd2a65b6c1bf578dd6da2eb34578e6c8cd987fbb416e8d3c381\", \"id\": \"item_8\", \"type\": \"command_execution\"}, \"type\": \"item.started\"}\n{\"item\": {\"command\": \"sha256:6c3242b380ac4cd2a65b6c1bf578dd6da2eb34578e6c8cd987fbb416e8d3c381\", \"id\": \"item_8\", \"type\": \"command_execution\"}, \"type\": \"item.completed\"}\n{\"item\": {\"command\": \"sha256:ecc550f370fa126717fdf26a2960cfa32a46507039d113e56f458a6285c52946\", \"id\": \"item_9\", \"type\": \"command_execution\"}, \"type\": \"item.started\"}\n{\"item\": {\"command\": \"sha256:ecc550f370fa126717fdf26a2960cfa32a46507039d113e56f458a6285c52946\", \"id\": \"item_9\", \"type\": \"command_execution\"}, \"type\": \"item.completed\"}\n",
+  "completion_status": [
+    {
+      "item": {
+        "command": "sha256:071669a7ca8ff162d944867e8bf303dee79193d45ecc2507d33f6ed9a5483494",
+        "id": "item_3",
+        "type": "command_execution"
+      },
+      "type": "item.started"
+    },
+    {
+      "item": {
+        "command": "sha256:071669a7ca8ff162d944867e8bf303dee79193d45ecc2507d33f6ed9a5483494",
+        "id": "item_3",
+        "type": "command_execution"
+      },
+      "type": "item.completed"
+    },
+    {
+      "item": {
+        "command": "sha256:463cdd073d2713196ec279f0d2ad08294dfed4741ec0aba9d359d17eaa83e6c5",
+        "id": "item_4",
+        "type": "command_execution"
+      },
+      "type": "item.started"
+    },
+    {
+      "item": {
+        "command": "sha256:463cdd073d2713196ec279f0d2ad08294dfed4741ec0aba9d359d17eaa83e6c5",
+        "id": "item_4",
+        "type": "command_execution"
+      },
+      "type": "item.completed"
+    },
+    {
+      "item": {
+        "command": "sha256:3091fd5f9d82e6b6e0855d6a4e86c695c733aada80476836257b72ccc47649d0",
+        "id": "item_5",
+        "type": "command_execution"
+      },
+      "type": "item.started"
+    },
+    {
+      "item": {
+        "command": "sha256:3091fd5f9d82e6b6e0855d6a4e86c695c733aada80476836257b72ccc47649d0",
+        "id": "item_5",
+        "type": "command_execution"
+      },
+      "type": "item.completed"
+    },
+    {
+      "item": {
+        "id": "item_6",
+        "type": "file_change"
+      },
+      "type": "item.started"
+    },
+    {
+      "item": {
+        "id": "item_6",
+        "type": "file_change"
+      },
+      "type": "item.completed"
+    },
+    {
+      "item": {
+        "command": "sha256:6c3242b380ac4cd2a65b6c1bf578dd6da2eb34578e6c8cd987fbb416e8d3c381",
+        "id": "item_8",
+        "type": "command_execution"
+      },
+      "type": "item.started"
+    },
+    {
+      "item": {
+        "command": "sha256:6c3242b380ac4cd2a65b6c1bf578dd6da2eb34578e6c8cd987fbb416e8d3c381",
+        "id": "item_8",
+        "type": "command_execution"
+      },
+      "type": "item.completed"
+    },
+    {
+      "item": {
+        "command": "sha256:ecc550f370fa126717fdf26a2960cfa32a46507039d113e56f458a6285c52946",
+        "id": "item_9",
+        "type": "command_execution"
+      },
+      "type": "item.started"
+    },
+    {
+      "item": {
+        "command": "sha256:ecc550f370fa126717fdf26a2960cfa32a46507039d113e56f458a6285c52946",
+        "id": "item_9",
+        "type": "command_execution"
+      },
+      "type": "item.completed"
+    }
+  ],
+  "condition_id": "aiboarding-off",
+  "exit": 0,
+  "experiment_fingerprint": "0e6f46e656d75ff9eac3de8183bd97c1dc6af0c87a678daf4df93bc639275915",
+  "final_tree": "189cb98f8046e32a9b4196090cdf9b8487ed55e404bac40894416b520db417cf",
+  "grader": {
+    "definition": "import json, sys\nfrom pathlib import Path\ntask = json.loads(Path(__file__).with_name(\"task.json\").read_text()); root = Path(sys.argv[1])\nok = (root / \"nested/result.txt\").read_text(encoding=\"utf-8\") == \"nested\\n\" if (root / \"nested/result.txt\").is_file() else False\nif not ok: print(task[\"wrong_reason\"])\nraise SystemExit(0 if ok else 1)\n",
+    "snapshot": "final-tree",
+    "verdict": "pass"
+  },
+  "identity": {
+    "controls": {
+      "aggregation": "aggregate.py@2",
+      "budget": "2 repetitions; no retries",
+      "condition": "frozen task-specific bundles@2",
+      "fixture": "task-fixtures@2",
+      "grader": "task-local@2",
+      "harness": "benchmarks/agent-outcomes/pilot.py@7; v6 replacement run",
+      "model": {
+        "limitation": "Codex CLI does not expose an immutable provider model revision",
+        "observed": null,
+        "requested": "default"
+      },
+      "permissions": "danger-full-access in disposable fixture",
+      "repetitions": 2,
+      "retry": "none",
+      "runtime": {
+        "limitation": "recorded at execution",
+        "observed": null,
+        "requested": "codex"
+      },
+      "task": "maintained-corpus@2",
+      "timeout": "60 seconds per trial",
+      "tools": "Codex shell"
+    },
+    "controls_fingerprint": "0e6f46e656d75ff9eac3de8183bd97c1dc6af0c87a678daf4df93bc639275915",
+    "experiment_fingerprint": "0e6f46e656d75ff9eac3de8183bd97c1dc6af0c87a678daf4df93bc639275915",
+    "repository": "3084243b9fbb93e442a32e35d0cad946789c3feab9fe73a24fbd15fa1f21232c",
+    "session": "2d3ee55c91b5fee7e328f28f37a6343f"
+  },
+  "interventions": [],
+  "repetition": 1,
+  "retention": {
+    "status": "complete"
+  },
+  "retries": [],
+  "runtime": {
+    "observed": "codex-cli 0.149.1",
+    "requested": "codex"
+  },
+  "stderr": "",
+  "task_id": "nested-instructions",
+  "timing": {
+    "elapsed": 35.60449481010437,
+    "timed_out": false,
+    "timeout": 60
+  },
+  "tool_calls": [
+    {
+      "id": "item_3",
+      "type": "command_execution"
+    },
+    {
+      "id": "item_4",
+      "type": "command_execution"
+    },
+    {
+      "id": "item_5",
+      "type": "command_execution"
+    },
+    {
+      "id": "item_6",
+      "type": "file_change"
+    },
+    {
+      "id": "item_8",
+      "type": "command_execution"
+    },
+    {
+      "id": "item_9",
+      "type": "command_execution"
+    }
+  ],
+  "usage": {
+    "reason": "Codex event stream exposes no stable usage metric",
+    "status": "unavailable"
+  }
+}

@@ -1,0 +1,8 @@
+{"item": {"command": "sha256:c92e7565cdab86af09f46906cf49cc9eb2c09f09aaddcdf3ea7f328a138be50d", "id": "item_3", "type": "command_execution"}, "type": "item.started"}
+{"item": {"command": "sha256:c92e7565cdab86af09f46906cf49cc9eb2c09f09aaddcdf3ea7f328a138be50d", "id": "item_3", "type": "command_execution"}, "type": "item.completed"}
+{"item": {"command": "sha256:41a4f3ab49111fffed1b177f1ad5ef29046fc1609c4d57fb1b8a6afb8528032a", "id": "item_4", "type": "command_execution"}, "type": "item.started"}
+{"item": {"command": "sha256:41a4f3ab49111fffed1b177f1ad5ef29046fc1609c4d57fb1b8a6afb8528032a", "id": "item_4", "type": "command_execution"}, "type": "item.completed"}
+{"item": {"id": "item_6", "type": "file_change"}, "type": "item.started"}
+{"item": {"id": "item_6", "type": "file_change"}, "type": "item.completed"}
+{"item": {"command": "sha256:8ceba9921795fdafff6c4cf310684dd25507bbf6d7974762b207ae1fd54cd0e4", "id": "item_7", "type": "command_execution"}, "type": "item.started"}
+{"item": {"command": "sha256:8ceba9921795fdafff6c4cf310684dd25507bbf6d7974762b207ae1fd54cd0e4", "id": "item_7", "type": "command_execution"}, "type": "item.completed"}

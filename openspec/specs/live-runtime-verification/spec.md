@@ -17,35 +17,47 @@ The live-runtime verifier SHALL create a fresh disposable Git repository for eac
 - **WHEN** a live protocol creates onboarding files, settings, commits, logs, or runtime state
 - **THEN** every mutation occurs inside its disposable repository or dedicated evidence directory and the maintainer's repository remains unchanged
 
-### Requirement: Native onboarding loading uses paired external controls
-For every supported runtime selected for verification, the verifier SHALL run at least one positive case with a generated high-entropy onboarding canary and one negative case where the expected onboarding source is absent or deliberately broken. An external harness MUST determine the verdict from exact canary presence or absence, process status, and structured runtime evidence; a runtime statement that loading succeeded MUST NOT constitute proof.
+### Requirement: Native onboarding loading uses protocol-appropriate external controls
+Each live onboarding protocol SHALL declare the minimum external controls needed to distinguish native loading from prompt echo, retained session state, or tool-assisted file access. The maintained Codex lifecycle canary SHALL use one fresh positive session because its purpose is limited to composing native `AGENTS.md` loading with the `UserPromptSubmit` pre-turn runtime boundary; deterministic tests SHALL remain the authoritative oracle for AIBoarding lifecycle semantics and broader live controls SHALL remain separately invocable or manual.
 
 #### Scenario: Fresh session loads expected onboarding
 - **WHEN** the harness starts a fresh supported runtime in a positive scratch repository without placing the canary in the user prompt
 - **THEN** captured evidence contains the exact generated canary through the runtime's native onboarding path and satisfies all protocol guards against alternate file or tool reads
 
-#### Scenario: Absent or broken onboarding is distinguishable
-- **WHEN** the harness starts the same runtime and protocol with the native onboarding source absent or deliberately broken
-- **THEN** captured evidence does not contain the positive canary and the harness records the expected negative result rather than reusing or inferring successful loading
+#### Scenario: Native onboarding evidence is absent
+- **WHEN** the positive Codex session produces attributable `UserPromptSubmit` collector evidence but its structured runtime evidence does not contain the exact generated onboarding canary
+- **THEN** the harness fails the case rather than inferring native onboarding loading from hook execution
 
 #### Scenario: Runtime uses an unapproved observation path
-- **WHEN** structured events show that the runtime obtained or attempted to obtain the canary through a tool call, prompt content, retained session, or another path disallowed by the protocol
+- **WHEN** structured evidence shows that the runtime obtained or attempted to obtain the canary through a tool call, prompt content, retained session, web access, or another path disallowed by the protocol
 - **THEN** the harness fails the case even if final runtime output contains the canary
 
+#### Scenario: Broader runtime behavior needs verification
+- **WHEN** onboarding absence, subagent behavior, drift filtering, host compatibility, or another lifecycle semantic must be checked
+- **THEN** deterministic tests or an explicitly selected manual protocol provide that evidence without adding a model session to the maintained Codex canary
+
 ### Requirement: Applicable lifecycle delivery is externally observable
-The verifier SHALL exercise each lifecycle behavior declared automatable for a supported runtime with both a qualifying event and a non-qualifying or absent condition. It MUST decide delivery and silence from runtime events, hook-owned logs or files, process execution records, or equivalent external evidence rather than from the agent's interpretation.
+The maintained Codex canary SHALL externally observe the `UserPromptSubmit` pre-turn hook surface during the same isolated session used to prove native onboarding loading. Its verdict MUST depend on fresh hook-owned collector evidence rather than the model's interpretation. AIBoarding-specific `SessionStart` delivery, silence, subagent, drift, and host-launcher semantics SHALL remain independently covered by deterministic tests or explicitly documented manual protocols.
 
 #### Scenario: Qualifying lifecycle event delivers context
-- **WHEN** a protocol causes a declared qualifying session, subagent, instruction-loading, or Git-related lifecycle event
-- **THEN** external evidence identifies the expected hook or context delivery for that event and attributes it to the current runtime session
+- **WHEN** the positive Codex canary completes
+- **THEN** a newly created, parseable collector record identifies `UserPromptSubmit` within that case's unique disposable execution, uses an explicit output argument rather than a non-core inherited environment variable, and is retained with the structured runtime evidence
+
+#### Scenario: UserPromptSubmit evidence is absent or invalid
+- **WHEN** the collector record is missing, malformed, stale, identifies another event, or cannot be attributed to the current isolated run
+- **THEN** the live case fails even if native onboarding evidence is present
+
+#### Scenario: Windows collector command survives Codex command transport
+- **WHEN** the Codex live canary runs on Windows
+- **THEN** its `commandWindows` hook value is a quote-free scratch-relative `.cmd` trampoline, and that trampoline keeps the quoted wrapper, collector script, and positional collector-output paths outside Codex's outer `cmd.exe /C` command wrapping
 
 #### Scenario: Non-qualifying event remains silent
-- **WHEN** a protocol causes the paired non-qualifying event, including non-Git activity for drift filtering where applicable
-- **THEN** external evidence contains no prohibited hook execution, context delivery, nudge, or filesystem side effect during the bounded observation window
+- **WHEN** SessionStart decisions, SubagentStart pointers, Git or non-Git drift filtering, or another lifecycle silence condition is verified
+- **THEN** deterministic repository tests remain the authoritative oracle and the maintained live canary does not reproduce the non-qualifying condition with another model session
 
 #### Scenario: Hook process runs but behavior stays silent
-- **WHEN** a runtime version cannot pre-filter a non-qualifying event but the hook's own input gate suppresses output
-- **THEN** the result is explicitly degraded with process-spawn evidence and MUST NOT be reported as a full pass for filtering
+- **WHEN** an explicitly selected broader runtime protocol observes a hook process for a non-qualifying event whose own input gate suppresses output
+- **THEN** that protocol records the runtime behavior according to its declared capability policy and does not reinterpret process spawn as lifecycle delivery
 
 ### Requirement: Evidence is machine-readable and attributable
 Every protocol result SHALL record the runtime name and version, protocol and case identifiers, start and end times, command exit status, repository commit and dirty-state snapshot, fixture identity, runtime arguments, verdict, and paths or hashes for captured raw output, events, logs, and filesystem evidence. Evidence containing credentials or runtime authentication material MUST be redacted or excluded before retention or upload.
@@ -74,15 +86,19 @@ Each runtime adapter SHALL probe required executable, authentication, version, n
 - **THEN** the affected case does not pass even if partial output resembles expected evidence
 
 ### Requirement: Live verification remains separate and cost-controlled
-Live-runtime verification SHALL remain separate from the deterministic `tests/run.sh` contract suite. Local execution MUST be explicit, and CI execution MUST use credential-aware manual or scheduled cadence with bounded runtime, concurrency, and per-run cost where the runtime supports it. Missing CI credentials MUST prevent invocation or yield a visible unavailable result, never a synthetic pass.
+Live-runtime verification SHALL remain separate from the deterministic `tests/run.sh` contract suite. Local execution MUST be explicit, and CI execution MUST use credential-aware manual or scheduled cadence with bounded runtime, concurrency, and per-run cost. The maintained lifecycle workflow MUST be Codex-only, MUST start no more than one model session in total, and MUST NOT start a Claude or other runtime model session on the same trigger. Its Codex invocation MUST perform no automatic retry and MUST use `gpt-5.6-luna` with low reasoning, a disposable Codex user layer limited to required authentication and the test collector, disabled web and unrelated optional capabilities, ephemeral structured output, and read-only sandboxing. Sanitized evidence MUST be retained for successful and unsuccessful terminal outcomes. Missing CI credentials MUST prevent invocation or yield a visible unavailable result, never a synthetic pass.
 
 #### Scenario: Developer runs deterministic tests
 - **WHEN** a developer invokes the existing deterministic test harness
 - **THEN** it completes without launching a paid or authenticated live runtime
 
 #### Scenario: Live workflow is invoked with credentials
-- **WHEN** an authorized manual or scheduled workflow selects supported runtimes and valid credentials are available
-- **THEN** it runs the isolated live suite under declared time and cost bounds and retains the machine-readable summary and sanitized evidence artifacts
+- **WHEN** an authorized manual or scheduled workflow invokes the maintained Codex lifecycle protocol with valid credentials
+- **THEN** it starts exactly one positive Codex model session with the declared controls, starts no Claude or other model session, performs no retry or follow-on matrix, and retains its machine-readable summary and sanitized evidence artifacts for any terminal verdict
+
+#### Scenario: Complete runtime failure is inspectable
+- **WHEN** the one Codex session returns a legitimate failure with complete attributable evidence
+- **THEN** the workflow retains that evidence and reports the failure without silently retrying or replacing it
 
 ### Requirement: Manual verification remains available for unautomated behavior
 The verification runbook SHALL retain protocols that cannot yet be automated reliably and SHALL label each protocol as automated, partially automated, or manual with the reason and authoritative evidence source. Automated live tests MUST complement, not replace, deterministic contract tests.

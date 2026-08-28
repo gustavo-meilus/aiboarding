@@ -1,0 +1,207 @@
+{
+  "commands": [
+    {
+      "command": "sha256:6c8ac124a51e92771714985aa83b34f175941bfb0abd7ca5725012a44087277d",
+      "valid": true
+    },
+    {
+      "command": "sha256:11db742fc6e191eda6eea52f4753f2f8bde36e696700675e421e8cc7798ddb09",
+      "valid": true
+    },
+    {
+      "command": "sha256:c693aed344a03893a175bedb5747b3c285953a999e0670b1561bfc2aada95d01",
+      "valid": true
+    },
+    {
+      "command": "sha256:51800075b71fd998e9781dc1b7624ac71e88be2eeb3486406164e740bf3b0fed",
+      "valid": true
+    },
+    {
+      "command": "sha256:f97e2af92b615be97790081e7838779a109211a1df338f944e21980cf909bb33",
+      "valid": true
+    }
+  ],
+  "completion": "{\"item\": {\"command\": \"sha256:6c8ac124a51e92771714985aa83b34f175941bfb0abd7ca5725012a44087277d\", \"id\": \"item_3\", \"type\": \"command_execution\"}, \"type\": \"item.started\"}\n{\"item\": {\"command\": \"sha256:6c8ac124a51e92771714985aa83b34f175941bfb0abd7ca5725012a44087277d\", \"id\": \"item_3\", \"type\": \"command_execution\"}, \"type\": \"item.completed\"}\n{\"item\": {\"command\": \"sha256:11db742fc6e191eda6eea52f4753f2f8bde36e696700675e421e8cc7798ddb09\", \"id\": \"item_5\", \"type\": \"command_execution\"}, \"type\": \"item.started\"}\n{\"item\": {\"command\": \"sha256:11db742fc6e191eda6eea52f4753f2f8bde36e696700675e421e8cc7798ddb09\", \"id\": \"item_5\", \"type\": \"command_execution\"}, \"type\": \"item.completed\"}\n{\"item\": {\"command\": \"sha256:c693aed344a03893a175bedb5747b3c285953a999e0670b1561bfc2aada95d01\", \"id\": \"item_6\", \"type\": \"command_execution\"}, \"type\": \"item.started\"}\n{\"item\": {\"command\": \"sha256:c693aed344a03893a175bedb5747b3c285953a999e0670b1561bfc2aada95d01\", \"id\": \"item_6\", \"type\": \"command_execution\"}, \"type\": \"item.completed\"}\n{\"item\": {\"command\": \"sha256:51800075b71fd998e9781dc1b7624ac71e88be2eeb3486406164e740bf3b0fed\", \"id\": \"item_7\", \"type\": \"command_execution\"}, \"type\": \"item.started\"}\n{\"item\": {\"command\": \"sha256:51800075b71fd998e9781dc1b7624ac71e88be2eeb3486406164e740bf3b0fed\", \"id\": \"item_7\", \"type\": \"command_execution\"}, \"type\": \"item.completed\"}\n{\"item\": {\"id\": \"item_8\", \"type\": \"file_change\"}, \"type\": \"item.started\"}\n{\"item\": {\"id\": \"item_8\", \"type\": \"file_change\"}, \"type\": \"item.completed\"}\n{\"item\": {\"command\": \"sha256:f97e2af92b615be97790081e7838779a109211a1df338f944e21980cf909bb33\", \"id\": \"item_9\", \"type\": \"command_execution\"}, \"type\": \"item.started\"}\n{\"item\": {\"command\": \"sha256:f97e2af92b615be97790081e7838779a109211a1df338f944e21980cf909bb33\", \"id\": \"item_9\", \"type\": \"command_execution\"}, \"type\": \"item.completed\"}\n",
+  "completion_status": [
+    {
+      "item": {
+        "command": "sha256:6c8ac124a51e92771714985aa83b34f175941bfb0abd7ca5725012a44087277d",
+        "id": "item_3",
+        "type": "command_execution"
+      },
+      "type": "item.started"
+    },
+    {
+      "item": {
+        "command": "sha256:6c8ac124a51e92771714985aa83b34f175941bfb0abd7ca5725012a44087277d",
+        "id": "item_3",
+        "type": "command_execution"
+      },
+      "type": "item.completed"
+    },
+    {
+      "item": {
+        "command": "sha256:11db742fc6e191eda6eea52f4753f2f8bde36e696700675e421e8cc7798ddb09",
+        "id": "item_5",
+        "type": "command_execution"
+      },
+      "type": "item.started"
+    },
+    {
+      "item": {
+        "command": "sha256:11db742fc6e191eda6eea52f4753f2f8bde36e696700675e421e8cc7798ddb09",
+        "id": "item_5",
+        "type": "command_execution"
+      },
+      "type": "item.completed"
+    },
+    {
+      "item": {
+        "command": "sha256:c693aed344a03893a175bedb5747b3c285953a999e0670b1561bfc2aada95d01",
+        "id": "item_6",
+        "type": "command_execution"
+      },
+      "type": "item.started"
+    },
+    {
+      "item": {
+        "command": "sha256:c693aed344a03893a175bedb5747b3c285953a999e0670b1561bfc2aada95d01",
+        "id": "item_6",
+        "type": "command_execution"
+      },
+      "type": "item.completed"
+    },
+    {
+      "item": {
+        "command": "sha256:51800075b71fd998e9781dc1b7624ac71e88be2eeb3486406164e740bf3b0fed",
+        "id": "item_7",
+        "type": "command_execution"
+      },
+      "type": "item.started"
+    },
+    {
+      "item": {
+        "command": "sha256:51800075b71fd998e9781dc1b7624ac71e88be2eeb3486406164e740bf3b0fed",
+        "id": "item_7",
+        "type": "command_execution"
+      },
+      "type": "item.completed"
+    },
+    {
+      "item": {
+        "id": "item_8",
+        "type": "file_change"
+      },
+      "type": "item.started"
+    },
+    {
+      "item": {
+        "id": "item_8",
+        "type": "file_change"
+      },
+      "type": "item.completed"
+    },
+    {
+      "item": {
+        "command": "sha256:f97e2af92b615be97790081e7838779a109211a1df338f944e21980cf909bb33",
+        "id": "item_9",
+        "type": "command_execution"
+      },
+      "type": "item.started"
+    },
+    {
+      "item": {
+        "command": "sha256:f97e2af92b615be97790081e7838779a109211a1df338f944e21980cf909bb33",
+        "id": "item_9",
+        "type": "command_execution"
+      },
+      "type": "item.completed"
+    }
+  ],
+  "condition_id": "stale",
+  "exit": 0,
+  "experiment_fingerprint": "0e6f46e656d75ff9eac3de8183bd97c1dc6af0c87a678daf4df93bc639275915",
+  "final_tree": "189cb98f8046e32a9b4196090cdf9b8487ed55e404bac40894416b520db417cf",
+  "grader": {
+    "definition": "import json, sys\nfrom pathlib import Path\ntask = json.loads(Path(__file__).with_name(\"task.json\").read_text()); root = Path(sys.argv[1])\nok = (root / \"nested/result.txt\").read_text(encoding=\"utf-8\") == \"nested\\n\" if (root / \"nested/result.txt\").is_file() else False\nif not ok: print(task[\"wrong_reason\"])\nraise SystemExit(0 if ok else 1)\n",
+    "snapshot": "final-tree",
+    "verdict": "pass"
+  },
+  "identity": {
+    "controls": {
+      "aggregation": "aggregate.py@2",
+      "budget": "2 repetitions; no retries",
+      "condition": "frozen task-specific bundles@2",
+      "fixture": "task-fixtures@2",
+      "grader": "task-local@2",
+      "harness": "benchmarks/agent-outcomes/pilot.py@7; v6 replacement run",
+      "model": {
+        "limitation": "Codex CLI does not expose an immutable provider model revision",
+        "observed": null,
+        "requested": "default"
+      },
+      "permissions": "danger-full-access in disposable fixture",
+      "repetitions": 2,
+      "retry": "none",
+      "runtime": {
+        "limitation": "recorded at execution",
+        "observed": null,
+        "requested": "codex"
+      },
+      "task": "maintained-corpus@2",
+      "timeout": "60 seconds per trial",
+      "tools": "Codex shell"
+    },
+    "controls_fingerprint": "0e6f46e656d75ff9eac3de8183bd97c1dc6af0c87a678daf4df93bc639275915",
+    "experiment_fingerprint": "0e6f46e656d75ff9eac3de8183bd97c1dc6af0c87a678daf4df93bc639275915",
+    "repository": "b23240d0af3eff6e2e59abf3bd514045e354f6a3ffd2ad0c42280ed0730bf078",
+    "session": "024c191ed855f201bc676b513607bb0e"
+  },
+  "interventions": [],
+  "repetition": 1,
+  "retention": {
+    "status": "complete"
+  },
+  "retries": [],
+  "runtime": {
+    "observed": "codex-cli 0.149.1",
+    "requested": "codex"
+  },
+  "stderr": "",
+  "task_id": "nested-instructions",
+  "timing": {
+    "elapsed": 43.44629383087158,
+    "timed_out": false,
+    "timeout": 60
+  },
+  "tool_calls": [
+    {
+      "id": "item_3",
+      "type": "command_execution"
+    },
+    {
+      "id": "item_5",
+      "type": "command_execution"
+    },
+    {
+      "id": "item_6",
+      "type": "command_execution"
+    },
+    {
+      "id": "item_7",
+      "type": "command_execution"
+    },
+    {
+      "id": "item_8",
+      "type": "file_change"
+    },
+    {
+      "id": "item_9",
+      "type": "command_execution"
+    }
+  ],
+  "usage": {
+    "reason": "Codex event stream exposes no stable usage metric",
+    "status": "unavailable"
+  }
+}
