@@ -4,7 +4,7 @@ ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 . "$ROOT/tests/lib/assert.sh"
 HOOK="$ROOT/hooks/codex-lifecycle"
 CLAUDE="$ROOT/templates/hooks/drift-check"
-WINDOWS_LAUNCHER="$(grep -m1 '"commandWindows"' "$ROOT/hooks/hooks.json" | sed 's/.*"commandWindows": "\(.*\)",/\1/' | sed 's/\\"/"/g')"
+WINDOWS_LAUNCHER="$(grep -m1 '"commandWindows"' "$ROOT/hooks/hooks.json" | sed 's/.*"commandWindows": "\(.*\)",/\1/' | sed 's/\\"/"/g; s/\\\\/\\/g')"
 
 repo() {
   local dir="$1"
@@ -20,10 +20,11 @@ repo() {
 
 payload() { printf '{"hook_event_name":"%s","cwd":"%s"%s}' "$1" "$2" "${3:-}"; }
 run() { PLUGIN_ROOT="$ROOT" bash "$HOOK"; }
-run_windows() { PLUGIN_ROOT="$ROOT" bash -c "$WINDOWS_LAUNCHER"; }
+run_windows() { PLUGIN_ROOT="$(cygpath -w "$ROOT")" AIBOARDING_WINDOWS_LAUNCHER="$WINDOWS_LAUNCHER" powershell.exe -NoLogo -NoProfile -NonInteractive -Command '$utf8 = New-Object System.Text.UTF8Encoding($false); [Console]::InputEncoding = $utf8; [Console]::OutputEncoding = $utf8; $payload = [Console]::In.ReadToEnd(); $psi = New-Object System.Diagnostics.ProcessStartInfo; $psi.FileName = $env:ComSpec; $psi.Arguments = "/C `"" + $env:AIBOARDING_WINDOWS_LAUNCHER + "`""; $psi.UseShellExecute = $false; $psi.RedirectStandardInput = $true; $psi.RedirectStandardOutput = $true; $psi.RedirectStandardError = $true; $process = New-Object System.Diagnostics.Process; $process.StartInfo = $psi; [void]$process.Start(); $bytes = $utf8.GetBytes($payload); $process.StandardInput.BaseStream.Write($bytes, 0, $bytes.Length); $process.StandardInput.Close(); [Console]::Out.Write($process.StandardOutput.ReadToEnd()); [Console]::Error.Write($process.StandardError.ReadToEnd()); $process.WaitForExit(); exit $process.ExitCode'; }
 state() { mkdir -p "$1/.aiboarding"; printf '{\n  "last_synced_commit": "%s"\n}\n' "$2" > "$1/.aiboarding/state.json"; }
 
-tmp="$(mktemp -d)"
+tmp="$(mktemp -d)/repo with spaces"
+mkdir -p "$tmp"
 trap 'rm -rf "$tmp"' EXIT
 repo "$tmp"
 base="$(git -C "$tmp" rev-parse HEAD)"
@@ -55,8 +56,6 @@ rm "$tmp/AIBOARDING.md"
 state "$tmp" "$base"
 out="$(payload PostToolUse "$tmp" ',"tool_name":"Bash","tool_input":{"command":"echo git"}' | run)"
 assert_eq "$out" "" "non-Git Bash command is silent" || exit 1
-out="$(payload PostToolUse "$tmp" ',"tool_name":"Bash","tool_input":{"command":"echo git"}' | run_windows)"
-assert_eq "$out" "" "Windows launcher starts and keeps non-Git Bash silent" || exit 1
 out="$(payload PostToolUse "$tmp" ',"tool_name":"Bash","tool_input":{"command":"git status"}' | run)"
 assert_eq "$out" "" "in-sync is silent" || exit 1
 printf '# AGENTS\n' > "$tmp/AGENTS.md"
@@ -67,8 +66,13 @@ printf 'changed\n' >> "$tmp/file.txt"
 git -C "$tmp" add file.txt && git -C "$tmp" commit -qm code
 out="$(payload PostToolUse "$tmp" ',"tool_name":"Bash","tool_input":{"command":"git commit -m x"}' | run)"
 assert_contains "$out" 'semantic-review' "relevant range signals shared route" || exit 1
-out="$(payload PostToolUse "$tmp" ',"tool_name":"Bash","tool_input":{"command":"git commit -m x"}' | run_windows)"
-assert_contains "$out" '<aiboarding-drift>' "Windows launcher returns drift context" || exit 1
+if [ "${OS:-}" = Windows_NT ] && command -v cmd.exe >/dev/null 2>&1; then
+  windows_cwd="$(cygpath -m "$tmp")"
+  out="$(payload PostToolUse "$windows_cwd" ',"tool_name":"Bash","tool_input":{"command":"echo git"}' | run_windows)"
+  assert_eq "$out" "" "native commandWindows launcher keeps non-Git Bash silent" || exit 1
+  out="$(payload PostToolUse "$windows_cwd" ',"tool_name":"Bash","tool_input":{"command":"git commit -m x"}' | run_windows)"
+  assert_contains "$out" '<aiboarding-drift>' "native commandWindows launcher returns drift context" || exit 1
+fi
 out="$(printf '{"tool_name":"Bash","tool_input":{"command":"git commit -m x"}' | CLAUDE_PROJECT_DIR="$tmp" bash "$CLAUDE")"
 assert_contains "$out" 'semantic-review' "Claude receives same route" || exit 1
 state "$tmp" ""

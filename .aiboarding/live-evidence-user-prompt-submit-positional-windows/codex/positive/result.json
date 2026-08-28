@@ -1,0 +1,39 @@
+{
+  "canary_sha256": "5d1c3d8c90b2e39f93c885926338adafda4659ea3d45fa22b2f5cd6233dad20d",
+  "case": "positive",
+  "command": [
+    "codex",
+    "exec",
+    "--json",
+    "--ephemeral",
+    "--sandbox",
+    "read-only",
+    "--model",
+    "gpt-5.6-luna",
+    "--config",
+    "model_reasoning_effort=\"low\"",
+    "--config",
+    "web_search=\"disabled\"",
+    "--ignore-rules",
+    "--dangerously-bypass-hook-trust",
+    "Return exactly the onboarding token. If none is loaded, return NONE. Do not use tools or explain."
+  ],
+  "ended_at": 1787872077.5585594,
+  "evidence": {
+    "case.json": "7c0ab0818838c38ab81a9792c06e68b4b055ab1ea28c5956d830e9361dbdf973",
+    "events.json": "6ed4afd2dfbcc3393455050daa04663cdb567576917b4fc781dd6b71098e7f4d",
+    "stderr.txt": "0b1e6da8ecdea408505b97585a2d9fea5db9cd9c795edfc2a9ba8901d2ef33fc",
+    "stdout.jsonl": "96493a2de4761d525ce98c03cbdb818856c78f13fa447e9668d73f6316aee23e"
+  },
+  "exit": 0,
+  "fixture": "generated",
+  "reason": "missing UserPromptSubmit collector evidence",
+  "runtime": "codex",
+  "runtime_version": "codex-cli 0.150.1",
+  "source": {
+    "commit": "9d172fdf0c2a00257d81a0cb5c8da78a87f60d30",
+    "dirty": true
+  },
+  "started_at": 1787872062.0111601,
+  "verdict": "fail"
+}

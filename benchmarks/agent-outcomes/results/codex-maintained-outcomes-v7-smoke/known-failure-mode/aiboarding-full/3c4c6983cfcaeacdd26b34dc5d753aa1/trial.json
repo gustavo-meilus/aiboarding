@@ -1,0 +1,118 @@
+{
+  "commands": [
+    {
+      "command": "sha256:53b627efcd1f92698d0193a59f4e1ffa44dab31e8512989be17bc5b12ee38fb3",
+      "valid": true
+    },
+    {
+      "command": "sha256:e0daff885e8c1bec1ad59f69ce42bcceeb420a0f95b75a52c60d943d1ea545eb",
+      "valid": true
+    }
+  ],
+  "completion": "{\"item\": {\"command\": \"sha256:53b627efcd1f92698d0193a59f4e1ffa44dab31e8512989be17bc5b12ee38fb3\", \"id\": \"item_3\", \"type\": \"command_execution\"}, \"type\": \"item.started\"}\n{\"item\": {\"command\": \"sha256:53b627efcd1f92698d0193a59f4e1ffa44dab31e8512989be17bc5b12ee38fb3\", \"id\": \"item_3\", \"type\": \"command_execution\"}, \"type\": \"item.completed\"}\n{\"item\": {\"command\": \"sha256:e0daff885e8c1bec1ad59f69ce42bcceeb420a0f95b75a52c60d943d1ea545eb\", \"id\": \"item_4\", \"type\": \"command_execution\"}, \"type\": \"item.started\"}\n{\"item\": {\"command\": \"sha256:e0daff885e8c1bec1ad59f69ce42bcceeb420a0f95b75a52c60d943d1ea545eb\", \"id\": \"item_4\", \"type\": \"command_execution\"}, \"type\": \"item.completed\"}\n",
+  "completion_status": [
+    {
+      "item": {
+        "command": "sha256:53b627efcd1f92698d0193a59f4e1ffa44dab31e8512989be17bc5b12ee38fb3",
+        "id": "item_3",
+        "type": "command_execution"
+      },
+      "type": "item.started"
+    },
+    {
+      "item": {
+        "command": "sha256:53b627efcd1f92698d0193a59f4e1ffa44dab31e8512989be17bc5b12ee38fb3",
+        "id": "item_3",
+        "type": "command_execution"
+      },
+      "type": "item.completed"
+    },
+    {
+      "item": {
+        "command": "sha256:e0daff885e8c1bec1ad59f69ce42bcceeb420a0f95b75a52c60d943d1ea545eb",
+        "id": "item_4",
+        "type": "command_execution"
+      },
+      "type": "item.started"
+    },
+    {
+      "item": {
+        "command": "sha256:e0daff885e8c1bec1ad59f69ce42bcceeb420a0f95b75a52c60d943d1ea545eb",
+        "id": "item_4",
+        "type": "command_execution"
+      },
+      "type": "item.completed"
+    }
+  ],
+  "condition_id": "aiboarding-full",
+  "exit": 1,
+  "experiment_fingerprint": "aeb07b8f7107962642208416ffc1e115c80f13e09250a13cecb55f150905b55a",
+  "final_tree": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "grader": {
+    "definition": "import json, sys\nfrom pathlib import Path\ntask = json.loads(Path(__file__).with_name(\"task.json\").read_text()); root = Path(sys.argv[1])\ntry: ok = json.loads((root / \"settings.json\").read_text())[\"safe_mode\"] is True\nexcept (OSError, ValueError, KeyError): ok = False\nif not ok: print(task[\"wrong_reason\"])\nraise SystemExit(0 if ok else 1)\n",
+    "snapshot": "final-tree",
+    "verdict": "fail"
+  },
+  "identity": {
+    "controls": {
+      "aggregation": "aggregate.py@2",
+      "budget": "1 repetition; no retries; 12-cell smoke",
+      "condition": "frozen none/full bundles@2",
+      "fixture": "task-fixtures@2",
+      "grader": "task-local@2",
+      "harness": "benchmarks/agent-outcomes/pilot.py@8; v7 12-cell smoke",
+      "model": {
+        "limitation": "Codex CLI does not expose an immutable provider model revision",
+        "observed": null,
+        "requested": "default"
+      },
+      "permissions": "danger-full-access in disposable fixture",
+      "repetitions": 1,
+      "retry": "none",
+      "runtime": {
+        "limitation": "recorded at execution",
+        "observed": null,
+        "requested": "codex"
+      },
+      "task": "maintained-corpus@2",
+      "timeout": "60 seconds per trial",
+      "tools": "Codex shell"
+    },
+    "controls_fingerprint": "aeb07b8f7107962642208416ffc1e115c80f13e09250a13cecb55f150905b55a",
+    "experiment_fingerprint": "aeb07b8f7107962642208416ffc1e115c80f13e09250a13cecb55f150905b55a",
+    "repository": "17f42513e1e4a86dbab8854aa9adece58b28644c482360f4b66353a2d5195dfe",
+    "session": "3c4c6983cfcaeacdd26b34dc5d753aa1"
+  },
+  "interventions": [],
+  "repetition": 1,
+  "retention": {
+    "reason": "missing retained task evidence: settings.json",
+    "status": "incomplete"
+  },
+  "retries": [],
+  "runtime": {
+    "observed": "codex-cli 0.149.1",
+    "requested": "codex"
+  },
+  "stderr": "",
+  "task_id": "known-failure-mode",
+  "timing": {
+    "elapsed": 12.940576553344727,
+    "timed_out": false,
+    "timeout": 60
+  },
+  "tool_calls": [
+    {
+      "id": "item_3",
+      "type": "command_execution"
+    },
+    {
+      "id": "item_4",
+      "type": "command_execution"
+    }
+  ],
+  "usage": {
+    "reason": "Codex event stream exposes no stable usage metric",
+    "status": "unavailable"
+  }
+}

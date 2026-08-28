@@ -1,6 +1,6 @@
 {
   "name": "aiboarding",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Keep canonical AGENTS.md onboarding current for AI coding agents, with drift tracking, compression, and auditing.",
   "repository": "https://github.com/gustavo-meilus/aiboarding",
   "license": "MIT",

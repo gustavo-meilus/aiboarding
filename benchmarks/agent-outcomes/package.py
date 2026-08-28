@@ -3,7 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 from pathlib import Path
-from zipfile import ZIP_DEFLATED, ZipFile
+from zipfile import ZIP_DEFLATED, ZipFile, ZipInfo
 
 FORBIDDEN = {".ssh", ".aws", ".config", "auth", "credential", "credentials", "token", "secret"}
 
@@ -12,7 +12,15 @@ def _safe(relative: Path) -> bool:
     return not relative.is_absolute() and ".." not in relative.parts and not any(part.lower() in FORBIDDEN for part in relative.parts)
 
 
-def package(root: Path, files: list[str], output: Path) -> dict:
+def _write(archive: ZipFile, name: str, data: bytes) -> None:
+    item = ZipInfo(name, (1980, 1, 1, 0, 0, 0))
+    item.compress_type = ZIP_DEFLATED
+    archive.writestr(item, data)
+
+
+def package(root: Path, files: list[str], output: Path, complete: bool = True) -> dict:
+    if not complete:
+        raise ValueError("incomplete evidence cannot be packaged")
     inventory = []
     with ZipFile(output, "w", ZIP_DEFLATED) as archive:
         for name in sorted(files):
@@ -23,9 +31,9 @@ def package(root: Path, files: list[str], output: Path) -> dict:
             if not path.is_file():
                 raise ValueError("missing evidence artifact")
             data = path.read_bytes()
-            archive.writestr(relative.as_posix(), data)
+            _write(archive, relative.as_posix(), data)
             inventory.append({"path": relative.as_posix(), "sha256": hashlib.sha256(data).hexdigest(), "bytes": len(data)})
-        archive.writestr("inventory.json", json.dumps(inventory, sort_keys=True, separators=(",", ":")))
+        _write(archive, "inventory.json", json.dumps(inventory, sort_keys=True, separators=(",", ":")).encode())
     return {"artifacts": inventory, "sha256": hashlib.sha256(output.read_bytes()).hexdigest()}
 
 

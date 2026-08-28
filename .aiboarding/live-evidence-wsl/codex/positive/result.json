@@ -1,0 +1,40 @@
+{
+  "canary_sha256": "7d0be628efdf21d13af1ba0ffbdf591ebac96fa68c3e6ee694733afd08d3c269",
+  "case": "positive",
+  "command": [
+    "codex",
+    "exec",
+    "--json",
+    "--ephemeral",
+    "--sandbox",
+    "read-only",
+    "--model",
+    "gpt-5.6-luna",
+    "--config",
+    "model_reasoning_effort=\"low\"",
+    "--config",
+    "web_search=\"disabled\"",
+    "--ignore-user-config",
+    "--ignore-rules",
+    "--dangerously-bypass-hook-trust",
+    "Return exactly the onboarding token. If none is loaded, return NONE. Do not use tools or explain."
+  ],
+  "ended_at": 1787865317.9468846,
+  "evidence": {
+    "case.json": "32a6ddf1cd2bb074e2b094cf62b3abbaa606ba3a3129ce3adf81ffe44e6b565c",
+    "events.json": "6294ece15b75a485e0f79ff1ec7d22e9131111beb4f1ccdbc5ee52fe625fb13d",
+    "stderr.txt": "2d737d101fb32a916221ea3c57151ad73174a5560187c61f6a7182c01bdea700",
+    "stdout.jsonl": "fb31e34d77da6785b8fee15c2d65c716f5619c5f8fcf57f6a46357a6a8d739cc"
+  },
+  "exit": 1,
+  "fixture": "generated",
+  "reason": "non-zero runtime exit",
+  "runtime": "codex",
+  "runtime_version": "codex-cli 0.149.1",
+  "source": {
+    "commit": "9d172fdf0c2a00257d81a0cb5c8da78a87f60d30",
+    "dirty": true
+  },
+  "started_at": 1787865298.912501,
+  "verdict": "fail"
+}

@@ -7,6 +7,9 @@ import importlib.util,pathlib,sys
 s=importlib.util.spec_from_file_location('package',sys.argv[1]);m=importlib.util.module_from_spec(s);s.loader.exec_module(m)
 root=pathlib.Path(sys.argv[2])/'root'; bundle=pathlib.Path(sys.argv[2])/'evidence.zip'
 result=m.package(root,['result.json'],bundle); assert result['artifacts'][0]['path']=='result.json' and m.verify(bundle)
+try:m.package(root,['result.json'],bundle,complete=False)
+except ValueError:pass
+else:raise AssertionError
 try:m.package(root,['token'],bundle)
 except ValueError:pass
 else:raise AssertionError

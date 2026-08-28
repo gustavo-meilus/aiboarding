@@ -6,7 +6,7 @@ Last updated: 2026-08-24
 
 This playbook turns a technically complete repository into a product people can understand, trust, install, remember, and recommend.
 
-It is based on the research and execution used to reposition and launch **Gunk Buster**, combined with current GitHub, npm, OpenSSF, SLSA, and CHAOSS guidance; recent empirical research on open-source documentation, community health, supply-chain security, and AI-assisted development; and pattern analysis of successful developer-tool repositories including [Superpowers](https://github.com/obra/superpowers), [Ponytail](https://github.com/DietrichGebert/ponytail), [Caveman](https://github.com/JuliusBrussee/caveman), and [Superpipelines](https://github.com/gustavo-meilus/superpipelines).
+It is based on the research and execution used to reposition and launch **Gunk Buster**, combined with current GitHub, npm, OpenSSF, SLSA, and CHAOSS guidance; recent empirical research on open-source documentation, community health, supply-chain security, and AI-assisted development; and pattern analysis of successful developer-tool repositories including [Superpowers](https://github.com/obra/superpowers), [Ponytail](https://github.com/DietrichGebert/ponytail), and [Superpipelines](https://github.com/gustavo-meilus/superpipelines).
 
 Use it when:
 
@@ -1369,7 +1369,6 @@ This is the desired end state of a responsible launch process: highly polished, 
 
 - [obra/superpowers](https://github.com/obra/superpowers)
 - [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail)
-- [JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman)
 - [gustavo-meilus/superpipelines](https://github.com/gustavo-meilus/superpipelines)
 - [gustavo-meilus/gunk-buster](https://github.com/gustavo-meilus/gunk-buster)
 

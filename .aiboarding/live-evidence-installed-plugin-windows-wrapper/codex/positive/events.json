@@ -1,0 +1,43 @@
+[
+  {
+    "thread_id": "01a04525-e326-7602-b4a3-ba09ac10348e",
+    "type": "thread.started"
+  },
+  {
+    "item": {
+      "id": "item_0",
+      "message": "`--dangerously-bypass-hook-trust` is enabled. Enabled hooks may run without review for this invocation.",
+      "type": "error"
+    },
+    "type": "item.completed"
+  },
+  {
+    "item": {
+      "id": "item_1",
+      "message": "`--dangerously-bypass-hook-trust` is enabled. Enabled hooks may run without review for this invocation.",
+      "type": "error"
+    },
+    "type": "item.completed"
+  },
+  {
+    "type": "turn.started"
+  },
+  {
+    "item": {
+      "id": "item_2",
+      "text": "AIBOARDING-CANARY-1023f10ba26102eafb72362df8c69532",
+      "type": "agent_message"
+    },
+    "type": "item.completed"
+  },
+  {
+    "type": "turn.completed",
+    "usage": {
+      "cache_write_input_tokens": 0,
+      "cached_input_tokens": 6912,
+      "input_tokens": 11457,
+      "output_tokens": 29,
+      "reasoning_output_tokens": 0
+    }
+  }
+]

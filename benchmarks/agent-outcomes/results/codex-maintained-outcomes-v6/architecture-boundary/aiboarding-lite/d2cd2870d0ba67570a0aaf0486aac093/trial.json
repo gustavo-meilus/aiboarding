@@ -1,0 +1,267 @@
+{
+  "commands": [
+    {
+      "command": "sha256:de89bc077b4d3b8a392841a9b4384a8190ed0f341a041d6760dab40518881263",
+      "valid": true
+    },
+    {
+      "command": "sha256:52299b58e45e0bd666e78b2556cc18565efcb9a257dbd7b5292c793f70f78b95",
+      "valid": true
+    },
+    {
+      "command": "sha256:6c3242b380ac4cd2a65b6c1bf578dd6da2eb34578e6c8cd987fbb416e8d3c381",
+      "valid": true
+    },
+    {
+      "command": "sha256:8be331149f584ed737b008ff8434a3773c73c88424f3d52611e600a8bc49a4cb",
+      "valid": true
+    },
+    {
+      "command": "sha256:f6c44c9b6e7447000c71cb0d039ea1b1ebc452e52e14fc2cb6742031cef4898a",
+      "valid": true
+    },
+    {
+      "command": "sha256:3d7320c0ecfe98c3005d95251db3353dd8f27fabac1159f3041351fdc72934a7",
+      "valid": true
+    }
+  ],
+  "completion": "{\"item\": {\"command\": \"sha256:de89bc077b4d3b8a392841a9b4384a8190ed0f341a041d6760dab40518881263\", \"id\": \"item_3\", \"type\": \"command_execution\"}, \"type\": \"item.started\"}\n{\"item\": {\"command\": \"sha256:de89bc077b4d3b8a392841a9b4384a8190ed0f341a041d6760dab40518881263\", \"id\": \"item_3\", \"type\": \"command_execution\"}, \"type\": \"item.completed\"}\n{\"item\": {\"command\": \"sha256:52299b58e45e0bd666e78b2556cc18565efcb9a257dbd7b5292c793f70f78b95\", \"id\": \"item_4\", \"type\": \"command_execution\"}, \"type\": \"item.started\"}\n{\"item\": {\"command\": \"sha256:52299b58e45e0bd666e78b2556cc18565efcb9a257dbd7b5292c793f70f78b95\", \"id\": \"item_4\", \"type\": \"command_execution\"}, \"type\": \"item.completed\"}\n{\"item\": {\"id\": \"item_5\", \"type\": \"file_change\"}, \"type\": \"item.started\"}\n{\"item\": {\"id\": \"item_5\", \"type\": \"file_change\"}, \"type\": \"item.completed\"}\n{\"item\": {\"command\": \"sha256:6c3242b380ac4cd2a65b6c1bf578dd6da2eb34578e6c8cd987fbb416e8d3c381\", \"id\": \"item_6\", \"type\": \"command_execution\"}, \"type\": \"item.started\"}\n{\"item\": {\"command\": \"sha256:6c3242b380ac4cd2a65b6c1bf578dd6da2eb34578e6c8cd987fbb416e8d3c381\", \"id\": \"item_6\", \"type\": \"command_execution\"}, \"type\": \"item.completed\"}\n{\"item\": {\"id\": \"item_7\", \"type\": \"file_change\"}, \"type\": \"item.started\"}\n{\"item\": {\"id\": \"item_7\", \"type\": \"file_change\"}, \"type\": \"item.completed\"}\n{\"item\": {\"command\": \"sha256:8be331149f584ed737b008ff8434a3773c73c88424f3d52611e600a8bc49a4cb\", \"id\": \"item_8\", \"type\": \"command_execution\"}, \"type\": \"item.started\"}\n{\"item\": {\"command\": \"sha256:8be331149f584ed737b008ff8434a3773c73c88424f3d52611e600a8bc49a4cb\", \"id\": \"item_8\", \"type\": \"command_execution\"}, \"type\": \"item.completed\"}\n{\"item\": {\"id\": \"item_10\", \"type\": \"file_change\"}, \"type\": \"item.started\"}\n{\"item\": {\"id\": \"item_10\", \"type\": \"file_change\"}, \"type\": \"item.completed\"}\n{\"item\": {\"command\": \"sha256:f6c44c9b6e7447000c71cb0d039ea1b1ebc452e52e14fc2cb6742031cef4898a\", \"id\": \"item_11\", \"type\": \"command_execution\"}, \"type\": \"item.started\"}\n{\"item\": {\"command\": \"sha256:f6c44c9b6e7447000c71cb0d039ea1b1ebc452e52e14fc2cb6742031cef4898a\", \"id\": \"item_11\", \"type\": \"command_execution\"}, \"type\": \"item.completed\"}\n{\"item\": {\"command\": \"sha256:3d7320c0ecfe98c3005d95251db3353dd8f27fabac1159f3041351fdc72934a7\", \"id\": \"item_12\", \"type\": \"command_execution\"}, \"type\": \"item.started\"}\n{\"item\": {\"command\": \"sha256:3d7320c0ecfe98c3005d95251db3353dd8f27fabac1159f3041351fdc72934a7\", \"id\": \"item_12\", \"type\": \"command_execution\"}, \"type\": \"item.completed\"}\n",
+  "completion_status": [
+    {
+      "item": {
+        "command": "sha256:de89bc077b4d3b8a392841a9b4384a8190ed0f341a041d6760dab40518881263",
+        "id": "item_3",
+        "type": "command_execution"
+      },
+      "type": "item.started"
+    },
+    {
+      "item": {
+        "command": "sha256:de89bc077b4d3b8a392841a9b4384a8190ed0f341a041d6760dab40518881263",
+        "id": "item_3",
+        "type": "command_execution"
+      },
+      "type": "item.completed"
+    },
+    {
+      "item": {
+        "command": "sha256:52299b58e45e0bd666e78b2556cc18565efcb9a257dbd7b5292c793f70f78b95",
+        "id": "item_4",
+        "type": "command_execution"
+      },
+      "type": "item.started"
+    },
+    {
+      "item": {
+        "command": "sha256:52299b58e45e0bd666e78b2556cc18565efcb9a257dbd7b5292c793f70f78b95",
+        "id": "item_4",
+        "type": "command_execution"
+      },
+      "type": "item.completed"
+    },
+    {
+      "item": {
+        "id": "item_5",
+        "type": "file_change"
+      },
+      "type": "item.started"
+    },
+    {
+      "item": {
+        "id": "item_5",
+        "type": "file_change"
+      },
+      "type": "item.completed"
+    },
+    {
+      "item": {
+        "command": "sha256:6c3242b380ac4cd2a65b6c1bf578dd6da2eb34578e6c8cd987fbb416e8d3c381",
+        "id": "item_6",
+        "type": "command_execution"
+      },
+      "type": "item.started"
+    },
+    {
+      "item": {
+        "command": "sha256:6c3242b380ac4cd2a65b6c1bf578dd6da2eb34578e6c8cd987fbb416e8d3c381",
+        "id": "item_6",
+        "type": "command_execution"
+      },
+      "type": "item.completed"
+    },
+    {
+      "item": {
+        "id": "item_7",
+        "type": "file_change"
+      },
+      "type": "item.started"
+    },
+    {
+      "item": {
+        "id": "item_7",
+        "type": "file_change"
+      },
+      "type": "item.completed"
+    },
+    {
+      "item": {
+        "command": "sha256:8be331149f584ed737b008ff8434a3773c73c88424f3d52611e600a8bc49a4cb",
+        "id": "item_8",
+        "type": "command_execution"
+      },
+      "type": "item.started"
+    },
+    {
+      "item": {
+        "command": "sha256:8be331149f584ed737b008ff8434a3773c73c88424f3d52611e600a8bc49a4cb",
+        "id": "item_8",
+        "type": "command_execution"
+      },
+      "type": "item.completed"
+    },
+    {
+      "item": {
+        "id": "item_10",
+        "type": "file_change"
+      },
+      "type": "item.started"
+    },
+    {
+      "item": {
+        "id": "item_10",
+        "type": "file_change"
+      },
+      "type": "item.completed"
+    },
+    {
+      "item": {
+        "command": "sha256:f6c44c9b6e7447000c71cb0d039ea1b1ebc452e52e14fc2cb6742031cef4898a",
+        "id": "item_11",
+        "type": "command_execution"
+      },
+      "type": "item.started"
+    },
+    {
+      "item": {
+        "command": "sha256:f6c44c9b6e7447000c71cb0d039ea1b1ebc452e52e14fc2cb6742031cef4898a",
+        "id": "item_11",
+        "type": "command_execution"
+      },
+      "type": "item.completed"
+    },
+    {
+      "item": {
+        "command": "sha256:3d7320c0ecfe98c3005d95251db3353dd8f27fabac1159f3041351fdc72934a7",
+        "id": "item_12",
+        "type": "command_execution"
+      },
+      "type": "item.started"
+    },
+    {
+      "item": {
+        "command": "sha256:3d7320c0ecfe98c3005d95251db3353dd8f27fabac1159f3041351fdc72934a7",
+        "id": "item_12",
+        "type": "command_execution"
+      },
+      "type": "item.completed"
+    }
+  ],
+  "condition_id": "aiboarding-lite",
+  "exit": 0,
+  "experiment_fingerprint": "0e6f46e656d75ff9eac3de8183bd97c1dc6af0c87a678daf4df93bc639275915",
+  "final_tree": "27603fefd1d68519b39a5ef60ac14ccea9904d28e7a58792366223989591371a",
+  "grader": {
+    "definition": "import json, sys\nfrom pathlib import Path\ntask = json.loads(Path(__file__).with_name(\"task.json\").read_text()); root = Path(sys.argv[1])\nok = all((root / name).is_file() and (root / name).read_text(encoding=\"utf-8\") == expected for name, expected in task[\"expected_files\"].items()) and not any(\"domain\" in path.read_text(encoding=\"utf-8\") for path in root.glob(\"*.py\"))\nif not ok: print(task[\"wrong_reason\"])\nraise SystemExit(0 if ok else 1)\n",
+    "snapshot": "final-tree",
+    "verdict": "fail"
+  },
+  "identity": {
+    "controls": {
+      "aggregation": "aggregate.py@2",
+      "budget": "2 repetitions; no retries",
+      "condition": "frozen task-specific bundles@2",
+      "fixture": "task-fixtures@2",
+      "grader": "task-local@2",
+      "harness": "benchmarks/agent-outcomes/pilot.py@7; v6 replacement run",
+      "model": {
+        "limitation": "Codex CLI does not expose an immutable provider model revision",
+        "observed": null,
+        "requested": "default"
+      },
+      "permissions": "danger-full-access in disposable fixture",
+      "repetitions": 2,
+      "retry": "none",
+      "runtime": {
+        "limitation": "recorded at execution",
+        "observed": null,
+        "requested": "codex"
+      },
+      "task": "maintained-corpus@2",
+      "timeout": "60 seconds per trial",
+      "tools": "Codex shell"
+    },
+    "controls_fingerprint": "0e6f46e656d75ff9eac3de8183bd97c1dc6af0c87a678daf4df93bc639275915",
+    "experiment_fingerprint": "0e6f46e656d75ff9eac3de8183bd97c1dc6af0c87a678daf4df93bc639275915",
+    "repository": "d65f781a8c03f30db942e31113419db54abddf35535f34eda592ba3ea0df8e4a",
+    "session": "d2cd2870d0ba67570a0aaf0486aac093"
+  },
+  "interventions": [],
+  "repetition": 1,
+  "retention": {
+    "status": "complete"
+  },
+  "retries": [],
+  "runtime": {
+    "observed": "codex-cli 0.149.1",
+    "requested": "codex"
+  },
+  "stderr": "2026-08-27T03:30:53.857969Z ERROR codex_core::tools::router: error=exec_command failed for `\"C:\\\\Program Files\\\\WindowsApps\\\\Microsoft.PowerShell_7.6.5.0_x64__8wekyb3d8bbwe\\\\pwsh.exe\" -Command '$target = Join-Path (Get-Location) '\"'outcome'; if (Test-Path -LiteralPath \"'$target) { Remove-Item -LiteralPath $target -Force }; git status --short; python check.py; exit $LASTEXITCODE'`: CreateProcess { message: \"Rejected(\\\"`\\\\\\\"C:\\\\\\\\\\\\\\\\Program Files\\\\\\\\\\\\\\\\WindowsApps\\\\\\\\\\\\\\\\Microsoft.PowerShell_7.6.5.0_x64__8wekyb3d8bbwe\\\\\\\\\\\\\\\\pwsh.exe\\\\\\\" -Command '$target = Join-Path (Get-Location) '\\\\\\\"'outcome'; if (Test-Path -LiteralPath \\\\\\\"'$target) { Remove-Item -LiteralPath $target -Force }; git status --short; python check.py; exit $LASTEXITCODE'` rejected: blocked by policy\\\")\" }\n",
+  "task_id": "architecture-boundary",
+  "timing": {
+    "elapsed": 56.1064019203186,
+    "timed_out": false,
+    "timeout": 60
+  },
+  "tool_calls": [
+    {
+      "id": "item_3",
+      "type": "command_execution"
+    },
+    {
+      "id": "item_4",
+      "type": "command_execution"
+    },
+    {
+      "id": "item_5",
+      "type": "file_change"
+    },
+    {
+      "id": "item_6",
+      "type": "command_execution"
+    },
+    {
+      "id": "item_7",
+      "type": "file_change"
+    },
+    {
+      "id": "item_8",
+      "type": "command_execution"
+    },
+    {
+      "id": "item_10",
+      "type": "file_change"
+    },
+    {
+      "id": "item_11",
+      "type": "command_execution"
+    },
+    {
+      "id": "item_12",
+      "type": "command_execution"
+    }
+  ],
+  "usage": {
+    "reason": "Codex event stream exposes no stable usage metric",
+    "status": "unavailable"
+  }
+}

@@ -1,0 +1,34 @@
+## 1. Freeze the Maintained Codex Corpus
+
+- [x] 1.1 Replace the five fake/sentinel-only task controls and complete command discovery with six Codex-runnable fixtures whose deterministic graders inspect real repository outcomes; assign changed task and grader definitions new explicit revisions, retain the old experiment identities, and verify `tasks.py` passes every reference/wrong control while rejecting a grader exposed inside a fixture.
+- [x] 1.2 Extend `conditions.py` only as needed to emit self-contained immutable bundles with exact file content, hashes, generation/compression or mutation provenance, and truncation metadata while preserving existing v1 condition readability; verify repeated freezing is byte-identical and malformed, oversized, stale-without-revision, or contradictory-without-scenario inputs fail.
+- [x] 1.3 Create task-specific frozen bundles for `none`, `manual-minimal`, `aiboarding-off`, `aiboarding-lite`, `aiboarding-full`, `aiboarding-ultra`, `stale`, `contradictory`, and applicable naive truncation, and verify every source was frozen before execution with no outcome-derived edits.
+- [x] 1.4 Add the new maintained Codex experiment/profile with all six categories, exact task/condition/grader artifact identities and hashes, nested-instruction support proof, any frozen inapplicability reasons, two repetitions, randomized ordering seed, and all controlled variables; verify `benchmark.py`, `tasks.py`, and `conditions.py` accept it and contract tests reject any omitted category/condition, hash drift, unsupported nested behavior, duplicate cell, or uncontrolled identity change.
+
+## 2. Execute the Frozen Profile Through the Existing Runner
+
+- [x] 2.1 Make `pilot.py` consume and validate the frozen profile, derive its cells through `planner.py`, resolve only profile-declared task and condition artifacts, and preserve the existing narrow pilot invocation; verify a deterministic fake adapter receives the complete planned cell set in seeded order without resolving the Codex executable.
+- [x] 2.2 Update `runner.py` and the pilot adapter to apply only frozen bundle contents in a fresh repository and ephemeral session for every cell, recording repository/session and controlled-variable identities; verify repeated cells use distinct identities and a mismatched runtime, fixture, tool, permission, budget, timeout, task, grader, or harness identity cannot be pooled.
+- [x] 2.3 Capture sanitized Codex events, attempted commands/tool calls, final retained state, process status, timing, retries/interventions, explicit usage availability, and deterministic grader input/output for each trial; verify a grader error/timeout/unknown shape or missing retained file yields an incomplete trial without aborting the matrix and an agent completion claim never overrides a failing grader.
+
+## 3. Complete Reproducible Offline Processing
+
+- [x] 3.1 Extend `evidence.py` to validate every planned trial and rerun its retained versioned grader against retained final state without model access; verify complete pass/fail trials regrade identically and missing, malformed, or failing grader evidence remains incomplete.
+- [x] 3.2 Extend `metrics.py` and `aggregate.py` to derive the existing required success, false-completion, violation, invalid-command, tool-call, retry, intervention, elapsed-time, and measured-usage observations and to retain all planned task/condition cells, trial counts, missing/incomplete counts, and dispersion; verify absent classifications are unavailable-with-reason and are excluded from applicable denominators rather than treated as zero.
+- [x] 3.3 Extend `report.py` to render the full measured matrix and metric summaries before a separate bounded interpretation, retaining neutral and unfavorable AIBoarding comparisons and incomplete labels; verify fixtures containing an AIBoarding loss, a baseline success, and an incomplete cell all remain visible and no improvement claim appears without supporting complete evidence.
+- [x] 3.4 Compose validation, regrading, metrics, aggregation, report rendering, and `package.py` in an offline mode that stages outputs before publication; verify it regenerates byte-identical aggregate/report/inventory/package artifacts from retained evidence without invoking Codex and refuses forbidden or incomplete package inputs.
+- [x] 3.5 Add LF normalization for retained benchmark result paths and an integrity check for checked-out and packaged bytes; verify hashes remain stable on the supported Windows/Git Bash checkout while the existing `codex-command-discovery-v2` package still verifies.
+
+## 4. Deterministic Coverage and Operator Documentation
+
+- [x] 4.1 Add one no-runtime end-to-end benchmark test that validates the maintained profile, runs every planned cell through a fake adapter, processes retained evidence offline, and checks the complete report/package; verify it runs under `bash tests/run.sh` with a fake `codex` executable that would fail if invoked.
+- [x] 4.2 Add focused regression cases for false completion, grader failure, missing evidence, controlled-variable drift, unavailable usage, unfavorable AIBoarding results, and legacy experiment readability; verify each fails or reports incomplete at the responsible existing layer.
+- [x] 4.3 Document the exact profile validation, explicit authenticated Codex execution, offline regeneration, evidence inspection/regrading, and package verification commands in the benchmark runbook; verify the documentation states the two-repetition limit, cost/runtime controls, credential exclusions, incomplete semantics, and task/runtime-bounded interpretation.
+
+## 5. Validate and Retain the Measured Codex Result
+
+- [x] 5.1 Run `bash tests/run.sh` and verify all deterministic repository and benchmark contract tests pass without authenticated Codex execution.
+- [x] 5.2 Preserve historical partial evidence without overwriting or rerunning it; freeze the 12-cell `v7` smoke profile, then run its validation and dry-run commands and verify the frozen profile expands to every declared task/condition cell before paid execution.
+- [x] 5.3 Invoke the documented explicit Codex live command once with the frozen `v7` smoke profile, retaining every complete, failed, timed-out, and incomplete trial without rerunning or tuning cells based on outcomes; verify the `v7` evidence directory contains the declared inventory and no credentials or unrelated environment data.
+- [x] 5.4 Regenerate the staged aggregate/report from retained `v7` smoke evidence with the documented offline command and verify it does not invoke Codex, regrading matches retained objective verdicts, and incomplete evidence is refused by the package publisher.
+- [x] 5.5 Inspect the staged `v7` smoke report against the frozen plan and verify it includes trial and incomplete counts, measured metrics and unavailable reasons, and task/runtime-bounded interpretation with no claim that AIBoarding improves Codex.

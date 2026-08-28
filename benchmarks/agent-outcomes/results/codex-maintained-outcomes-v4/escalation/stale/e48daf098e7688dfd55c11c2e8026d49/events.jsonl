@@ -1,0 +1,4 @@
+{"item": {"command": "sha256:755377eca10d5e1edc70baf082ba7153530cefd334f14e03014bfce7b3b07890", "id": "item_3", "type": "command_execution"}, "type": "item.started"}
+{"item": {"command": "sha256:755377eca10d5e1edc70baf082ba7153530cefd334f14e03014bfce7b3b07890", "id": "item_3", "type": "command_execution"}, "type": "item.completed"}
+{"item": {"command": "sha256:4524dd6c21b30953f3b5ad12972557874ec4f884ea2550115d8ec4d0fcd25887", "id": "item_4", "type": "command_execution"}, "type": "item.started"}
+{"item": {"command": "sha256:4524dd6c21b30953f3b5ad12972557874ec4f884ea2550115d8ec4d0fcd25887", "id": "item_4", "type": "command_execution"}, "type": "item.completed"}

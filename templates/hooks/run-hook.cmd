@@ -3,37 +3,38 @@
 REM Cross-platform polyglot wrapper for aiboarding hook scripts.
 REM Windows: cmd runs this batch block, finds Git Bash, calls the named script.
 REM Unix: bash treats this block as a heredoc no-op and runs the tail below.
-REM Usage: run-hook.cmd <script-name> [args...]
-REM NOTE: extra args are forwarded as %2-%9 (max 8) and are NOT space-safe on
-REM Windows. Current callers pass only the script name, so this is not exercised.
+REM Usage: run-hook.cmd <script-path-or-name> [args...]
 if "%~1"=="" (
     echo run-hook.cmd: missing script name >&2
     exit /b 1
 )
-set "HOOK_DIR=%~dp0"
-if exist "C:\Program Files\Git\bin\bash.exe" (
-    "C:\Program Files\Git\bin\bash.exe" "%HOOK_DIR%%~1" %2 %3 %4 %5 %6 %7 %8 %9
+set "SCRIPT=%~f1"
+if not exist "%SCRIPT%" set "SCRIPT=%~dp0%~1"
+if exist "%ProgramFiles%\Git\bin\bash.exe" (
+    "%ProgramFiles%\Git\bin\bash.exe" "%SCRIPT%" %2 %3 %4 %5 %6 %7 %8 %9
     exit /b %ERRORLEVEL%
 )
-if exist "C:\Program Files (x86)\Git\bin\bash.exe" (
-    "C:\Program Files (x86)\Git\bin\bash.exe" "%HOOK_DIR%%~1" %2 %3 %4 %5 %6 %7 %8 %9
+if exist "%ProgramFiles(x86)%\Git\bin\bash.exe" (
+    "%ProgramFiles(x86)%\Git\bin\bash.exe" "%SCRIPT%" %2 %3 %4 %5 %6 %7 %8 %9
     exit /b %ERRORLEVEL%
 )
-where bash >nul 2>nul
-if %ERRORLEVEL% equ 0 (
-    bash "%HOOK_DIR%%~1" %2 %3 %4 %5 %6 %7 %8 %9
+for %%I in (git.exe) do if exist "%%~dpI..\bin\bash.exe" (
+    "%%~dpI..\bin\bash.exe" "%SCRIPT%" %2 %3 %4 %5 %6 %7 %8 %9
     exit /b %ERRORLEVEL%
 )
-REM No bash found - exit silently so the project still works without injection.
+REM No compatible Git Bash - optional hooks remain silent.
 exit /b 0
 CMDBLOCK
 
-# Unix: run the named script directly.
+# Unix: run an explicit script or a named sibling script.
 if [ -z "${1:-}" ]; then
   echo "run-hook.cmd: missing script name" >&2
   exit 1
 fi
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-SCRIPT_NAME="$1"
+SCRIPT="$1"
 shift
-exec bash "${SCRIPT_DIR}/${SCRIPT_NAME}" "$@"
+if [ ! -f "$SCRIPT" ]; then
+  SCRIPT="${SCRIPT_DIR}/${SCRIPT}"
+fi
+exec bash "$SCRIPT" "$@"

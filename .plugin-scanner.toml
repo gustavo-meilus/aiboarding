@@ -1,0 +1,8 @@
+[scanner]
+# These development-only documents are not plugin payloads. The pinned scanner's
+# secret regex falsely treats ordinary Markdown slugs containing `sk-` as keys.
+ignore_paths = [
+  ".agents/skills/more-with-less/references/playbook.md",
+  "openspec/specs/agent-outcome-benchmarking/spec.md",
+  "openspec/changes/archive/2026-08-27-gate-cost-bearing-benchmark-expansion/specs/agent-outcome-benchmarking/spec.md",
+]

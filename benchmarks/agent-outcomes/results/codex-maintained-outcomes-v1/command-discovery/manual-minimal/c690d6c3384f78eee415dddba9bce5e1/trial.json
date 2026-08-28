@@ -1,0 +1,63 @@
+{
+  "commands": [],
+  "completion": "",
+  "completion_status": [],
+  "condition_id": "manual-minimal",
+  "exit": null,
+  "experiment_fingerprint": "9a5680882648f16ff0b3cf62dd01197ea26915c76d631620c3c222b387457c48",
+  "final_tree": "459b1840ea0dce8276d7b7bab192e60eca4708499d4811e4bdf86c44a712a24d",
+  "grader": {
+    "definition": "import json, sys\nfrom pathlib import Path\ntask = json.loads(Path(__file__).with_name(\"task.json\").read_text())\nroot = Path(sys.argv[1])\nok = all((root / name).is_file() and (root / name).read_text(encoding=\"utf-8\") == expected for name, expected in task[\"expected_files\"].items())\nif not ok: print(task[\"wrong_reason\"])\nraise SystemExit(0 if ok else 1)\n",
+    "snapshot": "final-tree",
+    "verdict": "pass"
+  },
+  "identity": {
+    "controls": {
+      "aggregation": "aggregate.py@2",
+      "budget": "2 repetitions; no retries",
+      "condition": "frozen task-specific bundles@2",
+      "fixture": "task-fixtures@2",
+      "grader": "task-local@2",
+      "harness": "benchmarks/agent-outcomes/pilot.py@3",
+      "model": {
+        "limitation": "Codex CLI does not expose an immutable provider model revision",
+        "observed": null,
+        "requested": "default"
+      },
+      "permissions": "danger-full-access in disposable fixture",
+      "repetitions": 2,
+      "retry": "none",
+      "runtime": {
+        "limitation": "recorded at execution",
+        "observed": null,
+        "requested": "codex"
+      },
+      "task": "maintained-corpus@2",
+      "timeout": "60 seconds per trial",
+      "tools": "Codex shell"
+    },
+    "controls_fingerprint": "9a5680882648f16ff0b3cf62dd01197ea26915c76d631620c3c222b387457c48",
+    "experiment_fingerprint": "9a5680882648f16ff0b3cf62dd01197ea26915c76d631620c3c222b387457c48",
+    "repository": "d35e5c3be5a389327e69f951aa46554d05b948fb536bf7f6429727c8c48614f8",
+    "session": "c690d6c3384f78eee415dddba9bce5e1"
+  },
+  "interventions": [],
+  "repetition": 1,
+  "retries": [],
+  "runtime": {
+    "observed": "codex-cli 0.149.1",
+    "requested": "codex"
+  },
+  "stderr": "Reading additional input from stdin...\n",
+  "task_id": "command-discovery",
+  "timing": {
+    "elapsed": 60.35284996032715,
+    "timed_out": true,
+    "timeout": 60
+  },
+  "tool_calls": [],
+  "usage": {
+    "reason": "Codex event stream exposes no stable usage metric",
+    "status": "unavailable"
+  }
+}

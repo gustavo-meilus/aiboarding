@@ -1,0 +1,415 @@
+{
+  "aggregate": {
+    "experiment_fingerprint": "aeb07b8f7107962642208416ffc1e115c80f13e09250a13cecb55f150905b55a",
+    "id": "codex-maintained-outcomes-v7-smoke-aggregate",
+    "schema_version": 1
+  },
+  "conditions": [
+    {
+      "condition_id": "none",
+      "id": "command-discovery:none",
+      "path": "conditions/command-discovery/none.json",
+      "provenance": {
+        "frozen": true
+      },
+      "schema_version": 1,
+      "sha256": "bfceae318223011799b92e5d8c17c74a3fb726f1d7dcfe366bc020a22fea51ee",
+      "task_id": "command-discovery"
+    },
+    {
+      "condition_id": "aiboarding-full",
+      "id": "command-discovery:aiboarding-full",
+      "path": "conditions/command-discovery/aiboarding-full.json",
+      "provenance": {
+        "frozen": true
+      },
+      "schema_version": 1,
+      "sha256": "11deeae563dafda1555def90e95eb9270206edf92af12f5af26f1b0eeac7da22",
+      "task_id": "command-discovery"
+    },
+    {
+      "condition_id": "none",
+      "id": "architecture-boundary:none",
+      "path": "conditions/architecture-boundary/none.json",
+      "provenance": {
+        "frozen": true
+      },
+      "schema_version": 1,
+      "sha256": "bfceae318223011799b92e5d8c17c74a3fb726f1d7dcfe366bc020a22fea51ee",
+      "task_id": "architecture-boundary"
+    },
+    {
+      "condition_id": "aiboarding-full",
+      "id": "architecture-boundary:aiboarding-full",
+      "path": "conditions/architecture-boundary/aiboarding-full.json",
+      "provenance": {
+        "frozen": true
+      },
+      "schema_version": 1,
+      "sha256": "11deeae563dafda1555def90e95eb9270206edf92af12f5af26f1b0eeac7da22",
+      "task_id": "architecture-boundary"
+    },
+    {
+      "condition_id": "none",
+      "id": "domain-invariant:none",
+      "path": "conditions/domain-invariant/none.json",
+      "provenance": {
+        "frozen": true
+      },
+      "schema_version": 1,
+      "sha256": "bfceae318223011799b92e5d8c17c74a3fb726f1d7dcfe366bc020a22fea51ee",
+      "task_id": "domain-invariant"
+    },
+    {
+      "condition_id": "aiboarding-full",
+      "id": "domain-invariant:aiboarding-full",
+      "path": "conditions/domain-invariant/aiboarding-full.json",
+      "provenance": {
+        "frozen": true
+      },
+      "schema_version": 1,
+      "sha256": "11deeae563dafda1555def90e95eb9270206edf92af12f5af26f1b0eeac7da22",
+      "task_id": "domain-invariant"
+    },
+    {
+      "condition_id": "none",
+      "id": "known-failure-mode:none",
+      "path": "conditions/known-failure-mode/none.json",
+      "provenance": {
+        "frozen": true
+      },
+      "schema_version": 1,
+      "sha256": "bfceae318223011799b92e5d8c17c74a3fb726f1d7dcfe366bc020a22fea51ee",
+      "task_id": "known-failure-mode"
+    },
+    {
+      "condition_id": "aiboarding-full",
+      "id": "known-failure-mode:aiboarding-full",
+      "path": "conditions/known-failure-mode/aiboarding-full.json",
+      "provenance": {
+        "frozen": true
+      },
+      "schema_version": 1,
+      "sha256": "11deeae563dafda1555def90e95eb9270206edf92af12f5af26f1b0eeac7da22",
+      "task_id": "known-failure-mode"
+    },
+    {
+      "condition_id": "none",
+      "id": "escalation:none",
+      "path": "conditions/escalation/none.json",
+      "provenance": {
+        "frozen": true
+      },
+      "schema_version": 1,
+      "sha256": "bfceae318223011799b92e5d8c17c74a3fb726f1d7dcfe366bc020a22fea51ee",
+      "task_id": "escalation"
+    },
+    {
+      "condition_id": "aiboarding-full",
+      "id": "escalation:aiboarding-full",
+      "path": "conditions/escalation/aiboarding-full.json",
+      "provenance": {
+        "frozen": true
+      },
+      "schema_version": 1,
+      "sha256": "11deeae563dafda1555def90e95eb9270206edf92af12f5af26f1b0eeac7da22",
+      "task_id": "escalation"
+    },
+    {
+      "condition_id": "none",
+      "id": "nested-instructions:none",
+      "path": "conditions/nested-instructions/none.json",
+      "provenance": {
+        "frozen": true
+      },
+      "schema_version": 1,
+      "sha256": "bfceae318223011799b92e5d8c17c74a3fb726f1d7dcfe366bc020a22fea51ee",
+      "task_id": "nested-instructions"
+    },
+    {
+      "condition_id": "aiboarding-full",
+      "id": "nested-instructions:aiboarding-full",
+      "path": "conditions/nested-instructions/aiboarding-full.json",
+      "provenance": {
+        "frozen": true
+      },
+      "schema_version": 1,
+      "sha256": "11deeae563dafda1555def90e95eb9270206edf92af12f5af26f1b0eeac7da22",
+      "task_id": "nested-instructions"
+    }
+  ],
+  "contracts": {
+    "id": "agent-outcome-benchmark",
+    "schema_version": 1
+  },
+  "execution": {
+    "kind": "diagnostic",
+    "max_live_trials": 12
+  },
+  "experiment": {
+    "fingerprint": "aeb07b8f7107962642208416ffc1e115c80f13e09250a13cecb55f150905b55a",
+    "frozen": true,
+    "id": "codex-maintained-outcomes-v7-smoke",
+    "identity": {
+      "aggregation": "aggregate.py@2",
+      "budget": "1 repetition; no retries; 12-cell smoke",
+      "condition": "frozen none/full bundles@2",
+      "fixture": "task-fixtures@2",
+      "grader": "task-local@2",
+      "harness": "benchmarks/agent-outcomes/pilot.py@8; v7 12-cell smoke",
+      "model": {
+        "limitation": "Codex CLI does not expose an immutable provider model revision",
+        "observed": null,
+        "requested": "default"
+      },
+      "permissions": "danger-full-access in disposable fixture",
+      "repetitions": 1,
+      "retry": "none",
+      "runtime": {
+        "limitation": "recorded at execution",
+        "observed": null,
+        "requested": "codex"
+      },
+      "task": "maintained-corpus@2",
+      "timeout": "60 seconds per trial",
+      "tools": "Codex shell"
+    },
+    "ordering_seed": "codex-maintained-outcomes-v7-smoke",
+    "schema_version": 1
+  },
+  "graders": [
+    {
+      "id": "command-discovery-grader-v2",
+      "path": "tasks/command-discovery/grader.py",
+      "provenance": "computed",
+      "schema_version": 1,
+      "sha256": "d341c1d7d966fa6ba365fb64d967425a249e737ecee3b6656608d0742fde3956"
+    },
+    {
+      "id": "architecture-boundary-grader-v2",
+      "path": "tasks/architecture-boundary/grader.py",
+      "provenance": "computed",
+      "schema_version": 1,
+      "sha256": "85923c031ec2f55bc59ebc4e3ebb6b13034c641823616640a2775db001f7ea73"
+    },
+    {
+      "id": "domain-invariant-grader-v2",
+      "path": "tasks/domain-invariant/grader.py",
+      "provenance": "computed",
+      "schema_version": 1,
+      "sha256": "266b10163fa4f1e98a3a7a7fbeac1c37d1a2985e1be579bab7052807e7ed2c01"
+    },
+    {
+      "id": "known-failure-mode-grader-v2",
+      "path": "tasks/known-failure-mode/grader.py",
+      "provenance": "computed",
+      "schema_version": 1,
+      "sha256": "6efd6b9a47f817c69139cf0227b4c7a0c1e5eec377e06929179591dd0a32953a"
+    },
+    {
+      "id": "escalation-grader-v2",
+      "path": "tasks/escalation/grader.py",
+      "provenance": "computed",
+      "schema_version": 1,
+      "sha256": "7c8b8ae915a6aecb49305f96d9adcf7d181bf4be290b7a9ab075c6cd28176bb6"
+    },
+    {
+      "id": "nested-instructions-grader-v2",
+      "path": "tasks/nested-instructions/grader.py",
+      "provenance": "computed",
+      "schema_version": 1,
+      "sha256": "7ad54b0f67e7a4913f7565848b8934f70348f609ff5c64b9bf6327d19660ba42"
+    }
+  ],
+  "profile_version": 2,
+  "tasks": [
+    {
+      "category": "command-discovery",
+      "expected_outcome": "checked outcome",
+      "fixture": "tasks/command-discovery/fixture",
+      "grader_id": "command-discovery-grader-v2",
+      "id": "command-discovery",
+      "instruction": "tasks/command-discovery/agent-instructions.md",
+      "nested_support_proof": false,
+      "path": "tasks/command-discovery/task.json",
+      "permitted_environment": "codex",
+      "schema_version": 1,
+      "sha256": "4769cccc14ac651522b58b090668acace1a93721ed8f02824bb04549238ce373"
+    },
+    {
+      "category": "architecture-boundary",
+      "expected_outcome": "boundary-respecting adapter",
+      "fixture": "tasks/architecture-boundary/fixture",
+      "grader_id": "architecture-boundary-grader-v2",
+      "id": "architecture-boundary",
+      "instruction": "tasks/architecture-boundary/agent-instructions.md",
+      "nested_support_proof": false,
+      "path": "tasks/architecture-boundary/task.json",
+      "permitted_environment": "codex",
+      "schema_version": 1,
+      "sha256": "1f32428cb8e48f10474b78df75a13fb66a1cc58299c6fcc590dcdb7205442cae"
+    },
+    {
+      "category": "domain-invariant",
+      "expected_outcome": "non-negative balance",
+      "fixture": "tasks/domain-invariant/fixture",
+      "grader_id": "domain-invariant-grader-v2",
+      "id": "domain-invariant",
+      "instruction": "tasks/domain-invariant/agent-instructions.md",
+      "nested_support_proof": false,
+      "path": "tasks/domain-invariant/task.json",
+      "permitted_environment": "codex",
+      "schema_version": 1,
+      "sha256": "42431b64571c1a2a8c9b834d30d36c7e439e04f51e33550cb372014a1026fb10"
+    },
+    {
+      "category": "known-failure-mode",
+      "expected_outcome": "safe setting",
+      "fixture": "tasks/known-failure-mode/fixture",
+      "grader_id": "known-failure-mode-grader-v2",
+      "id": "known-failure-mode",
+      "instruction": "tasks/known-failure-mode/agent-instructions.md",
+      "nested_support_proof": false,
+      "path": "tasks/known-failure-mode/task.json",
+      "permitted_environment": "codex",
+      "schema_version": 1,
+      "sha256": "c928e54a92a7984b6748a2dd76274effb6b794c133321bd4338af7184e344a5a"
+    },
+    {
+      "category": "escalation",
+      "expected_outcome": "declared no-escalation decision",
+      "fixture": "tasks/escalation/fixture",
+      "grader_id": "escalation-grader-v2",
+      "id": "escalation",
+      "instruction": "tasks/escalation/agent-instructions.md",
+      "nested_support_proof": false,
+      "path": "tasks/escalation/task.json",
+      "permitted_environment": "codex",
+      "schema_version": 1,
+      "sha256": "11a2ea0f08472b7f2f5ba68cf74204c9d0604b4332ec8e7f1ad068dcfaaf5a14"
+    },
+    {
+      "category": "nested-instructions",
+      "expected_outcome": "nested instruction applied",
+      "fixture": "tasks/nested-instructions/fixture",
+      "grader_id": "nested-instructions-grader-v2",
+      "id": "nested-instructions",
+      "instruction": "tasks/nested-instructions/agent-instructions.md",
+      "nested_support_proof": true,
+      "path": "tasks/nested-instructions/task.json",
+      "permitted_environment": "codex",
+      "schema_version": 1,
+      "sha256": "e6f9a34ac1b2bd37034bb5a08d1cacda065e1a73955b13f9f3593f195e2d51f3"
+    }
+  ],
+  "trials": [
+    {
+      "id": "command-discovery:none:1",
+      "schema_version": 1,
+      "task_id": "command-discovery",
+      "condition_id": "none",
+      "repetition": 1,
+      "experiment_fingerprint": "aeb07b8f7107962642208416ffc1e115c80f13e09250a13cecb55f150905b55a",
+      "evidence": []
+    },
+    {
+      "id": "command-discovery:aiboarding-full:1",
+      "schema_version": 1,
+      "task_id": "command-discovery",
+      "condition_id": "aiboarding-full",
+      "repetition": 1,
+      "experiment_fingerprint": "aeb07b8f7107962642208416ffc1e115c80f13e09250a13cecb55f150905b55a",
+      "evidence": []
+    },
+    {
+      "id": "architecture-boundary:none:1",
+      "schema_version": 1,
+      "task_id": "architecture-boundary",
+      "condition_id": "none",
+      "repetition": 1,
+      "experiment_fingerprint": "aeb07b8f7107962642208416ffc1e115c80f13e09250a13cecb55f150905b55a",
+      "evidence": []
+    },
+    {
+      "id": "architecture-boundary:aiboarding-full:1",
+      "schema_version": 1,
+      "task_id": "architecture-boundary",
+      "condition_id": "aiboarding-full",
+      "repetition": 1,
+      "experiment_fingerprint": "aeb07b8f7107962642208416ffc1e115c80f13e09250a13cecb55f150905b55a",
+      "evidence": []
+    },
+    {
+      "id": "domain-invariant:none:1",
+      "schema_version": 1,
+      "task_id": "domain-invariant",
+      "condition_id": "none",
+      "repetition": 1,
+      "experiment_fingerprint": "aeb07b8f7107962642208416ffc1e115c80f13e09250a13cecb55f150905b55a",
+      "evidence": []
+    },
+    {
+      "id": "domain-invariant:aiboarding-full:1",
+      "schema_version": 1,
+      "task_id": "domain-invariant",
+      "condition_id": "aiboarding-full",
+      "repetition": 1,
+      "experiment_fingerprint": "aeb07b8f7107962642208416ffc1e115c80f13e09250a13cecb55f150905b55a",
+      "evidence": []
+    },
+    {
+      "id": "known-failure-mode:none:1",
+      "schema_version": 1,
+      "task_id": "known-failure-mode",
+      "condition_id": "none",
+      "repetition": 1,
+      "experiment_fingerprint": "aeb07b8f7107962642208416ffc1e115c80f13e09250a13cecb55f150905b55a",
+      "evidence": []
+    },
+    {
+      "id": "known-failure-mode:aiboarding-full:1",
+      "schema_version": 1,
+      "task_id": "known-failure-mode",
+      "condition_id": "aiboarding-full",
+      "repetition": 1,
+      "experiment_fingerprint": "aeb07b8f7107962642208416ffc1e115c80f13e09250a13cecb55f150905b55a",
+      "evidence": []
+    },
+    {
+      "id": "escalation:none:1",
+      "schema_version": 1,
+      "task_id": "escalation",
+      "condition_id": "none",
+      "repetition": 1,
+      "experiment_fingerprint": "aeb07b8f7107962642208416ffc1e115c80f13e09250a13cecb55f150905b55a",
+      "evidence": []
+    },
+    {
+      "id": "escalation:aiboarding-full:1",
+      "schema_version": 1,
+      "task_id": "escalation",
+      "condition_id": "aiboarding-full",
+      "repetition": 1,
+      "experiment_fingerprint": "aeb07b8f7107962642208416ffc1e115c80f13e09250a13cecb55f150905b55a",
+      "evidence": []
+    },
+    {
+      "id": "nested-instructions:none:1",
+      "schema_version": 1,
+      "task_id": "nested-instructions",
+      "condition_id": "none",
+      "repetition": 1,
+      "experiment_fingerprint": "aeb07b8f7107962642208416ffc1e115c80f13e09250a13cecb55f150905b55a",
+      "evidence": []
+    },
+    {
+      "id": "nested-instructions:aiboarding-full:1",
+      "schema_version": 1,
+      "task_id": "nested-instructions",
+      "condition_id": "aiboarding-full",
+      "repetition": 1,
+      "experiment_fingerprint": "aeb07b8f7107962642208416ffc1e115c80f13e09250a13cecb55f150905b55a",
+      "evidence": []
+    }
+  ]
+}

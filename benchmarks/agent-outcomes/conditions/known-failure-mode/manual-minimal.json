@@ -1,0 +1,24 @@
+{
+  "files": {
+    "AGENTS.md": {
+      "bytes": 10,
+      "content": "Run tests.",
+      "sha256": "a55957f0e2849be1c4ab256a478b71b35317fefc7c109e4baa396b9661d0c5d1"
+    }
+  },
+  "id": "manual-minimal",
+  "measured_tokens": {
+    "reason": "no runtime tokenizer",
+    "status": "unavailable"
+  },
+  "provenance": {
+    "author": "independent",
+    "source_revision": "fixture"
+  },
+  "schema_version": 2,
+  "sha256": "4e39eca5dd49fbae262e4cd9a0503fd3a8e6b5a427ddda6677409402a6a61804",
+  "source": {
+    "path": "manual-minimal.json",
+    "sha256": "ae71f00c8603c82758f622fe5a4656c2ee5f00065604db0e56ffd6e68d1fc027"
+  }
+}

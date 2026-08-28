@@ -1,0 +1,18 @@
+{"item": {"command": "sha256:de89bc077b4d3b8a392841a9b4384a8190ed0f341a041d6760dab40518881263", "id": "item_3", "type": "command_execution"}, "type": "item.started"}
+{"item": {"command": "sha256:de89bc077b4d3b8a392841a9b4384a8190ed0f341a041d6760dab40518881263", "id": "item_3", "type": "command_execution"}, "type": "item.completed"}
+{"item": {"command": "sha256:52299b58e45e0bd666e78b2556cc18565efcb9a257dbd7b5292c793f70f78b95", "id": "item_4", "type": "command_execution"}, "type": "item.started"}
+{"item": {"command": "sha256:52299b58e45e0bd666e78b2556cc18565efcb9a257dbd7b5292c793f70f78b95", "id": "item_4", "type": "command_execution"}, "type": "item.completed"}
+{"item": {"id": "item_5", "type": "file_change"}, "type": "item.started"}
+{"item": {"id": "item_5", "type": "file_change"}, "type": "item.completed"}
+{"item": {"command": "sha256:6c3242b380ac4cd2a65b6c1bf578dd6da2eb34578e6c8cd987fbb416e8d3c381", "id": "item_6", "type": "command_execution"}, "type": "item.started"}
+{"item": {"command": "sha256:6c3242b380ac4cd2a65b6c1bf578dd6da2eb34578e6c8cd987fbb416e8d3c381", "id": "item_6", "type": "command_execution"}, "type": "item.completed"}
+{"item": {"id": "item_7", "type": "file_change"}, "type": "item.started"}
+{"item": {"id": "item_7", "type": "file_change"}, "type": "item.completed"}
+{"item": {"command": "sha256:8be331149f584ed737b008ff8434a3773c73c88424f3d52611e600a8bc49a4cb", "id": "item_8", "type": "command_execution"}, "type": "item.started"}
+{"item": {"command": "sha256:8be331149f584ed737b008ff8434a3773c73c88424f3d52611e600a8bc49a4cb", "id": "item_8", "type": "command_execution"}, "type": "item.completed"}
+{"item": {"id": "item_10", "type": "file_change"}, "type": "item.started"}
+{"item": {"id": "item_10", "type": "file_change"}, "type": "item.completed"}
+{"item": {"command": "sha256:f6c44c9b6e7447000c71cb0d039ea1b1ebc452e52e14fc2cb6742031cef4898a", "id": "item_11", "type": "command_execution"}, "type": "item.started"}
+{"item": {"command": "sha256:f6c44c9b6e7447000c71cb0d039ea1b1ebc452e52e14fc2cb6742031cef4898a", "id": "item_11", "type": "command_execution"}, "type": "item.completed"}
+{"item": {"command": "sha256:3d7320c0ecfe98c3005d95251db3353dd8f27fabac1159f3041351fdc72934a7", "id": "item_12", "type": "command_execution"}, "type": "item.started"}
+{"item": {"command": "sha256:3d7320c0ecfe98c3005d95251db3353dd8f27fabac1159f3041351fdc72934a7", "id": "item_12", "type": "command_execution"}, "type": "item.completed"}

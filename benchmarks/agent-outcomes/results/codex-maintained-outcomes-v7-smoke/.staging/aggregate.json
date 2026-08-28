@@ -1,0 +1,200 @@
+{
+  "profile": "aeb07b8f7107962642208416ffc1e115c80f13e09250a13cecb55f150905b55a",
+  "rows": [
+    {
+      "condition": "none",
+      "evidence": "complete",
+      "success": "pass",
+      "task": "command-discovery"
+    },
+    {
+      "condition": "aiboarding-full",
+      "evidence": "complete",
+      "success": "pass",
+      "task": "command-discovery"
+    },
+    {
+      "condition": "aiboarding-full",
+      "evidence": "incomplete",
+      "success": "incomplete",
+      "task": "architecture-boundary"
+    },
+    {
+      "condition": "none",
+      "evidence": "incomplete",
+      "success": "incomplete",
+      "task": "architecture-boundary"
+    },
+    {
+      "condition": "aiboarding-full",
+      "evidence": "complete",
+      "success": "pass",
+      "task": "domain-invariant"
+    },
+    {
+      "condition": "none",
+      "evidence": "complete",
+      "success": "fail",
+      "task": "domain-invariant"
+    },
+    {
+      "condition": "none",
+      "evidence": "complete",
+      "success": "pass",
+      "task": "known-failure-mode"
+    },
+    {
+      "condition": "aiboarding-full",
+      "evidence": "incomplete",
+      "success": "incomplete",
+      "task": "known-failure-mode"
+    },
+    {
+      "condition": "none",
+      "evidence": "incomplete",
+      "success": "incomplete",
+      "task": "escalation"
+    },
+    {
+      "condition": "aiboarding-full",
+      "evidence": "incomplete",
+      "success": "incomplete",
+      "task": "escalation"
+    },
+    {
+      "condition": "none",
+      "evidence": "incomplete",
+      "success": "incomplete",
+      "task": "nested-instructions"
+    },
+    {
+      "condition": "aiboarding-full",
+      "evidence": "incomplete",
+      "success": "incomplete",
+      "task": "nested-instructions"
+    }
+  ],
+  "summary": {
+    "complete": 5,
+    "incomplete": 7,
+    "metrics": {
+      "completion_claim": {
+        "summary": {
+          "count": 5,
+          "rate": 0.0,
+          "successes": 0,
+          "wilson_95": [
+            -2.7755575615628914e-17,
+            0.43449149475208104
+          ]
+        },
+        "unavailable": 0
+      },
+      "elapsed_time": {
+        "summary": {
+          "count": 0,
+          "rate": null,
+          "successes": 0,
+          "wilson_95": null
+        },
+        "unavailable": 5
+      },
+      "false_completion": {
+        "summary": {
+          "count": 5,
+          "rate": 0.0,
+          "successes": 0,
+          "wilson_95": [
+            -2.7755575615628914e-17,
+            0.43449149475208104
+          ]
+        },
+        "unavailable": 0
+      },
+      "interventions": {
+        "summary": {
+          "count": 5,
+          "iqr": [
+            0.0,
+            0.0
+          ],
+          "median": 0.0
+        },
+        "unavailable": 0
+      },
+      "invalid_commands": {
+        "summary": {
+          "count": 5,
+          "iqr": [
+            0.0,
+            0.0
+          ],
+          "median": 0.0
+        },
+        "unavailable": 0
+      },
+      "retries": {
+        "summary": {
+          "count": 5,
+          "iqr": [
+            0.0,
+            0.0
+          ],
+          "median": 0.0
+        },
+        "unavailable": 0
+      },
+      "task_success": {
+        "summary": {
+          "count": 5,
+          "rate": 0.8,
+          "successes": 4,
+          "wilson_95": [
+            0.3755282641185388,
+            0.9637768390302125
+          ]
+        },
+        "unavailable": 0
+      },
+      "tool_calls": {
+        "summary": {
+          "count": 5,
+          "iqr": [
+            4.5,
+            5.5
+          ],
+          "median": 5.0
+        },
+        "unavailable": 0
+      },
+      "usage": {
+        "summary": {
+          "count": 0,
+          "rate": null,
+          "successes": 0,
+          "wilson_95": null
+        },
+        "unavailable": 5
+      },
+      "violations": {
+        "summary": {
+          "count": 0,
+          "rate": null,
+          "successes": 0,
+          "wilson_95": null
+        },
+        "unavailable": 5
+      }
+    },
+    "planned": 12,
+    "task_success": {
+      "count": 5,
+      "rate": 0.8,
+      "successes": 4,
+      "wilson_95": [
+        0.3755282641185388,
+        0.9637768390302125
+      ]
+    }
+  }
+}

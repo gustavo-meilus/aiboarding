@@ -1,0 +1,49 @@
+{
+  "exit": 0,
+  "results": [
+    {
+      "canary_sha256": "b7310884045d2028b79fe703c4ac65ab7a56f030bd2c5ce92b558f518842b225",
+      "case": "positive",
+      "command": [
+        "codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--sandbox",
+        "read-only",
+        "--model",
+        "gpt-5.6-luna",
+        "--config",
+        "model_reasoning_effort=\"low\"",
+        "--config",
+        "web_search=\"disabled\"",
+        "--ignore-rules",
+        "--dangerously-bypass-hook-trust",
+        "Return exactly the onboarding token. If none is loaded, return NONE. Do not use tools or explain."
+      ],
+      "ended_at": 1787875704.794662,
+      "evidence": {
+        "case.json": "f2c445db5d2767ee05918e8352457829605d9f4d2336c706b27004af84fc3fdf",
+        "collector.jsonl": "b5e4d989c846607ea8287babce9e38c0a25f2cae92f42fd0ffae39d3eb2fbb20",
+        "events.json": "b07cd59dbc409f84302cc76f3fbabf34f2658a44dcb55075af99ee5b46f8d5e2",
+        "stderr.txt": "9a5a4e20f1a4c56ba3baccee50f60b5b012fc2cc37e62b269419a943a836a547",
+        "stdout.jsonl": "99e3e6d831b04023b11c9021461caaa4baffd3885a8c852a0659ed636f0f0578"
+      },
+      "exit": 0,
+      "fixture": "generated",
+      "reason": "",
+      "runtime": "codex",
+      "runtime_version": "codex-cli 0.150.1",
+      "source": {
+        "commit": "9d172fdf0c2a00257d81a0cb5c8da78a87f60d30",
+        "dirty": true
+      },
+      "started_at": 1787875687.3566482,
+      "verdict": "pass"
+    }
+  ],
+  "source": {
+    "commit": "9d172fdf0c2a00257d81a0cb5c8da78a87f60d30",
+    "dirty": true
+  }
+}

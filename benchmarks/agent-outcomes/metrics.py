@@ -28,5 +28,6 @@ def derive(evidence):
                "elapsed_time": evidence.get("timing", {}).get("elapsed") if isinstance(evidence.get("timing"), dict) and evidence["timing"].get("elapsed") is not None else unavailable("elapsed time unavailable"),
                "usage": evidence.get("usage") if isinstance(evidence.get("usage"), dict) else unavailable("usage unavailable"),
                "interventions": {"status": "observed", "value": len(evidence["interventions"])} if isinstance(evidence.get("interventions"), list) else unavailable("missing intervention evidence")}
+    metrics["violations"] = {"status": "observed", "value": len(evidence["violations"])} if isinstance(evidence.get("violations"), list) else unavailable("missing violation evidence")
     metrics["false_completion"] = {"status": "observed", "value": claim["value"] and not task["value"]} if claim["status"] == task["status"] == "observed" else unavailable("completion or task result unavailable")
     return metrics

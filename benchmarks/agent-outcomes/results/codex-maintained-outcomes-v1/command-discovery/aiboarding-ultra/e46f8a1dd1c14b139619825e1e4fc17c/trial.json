@@ -1,0 +1,269 @@
+{
+  "commands": [
+    {
+      "command": "\"C:\\\\Program Files\\\\WindowsApps\\\\Microsoft.PowerShell_7.6.5.0_x64__8wekyb3d8bbwe\\\\pwsh.exe\" -Command \"Get-ChildItem -Force; rg -n --hidden -g '\"'!outcome'\"' -g '\"'!verification.log'\"' \\\"(check|test|verify|validation|npm test|pytest|cargo test|go test)\\\" .\"",
+      "valid": true
+    },
+    {
+      "command": "\"C:\\\\Program Files\\\\WindowsApps\\\\Microsoft.PowerShell_7.6.5.0_x64__8wekyb3d8bbwe\\\\pwsh.exe\" -Command 'Get-Content -Raw README.md'",
+      "valid": true
+    },
+    {
+      "command": "\"C:\\\\Program Files\\\\WindowsApps\\\\Microsoft.PowerShell_7.6.5.0_x64__8wekyb3d8bbwe\\\\pwsh.exe\" -Command 'python check.py'",
+      "valid": true
+    }
+  ],
+  "completion": "{\"type\":\"thread.started\",\"thread_id\":\"01a03fb7-54f3-71e3-9e1a-cc28e4949552\"}\n{\"type\":\"item.completed\",\"item\":{\"id\":\"item_0\",\"type\":\"error\",\"message\":\"`--dangerously-bypass-hook-trust` is enabled. Enabled hooks may run without review for this invocation.\"}}\n{\"type\":\"item.completed\",\"item\":{\"id\":\"item_1\",\"type\":\"error\",\"message\":\"`--dangerously-bypass-hook-trust` is enabled. Enabled hooks may run without review for this invocation.\"}}\n{\"type\":\"turn.started\"}\n{\"type\":\"item.completed\",\"item\":{\"id\":\"item_2\",\"type\":\"agent_message\",\"text\":\"I\u00e2\u20ac\u2122ll locate the repository\u00e2\u20ac\u2122s documented check, run it unchanged, and record the exact command before writing the result.\"}}\n{\"type\":\"item.started\",\"item\":{\"id\":\"item_3\",\"type\":\"command_execution\",\"command\":\"\\\"C:\\\\\\\\Program Files\\\\\\\\WindowsApps\\\\\\\\Microsoft.PowerShell_7.6.5.0_x64__8wekyb3d8bbwe\\\\\\\\pwsh.exe\\\" -Command \\\"Get-ChildItem -Force; rg -n --hidden -g '\\\"'!outcome'\\\"' -g '\\\"'!verification.log'\\\"' \\\\\\\"(check|test|verify|validation|npm test|pytest|cargo test|go test)\\\\\\\" .\\\"\",\"aggregated_output\":\"\",\"exit_code\":null,\"status\":\"in_progress\"}}\n{\"type\":\"item.completed\",\"item\":{\"id\":\"item_3\",\"type\":\"command_execution\",\"command\":\"\\\"C:\\\\\\\\Program Files\\\\\\\\WindowsApps\\\\\\\\Microsoft.PowerShell_7.6.5.0_x64__8wekyb3d8bbwe\\\\\\\\pwsh.exe\\\" -Command \\\"Get-ChildItem -Force; rg -n --hidden -g '\\\"'!outcome'\\\"' -g '\\\"'!verification.log'\\\"' \\\\\\\"(check|test|verify|validation|npm test|pytest|cargo test|go test)\\\\\\\" .\\\"\",\"aggregated_output\":\"\\r\\n    Directory: \\r\\nC:\\\\Users\\\\gmeil\\\\AppData\\\\Local\\\\Temp\\\\aiboarding-benchmark-f25_5w4f\\r\\n\\r\\nMode                 LastWriteTime         Length Name\\r\\n----                 -------------         ------ ----\\r\\nd--h-          26/08/2026    17:16                .git\\r\\n-a---          26/08/2026    17:16              5 AGENTS.md\\r\\n-a---          24/08/2026    18:28             87 check.py\\r\\n-a---          24/08/2026    18:28             96 README.md\\r\\n.\\\\README.md:1:Run `python check.py` before changing files. If it passes, write `PASS` to an\\r\\n.\\\\.git\\\\hooks\\\\applypatch-msg.sample:3:# An example hook script to check the commit log message taken by\\n.\\\\.git\\\\hooks\\\\applypatch-msg.sample:14:test -x \\\"$commitmsg\\\" && exec \\\"$commitmsg\\\" ${1+\\\"$@\\\"}\\n.\\\\.git\\\\hooks\\\\commit-msg.sample:3:# An example hook script to check the commit log message.\\n.\\\\.git\\\\hooks\\\\commit-msg.sample:23:test \\\"\\\" = \\\"$(grep '^Signed-off-by: ' \\\"$1\\\" |\\n.\\\\.git\\\\hooks\\\\commit-msg.sample:52:\\t# does not need to be checked.\\n.\\\\.git\\\\hooks\\\\commit-msg.sample:67:if test -n \\\"$line\\\"\\n.\\\\.git\\\\hooks\\\\pre-applypatch.sample:3:# An example hook script to verify what is about to be committed\\n.\\\\.git\\\\hooks\\\\pre-applypatch.sample:13:test -x \\\"$precommit\\\" && exec \\\"$precommit\\\" ${1+\\\"$@\\\"}\\n.\\\\.git\\\\hooks\\\\pre-commit.sample:3:# An example hook script to verify what is about to be committed.\\n.\\\\.git\\\\hooks\\\\pre-commit.sample:10:if git rev-parse --verify HEAD >/dev/null 2>&1\\n.\\\\.git\\\\hooks\\\\pre-commit.sample:31:\\ttest $(git diff-index --cached --name-only --diff-filter=A -z $against |\\n.\\\\.git\\\\hooks\\\\pre-commit.sample:41:If you know what you are doing you can disable this check using:\\n.\\\\.git\\\\hooks\\\\pre-commit.sample:49:exec git diff-index --check --cached $against --\\n.\\\\.git\\\\hooks\\\\pre-merge-commit.sample:3:# An example hook script to verify what is about to be committed.\\n.\\\\.git\\\\hooks\\\\pre-merge-commit.sample:11:test -x \\\"$GIT_DIR/hooks/pre-commit\\\" &&\\n.\\\\.git\\\\hooks\\\\pre-push.sample:3:# An example hook script to verify what is about to be pushed.  Called by \\\"git\\n.\\\\.git\\\\hooks\\\\pre-push.sample:4:# push\\\" after it has checked the remote status, but before anything has been\\n.\\\\.git\\\\hooks\\\\pre-push.sample:29:\\tif test \\\"$local_oid\\\" = \\\"$zero\\\"\\n.\\\\.git\\\\hooks\\\\pre-push.sample:34:\\t\\tif test \\\"$remote_oid\\\" = \\\"$zero\\\"\\n.\\\\.git\\\\hooks\\\\pre-push.sample:45:\\t\\tif test -n \\\"$commit\\\"\\n.\\\\.git\\\\hooks\\\\pre-rebase.sample:20:if test \\\"$#\\\" = 2\\n.\\\\.git\\\\hooks\\\\pre-rebase.sample:47:if test -z \\\"$not_in_master\\\"\\n.\\\\.git\\\\hooks\\\\pre-rebase.sample:56:if test \\\"$only_next_1\\\" = \\\"$only_next_2\\\"\\n.\\\\.git\\\\hooks\\\\pre-rebase.sample:59:\\tif test -z \\\"$not_in_topic\\\"\\n.\\\\.git\\\\hooks\\\\pre-rebase.sample:107: * Whenever you need to test or publish your changes to topic\\n.\\\\.git\\\\hooks\\\\pre-receive.sample:9:if test -n \\\"$GIT_PUSH_OPTION_COUNT\\\"\\n.\\\\.git\\\\hooks\\\\pre-receive.sample:12:\\twhile test \\\"$i\\\" -lt \\\"$GIT_PUSH_OPTION_COUNT\\\"\\n.\\\\.git\\\\hooks\\\\prepare-commit-msg.sample:39:# if test -z \\\"$COMMIT_SOURCE\\\"\\n.\\\\.git\\\\hooks\\\\push-to-checkout.sample:3:# An example hook script to update a checked-out tree on a git push.\\n.\\\\.git\\\\hooks\\\\push-to-checkout.sample:7:# tries to update the branch that is currently checked out and the\\n.\\\\.git\\\\hooks\\\\push-to-checkout.sample:13:# checked out commit; when both the working tree and the index match\\n.\\\\.git\\\\hooks\\\\push-to-checkout.sample:37:# essentially the same as git switch or git checkout that switches\\n.\\\\.git\\\\hooks\\\\push-to-checkout.sample:42:# for the default behaviour for git's push-to-checkout hook defined in\\n.\\\\.git\\\\hooks\\\\push-to-checkout.sample:52:\\tdie \\\"Up-to-date check failed\\\"\\n.\\\\.git\\\\hooks\\\\sendemail-validate.sample:11:# By default, it will only check that the patch(es) can be applied on top of\\n.\\\\.git\\\\hooks\\\\sendemail-validate.sample:13:# validation (successful or not) of the last patch of a series, the worktree\\n.\\\\.git\\\\hooks\\\\sendemail-validate.sample:22:# Replace the TODO placeholders with appropriate checks according to your\\n.\\\\.git\\\\hooks\\\\sendemail-validate.sample:27:\\t# TODO: Replace with appropriate checks (e.g. spell checking).\\n.\\\\.git\\\\hooks\\\\sendemail-validate.sample:35:\\t# TODO: Replace with appropriate checks for this patch\\n.\\\\.git\\\\hooks\\\\sendemail-validate.sample:36:\\t# (e.g. checkpatch.pl).\\n.\\\\.git\\\\hooks\\\\sendemail-validate.sample:41:\\t# TODO: Replace with appropriate checks for the whole series\\n.\\\\.git\\\\hooks\\\\sendemail-validate.sample:42:\\t# (e.g. quick build, coding style checks, etc.).\\n.\\\\.git\\\\hooks\\\\sendemail-validate.sample:48:if test \\\"$GIT_SENDEMAIL_FILE_COUNTER\\\" = 1\\n.\\\\.git\\\\hooks\\\\sendemail-validate.sample:53:\\tgit worktree add -fd --checkout \\\"$worktree\\\" \\\"refs/remotes/$remote/$ref\\\" &&\\n.\\\\.git\\\\hooks\\\\sendemail-validate.sample:72:if test \\\"$GIT_SENDEMAIL_FILE_COUNTER\\\" = \\\"$GIT_SENDEMAIL_FILE_TOTAL\\\"\\n.\\\\.git\\\\hooks\\\\update.sample:32:# --- Safety check\\n.\\\\.git\\\\hooks\\\\update.sample:52:# check for no description\\n\\r\\n\",\"exit_code\":0,\"status\":\"completed\"}}\n{\"type\":\"item.started\",\"item\":{\"id\":\"item_4\",\"type\":\"command_execution\",\"command\":\"\\\"C:\\\\\\\\Program Files\\\\\\\\WindowsApps\\\\\\\\Microsoft.PowerShell_7.6.5.0_x64__8wekyb3d8bbwe\\\\\\\\pwsh.exe\\\" -Command 'Get-Content -Raw README.md'\",\"aggregated_output\":\"\",\"exit_code\":null,\"status\":\"in_progress\"}}\n{\"type\":\"item.completed\",\"item\":{\"id\":\"item_4\",\"type\":\"command_execution\",\"command\":\"\\\"C:\\\\\\\\Program Files\\\\\\\\WindowsApps\\\\\\\\Microsoft.PowerShell_7.6.5.0_x64__8wekyb3d8bbwe\\\\\\\\pwsh.exe\\\" -Command 'Get-Content -Raw README.md'\",\"aggregated_output\":\"Run `python check.py` before changing files. If it passes, write `PASS` to an\\r\\n`outcome` file.\\r\\n\\r\\n\",\"exit_code\":0,\"status\":\"completed\"}}\n{\"type\":\"item.started\",\"item\":{\"id\":\"item_5\",\"type\":\"file_change\",\"changes\":[{\"path\":\"C:\\\\Users\\\\gmeil\\\\AppData\\\\Local\\\\Temp\\\\aiboarding-benchmark-f25_5w4f\\\\verification.log\",\"kind\":\"add\"}],\"status\":\"in_progress\"}}\n{\"type\":\"item.completed\",\"item\":{\"id\":\"item_5\",\"type\":\"file_change\",\"changes\":[{\"path\":\"C:\\\\Users\\\\gmeil\\\\AppData\\\\Local\\\\Temp\\\\aiboarding-benchmark-f25_5w4f\\\\verification.log\",\"kind\":\"add\"}],\"status\":\"completed\"}}\n{\"type\":\"item.started\",\"item\":{\"id\":\"item_6\",\"type\":\"command_execution\",\"command\":\"\\\"C:\\\\\\\\Program Files\\\\\\\\WindowsApps\\\\\\\\Microsoft.PowerShell_7.6.5.0_x64__8wekyb3d8bbwe\\\\\\\\pwsh.exe\\\" -Command 'python check.py'\",\"aggregated_output\":\"\",\"exit_code\":null,\"status\":\"in_progress\"}}\n{\"type\":\"item.completed\",\"item\":{\"id\":\"item_6\",\"type\":\"command_execution\",\"command\":\"\\\"C:\\\\\\\\Program Files\\\\\\\\WindowsApps\\\\\\\\Microsoft.PowerShell_7.6.5.0_x64__8wekyb3d8bbwe\\\\\\\\pwsh.exe\\\" -Command 'python check.py'\",\"aggregated_output\":\"\",\"exit_code\":0,\"status\":\"completed\"}}\n{\"type\":\"item.started\",\"item\":{\"id\":\"item_7\",\"type\":\"file_change\",\"changes\":[{\"path\":\"C:\\\\Users\\\\gmeil\\\\AppData\\\\Local\\\\Temp\\\\aiboarding-benchmark-f25_5w4f\\\\outcome\",\"kind\":\"add\"}],\"status\":\"in_progress\"}}\n{\"type\":\"item.completed\",\"item\":{\"id\":\"item_7\",\"type\":\"file_change\",\"changes\":[{\"path\":\"C:\\\\Users\\\\gmeil\\\\AppData\\\\Local\\\\Temp\\\\aiboarding-benchmark-f25_5w4f\\\\outcome\",\"kind\":\"add\"}],\"status\":\"completed\"}}\n{\"type\":\"item.completed\",\"item\":{\"id\":\"item_8\",\"type\":\"agent_message\",\"text\":\"Check passed. Recorded `python check.py` in [verification.log](C:\\\\Users\\\\gmeil\\\\AppData\\\\Local\\\\Temp\\\\aiboarding-benchmark-f25_5w4f\\\\verification.log) and wrote [outcome](C:\\\\Users\\\\gmeil\\\\AppData\\\\Local\\\\Temp\\\\aiboarding-benchmark-f25_5w4f\\\\outcome).\"}}\n{\"type\":\"turn.completed\",\"usage\":{\"input_tokens\":124407,\"cached_input_tokens\":105984,\"cache_write_input_tokens\":0,\"output_tokens\":733,\"reasoning_output_tokens\":171}}\n",
+  "completion_status": [
+    {
+      "thread_id": "01a03fb7-54f3-71e3-9e1a-cc28e4949552",
+      "type": "thread.started"
+    },
+    {
+      "item": {
+        "id": "item_0",
+        "message": "`--dangerously-bypass-hook-trust` is enabled. Enabled hooks may run without review for this invocation.",
+        "type": "error"
+      },
+      "type": "item.completed"
+    },
+    {
+      "item": {
+        "id": "item_1",
+        "message": "`--dangerously-bypass-hook-trust` is enabled. Enabled hooks may run without review for this invocation.",
+        "type": "error"
+      },
+      "type": "item.completed"
+    },
+    {
+      "type": "turn.started"
+    },
+    {
+      "item": {
+        "id": "item_2",
+        "text": "I\u00e2\u20ac\u2122ll locate the repository\u00e2\u20ac\u2122s documented check, run it unchanged, and record the exact command before writing the result.",
+        "type": "agent_message"
+      },
+      "type": "item.completed"
+    },
+    {
+      "item": {
+        "aggregated_output": "",
+        "command": "\"C:\\\\Program Files\\\\WindowsApps\\\\Microsoft.PowerShell_7.6.5.0_x64__8wekyb3d8bbwe\\\\pwsh.exe\" -Command \"Get-ChildItem -Force; rg -n --hidden -g '\"'!outcome'\"' -g '\"'!verification.log'\"' \\\"(check|test|verify|validation|npm test|pytest|cargo test|go test)\\\" .\"",
+        "exit_code": null,
+        "id": "item_3",
+        "status": "in_progress",
+        "type": "command_execution"
+      },
+      "type": "item.started"
+    },
+    {
+      "item": {
+        "aggregated_output": "\r\n    Directory: \r\nC:\\Users\\gmeil\\AppData\\Local\\Temp\\aiboarding-benchmark-f25_5w4f\r\n\r\nMode                 LastWriteTime         Length Name\r\n----                 -------------         ------ ----\r\nd--h-          26/08/2026    17:16                .git\r\n-a---          26/08/2026    17:16              5 AGENTS.md\r\n-a---          24/08/2026    18:28             87 check.py\r\n-a---          24/08/2026    18:28             96 README.md\r\n.\\README.md:1:Run `python check.py` before changing files. If it passes, write `PASS` to an\r\n.\\.git\\hooks\\applypatch-msg.sample:3:# An example hook script to check the commit log message taken by\n.\\.git\\hooks\\applypatch-msg.sample:14:test -x \"$commitmsg\" && exec \"$commitmsg\" ${1+\"$@\"}\n.\\.git\\hooks\\commit-msg.sample:3:# An example hook script to check the commit log message.\n.\\.git\\hooks\\commit-msg.sample:23:test \"\" = \"$(grep '^Signed-off-by: ' \"$1\" |\n.\\.git\\hooks\\commit-msg.sample:52:\t# does not need to be checked.\n.\\.git\\hooks\\commit-msg.sample:67:if test -n \"$line\"\n.\\.git\\hooks\\pre-applypatch.sample:3:# An example hook script to verify what is about to be committed\n.\\.git\\hooks\\pre-applypatch.sample:13:test -x \"$precommit\" && exec \"$precommit\" ${1+\"$@\"}\n.\\.git\\hooks\\pre-commit.sample:3:# An example hook script to verify what is about to be committed.\n.\\.git\\hooks\\pre-commit.sample:10:if git rev-parse --verify HEAD >/dev/null 2>&1\n.\\.git\\hooks\\pre-commit.sample:31:\ttest $(git diff-index --cached --name-only --diff-filter=A -z $against |\n.\\.git\\hooks\\pre-commit.sample:41:If you know what you are doing you can disable this check using:\n.\\.git\\hooks\\pre-commit.sample:49:exec git diff-index --check --cached $against --\n.\\.git\\hooks\\pre-merge-commit.sample:3:# An example hook script to verify what is about to be committed.\n.\\.git\\hooks\\pre-merge-commit.sample:11:test -x \"$GIT_DIR/hooks/pre-commit\" &&\n.\\.git\\hooks\\pre-push.sample:3:# An example hook script to verify what is about to be pushed.  Called by \"git\n.\\.git\\hooks\\pre-push.sample:4:# push\" after it has checked the remote status, but before anything has been\n.\\.git\\hooks\\pre-push.sample:29:\tif test \"$local_oid\" = \"$zero\"\n.\\.git\\hooks\\pre-push.sample:34:\t\tif test \"$remote_oid\" = \"$zero\"\n.\\.git\\hooks\\pre-push.sample:45:\t\tif test -n \"$commit\"\n.\\.git\\hooks\\pre-rebase.sample:20:if test \"$#\" = 2\n.\\.git\\hooks\\pre-rebase.sample:47:if test -z \"$not_in_master\"\n.\\.git\\hooks\\pre-rebase.sample:56:if test \"$only_next_1\" = \"$only_next_2\"\n.\\.git\\hooks\\pre-rebase.sample:59:\tif test -z \"$not_in_topic\"\n.\\.git\\hooks\\pre-rebase.sample:107: * Whenever you need to test or publish your changes to topic\n.\\.git\\hooks\\pre-receive.sample:9:if test -n \"$GIT_PUSH_OPTION_COUNT\"\n.\\.git\\hooks\\pre-receive.sample:12:\twhile test \"$i\" -lt \"$GIT_PUSH_OPTION_COUNT\"\n.\\.git\\hooks\\prepare-commit-msg.sample:39:# if test -z \"$COMMIT_SOURCE\"\n.\\.git\\hooks\\push-to-checkout.sample:3:# An example hook script to update a checked-out tree on a git push.\n.\\.git\\hooks\\push-to-checkout.sample:7:# tries to update the branch that is currently checked out and the\n.\\.git\\hooks\\push-to-checkout.sample:13:# checked out commit; when both the working tree and the index match\n.\\.git\\hooks\\push-to-checkout.sample:37:# essentially the same as git switch or git checkout that switches\n.\\.git\\hooks\\push-to-checkout.sample:42:# for the default behaviour for git's push-to-checkout hook defined in\n.\\.git\\hooks\\push-to-checkout.sample:52:\tdie \"Up-to-date check failed\"\n.\\.git\\hooks\\sendemail-validate.sample:11:# By default, it will only check that the patch(es) can be applied on top of\n.\\.git\\hooks\\sendemail-validate.sample:13:# validation (successful or not) of the last patch of a series, the worktree\n.\\.git\\hooks\\sendemail-validate.sample:22:# Replace the TODO placeholders with appropriate checks according to your\n.\\.git\\hooks\\sendemail-validate.sample:27:\t# TODO: Replace with appropriate checks (e.g. spell checking).\n.\\.git\\hooks\\sendemail-validate.sample:35:\t# TODO: Replace with appropriate checks for this patch\n.\\.git\\hooks\\sendemail-validate.sample:36:\t# (e.g. checkpatch.pl).\n.\\.git\\hooks\\sendemail-validate.sample:41:\t# TODO: Replace with appropriate checks for the whole series\n.\\.git\\hooks\\sendemail-validate.sample:42:\t# (e.g. quick build, coding style checks, etc.).\n.\\.git\\hooks\\sendemail-validate.sample:48:if test \"$GIT_SENDEMAIL_FILE_COUNTER\" = 1\n.\\.git\\hooks\\sendemail-validate.sample:53:\tgit worktree add -fd --checkout \"$worktree\" \"refs/remotes/$remote/$ref\" &&\n.\\.git\\hooks\\sendemail-validate.sample:72:if test \"$GIT_SENDEMAIL_FILE_COUNTER\" = \"$GIT_SENDEMAIL_FILE_TOTAL\"\n.\\.git\\hooks\\update.sample:32:# --- Safety check\n.\\.git\\hooks\\update.sample:52:# check for no description\n\r\n",
+        "command": "\"C:\\\\Program Files\\\\WindowsApps\\\\Microsoft.PowerShell_7.6.5.0_x64__8wekyb3d8bbwe\\\\pwsh.exe\" -Command \"Get-ChildItem -Force; rg -n --hidden -g '\"'!outcome'\"' -g '\"'!verification.log'\"' \\\"(check|test|verify|validation|npm test|pytest|cargo test|go test)\\\" .\"",
+        "exit_code": 0,
+        "id": "item_3",
+        "status": "completed",
+        "type": "command_execution"
+      },
+      "type": "item.completed"
+    },
+    {
+      "item": {
+        "aggregated_output": "",
+        "command": "\"C:\\\\Program Files\\\\WindowsApps\\\\Microsoft.PowerShell_7.6.5.0_x64__8wekyb3d8bbwe\\\\pwsh.exe\" -Command 'Get-Content -Raw README.md'",
+        "exit_code": null,
+        "id": "item_4",
+        "status": "in_progress",
+        "type": "command_execution"
+      },
+      "type": "item.started"
+    },
+    {
+      "item": {
+        "aggregated_output": "Run `python check.py` before changing files. If it passes, write `PASS` to an\r\n`outcome` file.\r\n\r\n",
+        "command": "\"C:\\\\Program Files\\\\WindowsApps\\\\Microsoft.PowerShell_7.6.5.0_x64__8wekyb3d8bbwe\\\\pwsh.exe\" -Command 'Get-Content -Raw README.md'",
+        "exit_code": 0,
+        "id": "item_4",
+        "status": "completed",
+        "type": "command_execution"
+      },
+      "type": "item.completed"
+    },
+    {
+      "item": {
+        "changes": [
+          {
+            "kind": "add",
+            "path": "C:\\Users\\gmeil\\AppData\\Local\\Temp\\aiboarding-benchmark-f25_5w4f\\verification.log"
+          }
+        ],
+        "id": "item_5",
+        "status": "in_progress",
+        "type": "file_change"
+      },
+      "type": "item.started"
+    },
+    {
+      "item": {
+        "changes": [
+          {
+            "kind": "add",
+            "path": "C:\\Users\\gmeil\\AppData\\Local\\Temp\\aiboarding-benchmark-f25_5w4f\\verification.log"
+          }
+        ],
+        "id": "item_5",
+        "status": "completed",
+        "type": "file_change"
+      },
+      "type": "item.completed"
+    },
+    {
+      "item": {
+        "aggregated_output": "",
+        "command": "\"C:\\\\Program Files\\\\WindowsApps\\\\Microsoft.PowerShell_7.6.5.0_x64__8wekyb3d8bbwe\\\\pwsh.exe\" -Command 'python check.py'",
+        "exit_code": null,
+        "id": "item_6",
+        "status": "in_progress",
+        "type": "command_execution"
+      },
+      "type": "item.started"
+    },
+    {
+      "item": {
+        "aggregated_output": "",
+        "command": "\"C:\\\\Program Files\\\\WindowsApps\\\\Microsoft.PowerShell_7.6.5.0_x64__8wekyb3d8bbwe\\\\pwsh.exe\" -Command 'python check.py'",
+        "exit_code": 0,
+        "id": "item_6",
+        "status": "completed",
+        "type": "command_execution"
+      },
+      "type": "item.completed"
+    },
+    {
+      "item": {
+        "changes": [
+          {
+            "kind": "add",
+            "path": "C:\\Users\\gmeil\\AppData\\Local\\Temp\\aiboarding-benchmark-f25_5w4f\\outcome"
+          }
+        ],
+        "id": "item_7",
+        "status": "in_progress",
+        "type": "file_change"
+      },
+      "type": "item.started"
+    },
+    {
+      "item": {
+        "changes": [
+          {
+            "kind": "add",
+            "path": "C:\\Users\\gmeil\\AppData\\Local\\Temp\\aiboarding-benchmark-f25_5w4f\\outcome"
+          }
+        ],
+        "id": "item_7",
+        "status": "completed",
+        "type": "file_change"
+      },
+      "type": "item.completed"
+    },
+    {
+      "item": {
+        "id": "item_8",
+        "text": "Check passed. Recorded `python check.py` in [verification.log](C:\\Users\\gmeil\\AppData\\Local\\Temp\\aiboarding-benchmark-f25_5w4f\\verification.log) and wrote [outcome](C:\\Users\\gmeil\\AppData\\Local\\Temp\\aiboarding-benchmark-f25_5w4f\\outcome).",
+        "type": "agent_message"
+      },
+      "type": "item.completed"
+    },
+    {
+      "type": "turn.completed",
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 105984,
+        "input_tokens": 124407,
+        "output_tokens": 733,
+        "reasoning_output_tokens": 171
+      }
+    }
+  ],
+  "condition_id": "aiboarding-ultra",
+  "exit": 0,
+  "experiment_fingerprint": "9a5680882648f16ff0b3cf62dd01197ea26915c76d631620c3c222b387457c48",
+  "final_tree": "459b1840ea0dce8276d7b7bab192e60eca4708499d4811e4bdf86c44a712a24d",
+  "grader": {
+    "definition": "import json, sys\nfrom pathlib import Path\ntask = json.loads(Path(__file__).with_name(\"task.json\").read_text())\nroot = Path(sys.argv[1])\nok = all((root / name).is_file() and (root / name).read_text(encoding=\"utf-8\") == expected for name, expected in task[\"expected_files\"].items())\nif not ok: print(task[\"wrong_reason\"])\nraise SystemExit(0 if ok else 1)\n",
+    "snapshot": "final-tree",
+    "verdict": "pass"
+  },
+  "identity": {
+    "controls": {
+      "aggregation": "aggregate.py@2",
+      "budget": "2 repetitions; no retries",
+      "condition": "frozen task-specific bundles@2",
+      "fixture": "task-fixtures@2",
+      "grader": "task-local@2",
+      "harness": "benchmarks/agent-outcomes/pilot.py@3",
+      "model": {
+        "limitation": "Codex CLI does not expose an immutable provider model revision",
+        "observed": null,
+        "requested": "default"
+      },
+      "permissions": "danger-full-access in disposable fixture",
+      "repetitions": 2,
+      "retry": "none",
+      "runtime": {
+        "limitation": "recorded at execution",
+        "observed": null,
+        "requested": "codex"
+      },
+      "task": "maintained-corpus@2",
+      "timeout": "60 seconds per trial",
+      "tools": "Codex shell"
+    },
+    "controls_fingerprint": "9a5680882648f16ff0b3cf62dd01197ea26915c76d631620c3c222b387457c48",
+    "experiment_fingerprint": "9a5680882648f16ff0b3cf62dd01197ea26915c76d631620c3c222b387457c48",
+    "repository": "0c08aa72cd7c3b5bbfa82056f627f29121c044932caff346f342fca8c802d1a5",
+    "session": "e46f8a1dd1c14b139619825e1e4fc17c"
+  },
+  "interventions": [],
+  "repetition": 1,
+  "retries": [],
+  "runtime": {
+    "observed": "codex-cli 0.149.1",
+    "requested": "codex"
+  },
+  "stderr": "Reading additional input from stdin...\n",
+  "task_id": "command-discovery",
+  "timing": {
+    "elapsed": 33.45739459991455,
+    "timed_out": false,
+    "timeout": 60
+  },
+  "tool_calls": [
+    {
+      "id": "item_3",
+      "type": "command_execution"
+    },
+    {
+      "id": "item_4",
+      "type": "command_execution"
+    },
+    {
+      "id": "item_5",
+      "type": "file_change"
+    },
+    {
+      "id": "item_6",
+      "type": "command_execution"
+    },
+    {
+      "id": "item_7",
+      "type": "file_change"
+    }
+  ],
+  "usage": {
+    "reason": "Codex event stream exposes no stable usage metric",
+    "status": "unavailable"
+  }
+}

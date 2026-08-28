@@ -1,0 +1,40 @@
+{
+  "canary_sha256": "6eeb6fa84b32ea5d1ea0b8b8922d7bd6c5ee8667cabd09b80f6dddbf58eec1e2",
+  "case": "positive",
+  "command": [
+    "codex",
+    "exec",
+    "--json",
+    "--ephemeral",
+    "--sandbox",
+    "read-only",
+    "--model",
+    "gpt-5.6-luna",
+    "--config",
+    "model_reasoning_effort=\"low\"",
+    "--config",
+    "web_search=\"disabled\"",
+    "--ignore-user-config",
+    "--ignore-rules",
+    "--dangerously-bypass-hook-trust",
+    "Return exactly the onboarding token. If none is loaded, return NONE. Do not use tools or explain."
+  ],
+  "ended_at": 1787864328.3514452,
+  "evidence": {
+    "case.json": "c5c1716aeceacb58ae5f950cf60bcc0ff508a809d3e024d03977bed306705cb8",
+    "events.json": "8852e7f03d16a4f96d4ddc771c9333d1afb61cb4572eafde0c3f4972dd56cb8e",
+    "stderr.txt": "42c6dd0301ff458d2360c0f32679f6bef125e946b845fad7372bae593eb8b64e",
+    "stdout.jsonl": "d18c568c1c9664ec4b48c4af2bb0eb718f9ca88c86f8bc70401b398cf15b26a3"
+  },
+  "exit": 0,
+  "fixture": "generated",
+  "reason": "missing SessionStart collector evidence",
+  "runtime": "codex",
+  "runtime_version": "codex-cli 0.150.1",
+  "source": {
+    "commit": "9d172fdf0c2a00257d81a0cb5c8da78a87f60d30",
+    "dirty": true
+  },
+  "started_at": 1787864314.1792297,
+  "verdict": "fail"
+}

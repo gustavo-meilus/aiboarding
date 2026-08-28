@@ -1,0 +1,6 @@
+{"item": {"command": "sha256:d368979af9d82e8213657a504665314342deda075e0f4ca0a4a6342c74a359ca", "id": "item_3", "type": "command_execution"}, "type": "item.started"}
+{"item": {"command": "sha256:d368979af9d82e8213657a504665314342deda075e0f4ca0a4a6342c74a359ca", "id": "item_3", "type": "command_execution"}, "type": "item.completed"}
+{"item": {"command": "sha256:dd17a93be8f8be23e29f1946cd91ed2efce9baa019ce9383c930bebe690bb590", "id": "item_4", "type": "command_execution"}, "type": "item.started"}
+{"item": {"command": "sha256:dd17a93be8f8be23e29f1946cd91ed2efce9baa019ce9383c930bebe690bb590", "id": "item_4", "type": "command_execution"}, "type": "item.completed"}
+{"item": {"id": "item_5", "type": "file_change"}, "type": "item.started"}
+{"item": {"id": "item_5", "type": "file_change"}, "type": "item.completed"}
