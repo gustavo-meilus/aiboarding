@@ -20,7 +20,7 @@ repo() {
 
 payload() { printf '{"hook_event_name":"%s","cwd":"%s"%s}' "$1" "$2" "${3:-}"; }
 run() { PLUGIN_ROOT="$ROOT" bash "$HOOK"; }
-run_windows() { PLUGIN_ROOT="$(cygpath -w "$ROOT")" cmd.exe /d /s /c "$WINDOWS_LAUNCHER"; }
+run_windows() { PLUGIN_ROOT="$(cygpath -w "$ROOT")" AIBOARDING_WINDOWS_LAUNCHER="$WINDOWS_LAUNCHER" powershell.exe -NoLogo -NoProfile -NonInteractive -Command '$utf8 = New-Object System.Text.UTF8Encoding($false); [Console]::InputEncoding = $utf8; [Console]::OutputEncoding = $utf8; $payload = [Console]::In.ReadToEnd(); $psi = New-Object System.Diagnostics.ProcessStartInfo; $psi.FileName = $env:ComSpec; $psi.Arguments = "/C `"" + $env:AIBOARDING_WINDOWS_LAUNCHER + "`""; $psi.UseShellExecute = $false; $psi.RedirectStandardInput = $true; $psi.RedirectStandardOutput = $true; $psi.RedirectStandardError = $true; $process = New-Object System.Diagnostics.Process; $process.StartInfo = $psi; [void]$process.Start(); $bytes = $utf8.GetBytes($payload); $process.StandardInput.BaseStream.Write($bytes, 0, $bytes.Length); $process.StandardInput.Close(); [Console]::Out.Write($process.StandardOutput.ReadToEnd()); [Console]::Error.Write($process.StandardError.ReadToEnd()); $process.WaitForExit(); exit $process.ExitCode'; }
 state() { mkdir -p "$1/.aiboarding"; printf '{\n  "last_synced_commit": "%s"\n}\n' "$2" > "$1/.aiboarding/state.json"; }
 
 tmp="$(mktemp -d)/repo with spaces"
@@ -67,7 +67,7 @@ git -C "$tmp" add file.txt && git -C "$tmp" commit -qm code
 out="$(payload PostToolUse "$tmp" ',"tool_name":"Bash","tool_input":{"command":"git commit -m x"}' | run)"
 assert_contains "$out" 'semantic-review' "relevant range signals shared route" || exit 1
 if [ "${OS:-}" = Windows_NT ] && command -v cmd.exe >/dev/null 2>&1; then
-  windows_cwd="$(cygpath -w "$tmp" | sed 's/\\/\\\\/g')"
+  windows_cwd="$(cygpath -m "$tmp")"
   out="$(payload PostToolUse "$windows_cwd" ',"tool_name":"Bash","tool_input":{"command":"echo git"}' | run_windows)"
   assert_eq "$out" "" "native commandWindows launcher keeps non-Git Bash silent" || exit 1
   out="$(payload PostToolUse "$windows_cwd" ',"tool_name":"Bash","tool_input":{"command":"git commit -m x"}' | run_windows)"

@@ -1,9 +1,13 @@
 # AIBoarding verification coverage map
 
 `bash tests/run.sh` is deterministic-only and never launches an authenticated
-runtime. Run `python3 tests/live/verify_runtime.py --live --strict --runtime codex --case positive --collect-hooks` explicitly
+runtime. Run `python3 tests/live/verify_runtime.py --live --strict --runtime codex --case positive --collect-hooks --install-plugin` explicitly
 for the one-session Codex boundary canary; each run writes `case.json`, sanitized streams,
 `result.json`, and `summary.json` under its selected evidence directory.
+
+See [Codex live lifecycle canary](./CODEX-LIVE-LIFECYCLE-CANARY.md) for the
+acceptance contract, Windows command-quoting root cause, and quote-free
+trampoline workaround.
 
 | Coverage | Protocol | Authoritative evidence |
 | --- | --- | --- |

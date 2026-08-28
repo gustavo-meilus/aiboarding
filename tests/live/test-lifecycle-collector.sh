@@ -27,7 +27,10 @@ if [ "${OS:-}" = Windows_NT ] && command -v cmd.exe >/dev/null 2>&1; then
   wrapper="$(cygpath -w "$ROOT/templates/hooks/run-hook.cmd")"
   collector="$(cygpath -w "$tmp/.aiboarding/hooks/collector")"
   windows_file="$(cygpath -w "$tmp/collector-windows.jsonl")"
-  printf '%s' "$payload" | cmd.exe /d /s /c "\"$wrapper\" \"$collector\" \"$windows_file\"" >/dev/null
+  trampoline="$tmp/collector-windows.cmd"
+  printf '@echo off\r\ncall "%s" "%s" "%s"\r\nexit /b %%ERRORLEVEL%%\r\n' "$wrapper" "$collector" "$windows_file" > "$trampoline"
+  trampoline="$(cygpath -w "$trampoline")"
+  printf '%s' "$payload" | AIBOARDING_WINDOWS_TRAMPOLINE="$trampoline" powershell.exe -NoLogo -NoProfile -NonInteractive -Command '$utf8 = New-Object System.Text.UTF8Encoding($false); $payload = [Console]::In.ReadToEnd(); $psi = New-Object System.Diagnostics.ProcessStartInfo; $psi.FileName = $env:ComSpec; $psi.Arguments = "/d /c `"" + $env:AIBOARDING_WINDOWS_TRAMPOLINE + "`""; $psi.UseShellExecute = $false; $psi.RedirectStandardInput = $true; $psi.RedirectStandardOutput = $true; $process = New-Object System.Diagnostics.Process; $process.StartInfo = $psi; [void]$process.Start(); $bytes = $utf8.GetBytes($payload); $process.StandardInput.BaseStream.Write($bytes, 0, $bytes.Length); $process.StandardInput.Close(); $null = $process.StandardOutput.ReadToEnd(); $process.WaitForExit(); exit $process.ExitCode'
   assert_contains "$(<"$tmp/collector-windows.jsonl")" 'case-session' "Windows wrapper runs collector" || exit 1
 fi
 

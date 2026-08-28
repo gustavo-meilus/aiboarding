@@ -25,7 +25,7 @@ assert_not_contains "$(cat "$WRAP")" 'where bash' "Windows wrapper never falls t
 
 if [ "${OS:-}" = Windows_NT ] && command -v cmd.exe >/dev/null 2>&1; then
   win_wrap="$(cygpath -w "$WRAP")"
-  if out="$(cmd.exe /d /s /c "set \"ProgramFiles=C:\\missing\" & set \"ProgramFiles(x86)=C:\\missing\" & set \"PATH=%SystemRoot%\\System32\" & \"$win_wrap\" \"$win_wrap\"")"; then
+  if out="$(AIBOARDING_WIN_WRAP="$win_wrap" powershell.exe -NoLogo -NoProfile -NonInteractive -Command '$psi = New-Object System.Diagnostics.ProcessStartInfo; $psi.FileName = $env:ComSpec; $psi.Arguments = "/d /c `"`"$env:AIBOARDING_WIN_WRAP`" `"$env:AIBOARDING_WIN_WRAP`"`""; $psi.UseShellExecute = $false; $psi.RedirectStandardOutput = $true; $psi.EnvironmentVariables["ProgramFiles"] = "C:\\missing"; $psi.EnvironmentVariables["ProgramFiles(x86)"] = "C:\\missing"; $psi.EnvironmentVariables["PATH"] = "$env:SystemRoot\\System32"; $process = New-Object System.Diagnostics.Process; $process.StartInfo = $psi; [void]$process.Start(); [Console]::Out.Write($process.StandardOutput.ReadToEnd()); $process.WaitForExit(); exit $process.ExitCode')"; then
     assert_eq "$out" "" "Windows wrapper is silent without compatible Git Bash" || exit 1
   else
     printf 'FAIL: Windows wrapper should succeed without compatible Git Bash\n'; exit 1

@@ -17,6 +17,29 @@ aiboarding is a Claude Code plugin distributed from `gustavo-meilus/aiboarding`.
 /plugin install aiboarding@aiboarding --version v0.1.0
 ```
 
+## 1.0.2 - Codex Live Lifecycle Canary (2026-08-27)
+
+Establishes a one-session, retained Codex proof for native `AGENTS.md` loading
+and attributable `UserPromptSubmit` delivery.
+
+### Fixed
+
+- **Windows Codex live collector transport** - use a scratch-local, quote-free
+  `.cmd` trampoline so Codex's extra `cmd.exe /C` quote layer cannot corrupt
+  collector arguments.
+- **Windows Codex lifecycle hooks** - normalize the native Windows working
+  directory before Git Bash evaluates lifecycle drift.
+
+### Added
+
+- **Codex live lifecycle canary** - validate native onboarding and a parseable,
+  attributable `UserPromptSubmit` collector record in the same disposable,
+  low-reasoning Luna session, with no retry.
+- **Canary reference** - document the acceptance contract, retained evidence,
+  and Windows workaround.
+
+---
+
 ## 1.0.1 - Windows Codex Hook Launcher Fix (2026-08-25)
 
 Fixes the Windows Codex lifecycle launcher so Bash expands the plugin root correctly and drift events reach the bundled adapter.

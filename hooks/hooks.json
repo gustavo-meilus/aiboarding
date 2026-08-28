@@ -6,7 +6,7 @@
       "hooks": [{
         "type": "command",
         "command": "bash \"$PLUGIN_ROOT/hooks/codex-lifecycle\"",
-        "commandWindows": "\"%PLUGIN_ROOT%\\templates\\hooks\\run-hook.cmd\" \"%PLUGIN_ROOT%\\hooks\\codex-lifecycle\"",
+        "commandWindows": "\"%PLUGIN_ROOT%\\hooks\\codex-lifecycle.cmd\"",
         "timeout": 10,
         "additionalContextLimit": 300
       }]
@@ -15,7 +15,7 @@
       "hooks": [{
         "type": "command",
         "command": "bash \"$PLUGIN_ROOT/hooks/codex-lifecycle\"",
-        "commandWindows": "\"%PLUGIN_ROOT%\\templates\\hooks\\run-hook.cmd\" \"%PLUGIN_ROOT%\\hooks\\codex-lifecycle\"",
+        "commandWindows": "\"%PLUGIN_ROOT%\\hooks\\codex-lifecycle.cmd\"",
         "timeout": 10,
         "additionalContextLimit": 300
       }]
@@ -25,7 +25,7 @@
       "hooks": [{
         "type": "command",
         "command": "bash \"$PLUGIN_ROOT/hooks/codex-lifecycle\"",
-        "commandWindows": "\"%PLUGIN_ROOT%\\templates\\hooks\\run-hook.cmd\" \"%PLUGIN_ROOT%\\hooks\\codex-lifecycle\"",
+        "commandWindows": "\"%PLUGIN_ROOT%\\hooks\\codex-lifecycle.cmd\"",
         "timeout": 15,
         "additionalContextLimit": 300
       }]

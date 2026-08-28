@@ -8,7 +8,7 @@
 **AIBoarding keeps `AGENTS.md` alive.** It is a repository-onboarding lifecycle for maintainers using AI coding agents: canonical guidance stays current across supported agents without duplicated instruction sources or broad rewrites of unchanged guidance.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
-[![Release](https://img.shields.io/badge/release-v1.0.0-blue.svg)](./RELEASE-NOTES.md)
+[![Release](https://img.shields.io/badge/release-v1.0.2-blue.svg)](./RELEASE-NOTES.md)
 
 ## Why
 

@@ -3,8 +3,41 @@
 > Canonical record of versioned changes, feature additions, and removals for the aiboarding project. This document tracks the build-out from the foundation release toward the full create → sync → update lifecycle.
 
 <overview>
-aiboarding onboards AI coding agents like fresh engineers: it generates and maintains standard onboarding files - a cross-agent `AGENTS.md` plus a thin `CLAUDE.md` wrapper - with drift tracking in a `.aiboarding/state.json` sidecar and surgical hooks only for what native instruction loading cannot do. The v0.1.x line built the original custom-`AIBOARDING.md` injection lifecycle (scaffold, polyglot hook templates, create/update skills, marketplace distribution, verification runbook); v0.2.0 patched the drift-hook loop (issue #1). v0.3.0 pivoted to the standard files and fixed issue #1's root cause by moving the sync pointer out of the instruction files. v0.4.0 modernized the hooks around native loading (`SubagentStart` pointer, `if`-filtered drift, `InstructionsLoaded` diagnostics). v0.5.0 ships the verifiable compression engine, the read-only auditor, and the cross-CLI distribution polish. v0.6.0 adds executable verification evidence, native Codex lifecycle support, and a reproducible agent-outcome benchmark. v1.0.0 establishes the maintained lifecycle and its public, cross-agent package surfaces. v1.0.1 repairs the Windows Codex hook launcher.
+aiboarding onboards AI coding agents like fresh engineers: it generates and maintains standard onboarding files - a cross-agent `AGENTS.md` plus a thin `CLAUDE.md` wrapper - with drift tracking in a `.aiboarding/state.json` sidecar and surgical hooks only for what native instruction loading cannot do. The v0.1.x line built the original custom-`AIBOARDING.md` injection lifecycle (scaffold, polyglot hook templates, create/update skills, marketplace distribution, verification runbook); v0.2.0 patched the drift-hook loop (issue #1). v0.3.0 pivoted to the standard files and fixed issue #1's root cause by moving the sync pointer out of the instruction files. v0.4.0 modernized the hooks around native loading (`SubagentStart` pointer, `if`-filtered drift, `InstructionsLoaded` diagnostics). v0.5.0 ships the verifiable compression engine, the read-only auditor, and the cross-CLI distribution polish. v0.6.0 adds executable verification evidence, native Codex lifecycle support, and a reproducible agent-outcome benchmark. v1.0.0 establishes the maintained lifecycle and its public, cross-agent package surfaces. v1.0.1 repairs the Windows Codex hook launcher. v1.0.2 adds a retained, one-session Codex lifecycle canary and a Windows quote-transport workaround.
 </overview>
+
+## v1.0.2 - Codex Live Lifecycle Canary (2026-08-27)
+
+### Highlights
+
+v1.0.2 provides a retained, one-session Codex proof that native onboarding and
+`UserPromptSubmit` hook delivery both occur. On Windows, its collector now
+uses a scratch-local quote-free command trampoline, avoiding Codex's nested
+`cmd.exe /C` command-quoting defect.
+
+<release_entry version="1.0.2" status="STABLE">
+
+### Added
+
+- One positive, disposable Codex canary that requires both the generated
+  `AGENTS.md` canary and a parseable, attributable `UserPromptSubmit` record.
+- A reference for the canary contract, retained evidence, and the Windows
+  command-transport workaround.
+
+### Fixed
+
+- Windows collector delivery uses a relative `.cmd` trampoline so quoted
+  wrapper and collector paths do not pass through Codex's outer quote layer.
+- Windows lifecycle adapters normalize Codex's native working-directory path
+  before Git Bash performs its repository and drift checks.
+
+### Known limitations
+
+- The live canary proves only the documented Codex boundary on the tested
+  runtime and host. Broader lifecycle semantics remain deterministic or
+  separately manual evidence.
+
+</release_entry>
 
 ## v1.0.1 - Windows Codex Hook Launcher Fix (2026-08-25)
 
@@ -294,6 +327,7 @@ Hooks run through a polyglot `run-hook.cmd`: on Windows, CMD locates Git Bash an
 
 - **v1.0.0 lifecycle established** - canonical files, native-first hooks, compression, auditing, executable evidence, and cross-CLI package metadata.
 - **v1.0.1 Windows launcher fix** - Bash-compatible Codex hook startup with deterministic launch-path coverage.
+- **v1.0.2 Codex lifecycle canary** - retained native-onboarding and `UserPromptSubmit` proof with Windows quote-safe collector transport.
 - **Broader live verification** - extend the headless runtime matrix while keeping authenticated execution explicit and evidence-backed.
 - **Broader evidence** - expand the benchmark matrix beyond the maintained task corpus and formally retire the legacy `AIBOARDING.md` mode when compatibility permits.
 

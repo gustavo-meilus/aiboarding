@@ -12,11 +12,12 @@ printf '%s\n' \
   '  plugin) exit 0 ;;' \
   'esac' \
   'printf x >> "${AIBOARDING_INVOCATION_COUNT_FILE:?}"' \
+  'fake_cwd="${AIBOARDING_LIVE_SCRATCH//\\/\\\\}"' \
   'case "${AIBOARDING_FAKE_MODE:-ok}" in' \
-  '  collector) printf "{\\\"hook_event_name\\\":\\\"UserPromptSubmit\\\",\\\"cwd\\\":\\\"%s\\\"}\\n" "$AIBOARDING_LIVE_SCRATCH" >> "$AIBOARDING_COLLECTOR_FILE" ;;' \
+  "  collector) printf '{\"hook_event_name\":\"UserPromptSubmit\",\"cwd\":\"%s\"}\\n' \"\$fake_cwd\" >> \"\$AIBOARDING_COLLECTOR_FILE\" ;;" \
   "  malformed-collector) printf '{bad\\n' >> \"\$AIBOARDING_COLLECTOR_FILE\" ;;" \
   '  stale-collector) printf "{\\\"hook_event_name\\\":\\\"UserPromptSubmit\\\",\\\"cwd\\\":\\\"/stale\\\"}\\n" >> "$AIBOARDING_COLLECTOR_FILE" ;;' \
-  '  wrong-event-collector) printf "{\\\"hook_event_name\\\":\\\"SubagentStart\\\",\\\"cwd\\\":\\\"%s\\\"}\\n" "$AIBOARDING_LIVE_SCRATCH" >> "$AIBOARDING_COLLECTOR_FILE" ;;' \
+  "  wrong-event-collector) printf '{\"hook_event_name\":\"SubagentStart\",\"cwd\":\"%s\"}\\n' \"\$fake_cwd\" >> \"\$AIBOARDING_COLLECTOR_FILE\" ;;" \
   'esac' \
   'case "${AIBOARDING_FAKE_MODE:-ok}:${AIBOARDING_LIVE_CASE:-}" in' \
   '  timeout:*) sleep 2 ;;' \

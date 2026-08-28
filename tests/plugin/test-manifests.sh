@@ -112,6 +112,7 @@ assert_contains "$hooks" 'PLUGIN_ROOT/hooks/codex-lifecycle' "Unix command uses 
 assert_contains "$hooks" 'commandWindows' "Windows command override exists" || exit 1
 windows_commands="$(grep '"commandWindows"' "$ROOT/hooks/hooks.json")"
 assert_not_contains "$windows_commands" '$PLUGIN_ROOT' "Windows commands avoid Bash environment syntax" || exit 1
-windows_count="$(grep -Fc '"commandWindows": "\"%PLUGIN_ROOT%\\templates\\hooks\\run-hook.cmd\" \"%PLUGIN_ROOT%\\hooks\\codex-lifecycle\""' "$ROOT/hooks/hooks.json")"
-assert_eq "$windows_count" "3" "every Windows lifecycle command enters the portability wrapper" || exit 1
+windows_count="$(grep -Fc '"commandWindows": "\"%PLUGIN_ROOT%\\hooks\\codex-lifecycle.cmd\""' "$ROOT/hooks/hooks.json")"
+assert_eq "$windows_count" "3" "every Windows lifecycle command uses the quote-safe trampoline" || exit 1
 [ -f "$ROOT/hooks/codex-lifecycle" ] || { printf 'FAIL: missing Codex lifecycle adapter\n'; exit 1; }
+[ -f "$ROOT/hooks/codex-lifecycle.cmd" ] || { printf 'FAIL: missing Codex Windows lifecycle trampoline\n'; exit 1; }
